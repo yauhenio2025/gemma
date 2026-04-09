@@ -48,4 +48,6 @@ Supported input types:
 - `.docx`
 - `.pdf`
 
-The workspace ignores the actual source files, cache, and outputs in git so you can seed it locally without polluting the repo history.
+The workspace keeps generated cache and outputs out of git.
+
+The current source corpus in `nlr/` and `others/` is versioned so the seeded materials travel with the repo.

@@ -31,5 +31,5 @@ uv run --extra dev pytest
 ## Notes
 
 - `article_theory_workspace/` contains the portable working folder.
-- The workspace has its own `.gitignore`, so local source PDFs, extracted text caches, and generated outputs stay out of git by default.
-- If you want the seeded local inputs to travel to another machine, copy the whole repo directory, not just the git checkout.
+- The current source corpus under `article_theory_workspace/nlr/` and `article_theory_workspace/others/` is versioned in git.
+- Extracted text caches and generated outputs stay out of git by default.

@@ -1,0 +1,42 @@
+At David Sacks's Behest, White House Barrels Forward on Industry-Friendly AI Policy
+Trump administration plans to emphasize AI's economic benefits ahead of the midterms, but some allies warn of political blowback
+By Amrith Ramkumar and Lindsay Ellis
+April 8, 2026 9:00 pm ET
+
+WASHINGTON -- At a recent gathering of tech executives and lawmakers, David Sacks pitched artificial intelligence as a driving force of the U.S. economy.
+
+Building data centers that run AI models is creating thousands of jobs, lifting wages for blue-collar workers and boosting gross domestic product, said Sacks, the face of the Trump administration's AI strategy. Addressing a proposal from Sen. Bernie Sanders (I., Vt.) to ban new data centers that run AI models, Sacks told the audience at the Hill & Valley Forum: "Just think about all the damage that would do to our economic growth."
+
+The comments from the venture capitalist help explain President Trump's company-friendly AI approach. Sacks and other advisers have brushed aside mounting concerns about AI, arguing that the economic benefits of the technology will make it more popular. Last year, Sacks said, "we've got to let the private sector cook."
+
+Some advisers to the president have acknowledged the unpopularity of AI, but the administration plans to continue emphasizing ahead of the midterms the importance of winning the tech race with China rather than address concerns about issues including job losses, White House officials said. The administration's discussions about AI haven't focused on job losses due to a belief that the technology will contribute to a booming economy with plentiful opportunities, the officials said.
+
+That approach is stoking concern among some Trump allies, such as former adviser Steve Bannon, who warned it risks political blowback in November. Nearly 75% of Americans think the government isn't doing enough to regulate AI, according to a recent Quinnipiac University poll.
+
+"They're totally out of touch with the American people on this issue," Bannon said in an interview. He said AI has risen to be a top priority, along with immigration, for listeners of his "War Room" podcast.
+
+The White House referenced issues linked to some voter concerns in a recent framework it published to guide AI legislation in Congress, but didn't mention job loss. Few lawmakers and lobbyists expect a potential bill based on the framework to impose meaningful guardrails on companies, many of which donated to Trump's inauguration and White House ballroom and promised sizable domestic investments.
+
+"It is the policy of the Trump administration to sustain American AI dominance to protect our national security and ensure we remain the world's leading economy," White House spokeswoman Liz Huston said.
+
+Companies attributed nearly 100,000 layoffs to AI between 2023 and March 2026, according to outplacement firm Challenger, Gray & Christmas. Sacks has said AI contributes to a fraction of total layoffs and is likely overstated by executives seeking to blame the technology for their decisions. He has blamed AI fears on "doomers" spreading worst-case scenarios.
+
+While AI isn't a top issue for many voters, it is quickly becoming more prominent, prompting the industry to pour hundreds of millions of dollars into political-action committees. States continue to pursue their own AI bills, defying Trump's efforts to ban state efforts. Maine is poised to ban new data-center construction. California Gov. Gavin Newsom recently signed an executive order imposing new requirements on AI firms working with the state.
+
+"AI is in part shaping how people think about their economic prospects, and that in turn is going to influence how they're going to come out in the polls," said Aalok Mehta, who leads the Wadhwani AI Center at the Center for Strategic and International Studies think tank. Mehta previously worked on AI policy at OpenAI and Google.
+
+Curtis Carmichael III, 35, said he votes with his pocketbook and has backed candidates from both parties. He left his job scouting locations for the film industry in 2024 because he found AI could do much of that work. Now a firefighter in the Atlanta area, he said he has less pay but more job security.
+
+He said he's skeptical when candidates don't talk about AI. A priority for him is banning fake AI content from social media, he said. "Five years ago, AI was not even in the stratosphere," he said, but now it is a major concern for him.
+
+Sacks had been serving as AI and crypto czar but recently had his title changed to co-chair of a White House advisory group. Some administration officials viewed the move as a demotion of sorts for Sacks, moving him further from meaningful AI policy decisions, people familiar with the matter said. Bannon said he believes Sacks was effectively sidelined and that a potential bill based on the framework is "dead in the water."
+
+Other officials disputed that Sacks was demoted, and Sacks told Bloomberg TV that he had used up the days he was allowed to work as AI and crypto czar as a special government employee.
+
+After The Wall Street Journal reached out to Sacks for comment, he posted on X that the White House's AI framework has excellent engagement in Congress.
+
+Republicans are divided on AI, with many seeking more government involvement to protect consumers. The White House is making some compromises by saying it wants to allow for protections and workforce training programs in its legislative framework. Such policies are difficult to implement because few know what future jobs will entail and what protections will be needed.
+
+The latest framework still signals to some in Washington that the administration is open to some tweaks to its approach.
+
+"There is space for AI innovation and reasonable guardrails to coexist," said Tony Samp, head of AI policy at lobbying and law firm DLA Piper.
