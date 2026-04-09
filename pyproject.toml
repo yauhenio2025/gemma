@@ -1,0 +1,26 @@
+[build-system]
+requires = ["hatchling>=1.27.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "gemma"
+version = "0.1.0"
+description = "Standalone multi-pass article-vs-theory analysis runner for local Gemma/Ollama workflows"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+  "beautifulsoup4>=4.13.4",
+  "pypdf>=5.4.0",
+]
+
+[project.scripts]
+gemma-article-theory-analysis = "gemma.article_theory_analysis:main"
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.3.5",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
