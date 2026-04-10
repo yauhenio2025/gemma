@@ -21,19 +21,32 @@ from bs4 import BeautifulSoup
 
 SUPPORTED_EXTENSIONS = {".docx", ".htm", ".html", ".md", ".pdf", ".txt"}
 STRENGTH_ORDER = {"none": 0, "weak": 1, "moderate": 2, "strong": 3}
+SUSPECT_NOISE_PATTERNS = (
+    "oflipstick",
+    "andEastermost",
+    "funerals of profit rates",
+    "themidterms",
+    "C://",
+    "いくつ",
+    "работает",
+    "relação",
+)
 DEFAULT_WORKSPACE = Path("article_theory_workspace")
 DEFAULT_OLLAMA_MODEL = "gemma4-31b-bf16-256k"
 DEFAULT_ANTHROPIC_MODEL = "claude-opus-4-6"
-DEFAULT_SYSTEM_PROMPT = """You are evaluating whether a non-academic text genuinely bears on a political-economy theory essay.
+DEFAULT_SYSTEM_PROMPT = """You are evaluating whether a non-academic text bears on a political-economy theory essay.
 
-Default assumption: the pairing is only weakly related or irrelevant unless the later text clearly engages the theory's actual mechanism, categories, or evidence.
+Use calibrated relevance, not maximal strictness.
 
-Do not reward superficial overlap. Mentions of AI, jobs, regulation, China, growth, innovation, or "big tech" are not enough by themselves. Distinguish:
-- rhetorical overlap
-- an anecdote or fact pattern merely consistent with the theory
-- evidence that directly supports or challenges a specific theoretical claim
+Distinguish:
+- direct evidence that supports or challenges a specific theoretical mechanism
+- indirect or illustrative evidence that makes one section of the theory more concrete
+- contextual relevance that is useful background but not evidence
+- genuine irrelevance
 
-Be willing to say "irrelevant" or "only marginally relevant." Output valid JSON only."""
+Do not inflate contextual overlap into direct proof, but do not erase useful indirect relevance. A policy story, industrial-policy story, capital-expenditure story, sanctions story, labor-displacement story, or platform-competition story can be relevant even if it cannot adjudicate rent vs. profit by itself.
+
+Output valid JSON only."""
 
 
 @dataclass(slots=True)
@@ -42,6 +55,12 @@ class Document:
     slug: str
     text: str
     extracted_path: Path
+
+
+class JsonResponseError(ValueError):
+    def __init__(self, message: str, raw: str = "") -> None:
+        super().__init__(message)
+        self.raw = raw
 
 
 class OllamaClient:
@@ -53,6 +72,7 @@ class OllamaClient:
         temperature: float = 0.1,
         num_ctx: int | None = 131072,
         timeout_seconds: int = 3600,
+        max_json_retries: int = 2,
     ) -> None:
         self.model = model
         self.base_url = base_url.rstrip("/")
@@ -60,8 +80,12 @@ class OllamaClient:
         self.temperature = temperature
         self.num_ctx = num_ctx
         self.timeout_seconds = timeout_seconds
+        self.max_json_retries = max_json_retries
 
     def chat_json(self, messages: list[dict[str, str]]) -> dict[str, Any]:
+        return chat_json_with_retries(self._chat_text, messages, self.max_json_retries)
+
+    def _chat_text(self, messages: list[dict[str, str]]) -> str:
         payload: dict[str, Any] = {
             "model": self.model,
             "messages": [{"role": "system", "content": self.system_prompt}, *messages],
@@ -91,8 +115,7 @@ class OllamaClient:
             raise RuntimeError(
                 f"Unable to reach Ollama at {self.base_url}. Start the server or pass --ollama-url."
             ) from exc
-        content = "".join(content_parts).strip()
-        return parse_json_payload(content)
+        return "".join(content_parts).strip()
 
 
 class AnthropicClient:
@@ -107,6 +130,7 @@ class AnthropicClient:
         thinking_type: str = "adaptive",
         timeout_seconds: int = 1800,
         max_retries: int = 3,
+        max_json_retries: int = 2,
     ) -> None:
         api_key = os.environ.get(api_key_env)
         if not api_key:
@@ -120,8 +144,12 @@ class AnthropicClient:
         self.thinking_type = thinking_type
         self.timeout_seconds = timeout_seconds
         self.max_retries = max_retries
+        self.max_json_retries = max_json_retries
 
     def chat_json(self, messages: list[dict[str, str]]) -> dict[str, Any]:
+        return chat_json_with_retries(self._chat_text, messages, self.max_json_retries)
+
+    def _chat_text(self, messages: list[dict[str, str]]) -> str:
         payload: dict[str, Any] = {
             "model": self.model,
             "max_tokens": self.max_tokens,
@@ -147,7 +175,7 @@ class AnthropicClient:
                 if isinstance(block, dict)
             ]
             raise RuntimeError(f"Anthropic response contained no text block; content types: {content_types}")
-        return parse_json_payload(text)
+        return text
 
     def _post_messages(self, payload: dict[str, Any]) -> dict[str, Any]:
         data = json.dumps(payload).encode("utf-8")
@@ -193,6 +221,8 @@ class TheoryArticleRunner:
         max_article_chars: int = 90_000,
         min_confidence: float = 0.7,
         max_reconcile_rounds: int = 2,
+        max_step_retries: int = 2,
+        allow_failures: bool = False,
     ) -> None:
         self.workspace = workspace
         self.client = client
@@ -201,6 +231,8 @@ class TheoryArticleRunner:
         self.max_article_chars = max_article_chars
         self.min_confidence = min_confidence
         self.max_reconcile_rounds = max_reconcile_rounds
+        self.max_step_retries = max_step_retries
+        self.allow_failures = allow_failures
         self.cache_dir = workspace / "cache"
         self.outputs_dir = workspace / "outputs"
         self.theory_dir = workspace / "nlr"
@@ -251,6 +283,7 @@ class TheoryArticleRunner:
 
         max_workers = int(os.environ.get("GEMMA_PARALLEL", "3"))
         analyses: list[dict[str, Any]] = []
+        failures: list[dict[str, str]] = []
         if max_workers > 1:
             with ThreadPoolExecutor(max_workers=max_workers) as pool:
                 futures = {
@@ -262,18 +295,40 @@ class TheoryArticleRunner:
                     try:
                         analyses.append(future.result())
                     except Exception as exc:
+                        failures.append(
+                            {
+                                "article_path": str(article.path),
+                                "article_slug": article.slug,
+                                "error": str(exc),
+                            }
+                        )
                         print(f"FAILED: {article.slug}: {exc}")
         else:
             for article in other_documents:
-                analyses.append(self._analyze_article(article, theory_map, theory_rubric))
+                try:
+                    analyses.append(self._analyze_article(article, theory_map, theory_rubric))
+                except Exception as exc:
+                    failures.append(
+                        {
+                            "article_path": str(article.path),
+                            "article_slug": article.slug,
+                            "error": str(exc),
+                        }
+                    )
+                    print(f"FAILED: {article.slug}: {exc}")
 
-        index = self._write_index(theory_documents, analyses)
+        index = self._write_index(theory_documents, analyses, failures)
+        if failures and not self.allow_failures:
+            raise RuntimeError(
+                f"{len(failures)} article(s) failed. See {self.outputs_dir / 'failures.json'}."
+            )
         return {
             "workspace": str(self.workspace),
             "model": self.client.model,
             "stage": stage,
             "theory_files": [str(doc.path) for doc in theory_documents],
             "article_count": len(analyses),
+            "failed_article_count": len(failures),
             "index_path": str(index),
         }
 
@@ -281,13 +336,15 @@ class TheoryArticleRunner:
         theory_corpus = render_document_bundle(theory_documents, "NLR theory corpus")
         prompt = textwrap.dedent(
             f"""
-            Read the theory corpus and extract only the claims that matter for testing whether capitalism has become techno-feudalism.
+            Read the theory corpus and build an expansive map for evaluating later news articles against it.
 
             Constraints:
-            - Capture the strongest 4 to 7 claims. Fewer is better than padding.
+            - Capture the strongest 4 to 7 core claims.
+            - Also capture secondary themes that a news article may usefully illustrate without proving or disproving the theory.
             - Prefer precise claims about mechanism, categories, evidence, or method.
-            - Separate real claims from recurring themes or background context.
-            - Include "false positive" matches: things a news article might mention that sound relevant but do not actually test the claim.
+            - Separate direct evidentiary hooks from contextual or illustrative hooks.
+            - Avoid the previous over-strict mistake: do not require a news article to adjudicate rent vs. profit before it can be called contextually or marginally relevant.
+            - Include false positives only as warnings against overclaiming, not as a reason to erase all indirect relevance.
 
             Return JSON with exactly these keys:
             {{
@@ -299,7 +356,23 @@ class TheoryArticleRunner:
                   "why_it_matters": "string",
                   "support_requirements": ["string"],
                   "challenge_requirements": ["string"],
+                  "indirect_relevance_hooks": ["string"],
                   "false_positive_matches": ["string"]
+                }}
+              ],
+              "secondary_themes": [
+                {{
+                  "id": "T1",
+                  "theme": "string",
+                  "why_articles_may_matter": "string",
+                  "typical_article_signals": ["string"]
+                }}
+              ],
+              "article_relevance_hooks": [
+                {{
+                  "hook": "string",
+                  "counts_as": "contextual|illustrative|direct",
+                  "notes": "string"
                 }}
               ],
               "conceptual_boundaries": [
@@ -320,23 +393,26 @@ class TheoryArticleRunner:
     def _build_theory_rubric(self, theory_map: dict[str, Any]) -> dict[str, Any]:
         prompt = textwrap.dedent(
             f"""
-            Build a strict evaluation rubric for judging whether a later article genuinely bears on the theory map below.
+            Build a calibrated evaluation rubric for judging whether a later article bears on the theory map below.
 
             Constraints:
-            - Default toward irrelevance unless a later text survives the gates.
-            - Distinguish direct evidence from indirect illustration or rhetoric.
-            - Make the anti-grade-inflation rule explicit.
+            - Do not default every article to irrelevance just because it lacks direct proof.
+            - Distinguish contextual relevance, illustrative relevance, and direct evidence.
+            - Make both anti-grade-inflation and anti-false-negative rules explicit.
+            - Articles about state industrial policy, geopolitics, data centers, AI infrastructure, platform lock-in, talent flows, sanctions, labor displacement, and public legitimacy may be contextually or marginally relevant even when they do not adjudicate rent vs. profit.
 
             Return JSON with exactly these keys:
             {{
-              "relevance_gates": [
+              "relevance_tiers": [
                 {{
-                  "id": "G1",
-                  "question": "string",
-                  "failure_means": "string"
+                  "label": "irrelevant|contextual|marginal|relevant",
+                  "definition": "string",
+                  "recommended_use": "ignore|mention_in_passing|use_as_minor_update|use_as_substantive_evidence"
                 }}
               ],
+              "relevance_questions": ["string"],
               "what_counts_as_real_evidence": ["string"],
+              "what_counts_as_contextual_or_illustrative_relevance": ["string"],
               "what_does_not_count": ["string"],
               "support_strength_scale": [
                 {{
@@ -350,6 +426,8 @@ class TheoryArticleRunner:
                   "definition": "string"
                 }}
               ],
+              "anti_grade_inflation_rule": "string",
+              "anti_false_negative_rule": "string",
               "default_verdict_rule": "string"
             }}
 
@@ -464,6 +542,9 @@ class TheoryArticleRunner:
               "state_and_policy_content": ["string"],
               "capital_accumulation_content": ["string"],
               "labor_content": ["string"],
+              "infrastructure_and_supply_chain_content": ["string"],
+              "geopolitical_competition_content": ["string"],
+              "possible_theory_hooks": ["string"],
               "what_is_missing_for_theory_evaluation": ["string"]
             }}
 
@@ -484,21 +565,22 @@ class TheoryArticleRunner:
     ) -> dict[str, Any]:
         prompt = textwrap.dedent(
             f"""
-            Judge whether this article genuinely bears on the theory.
+            Judge whether this article bears on the theory.
 
-            Apply the rubric strictly.
-            - Start from irrelevance.
-            - A talking point about growth, jobs, or national competition does not by itself test the theory.
-            - If an article merely illustrates a climate around tech policy, call it weak and say why.
+            Apply the rubric in a calibrated way.
+            - Do not require the article to adjudicate rent vs. profit before assigning contextual or marginal relevance.
+            - If the article is useful as a state-capital, infrastructure, labor-displacement, geopolitics, supply-chain, platform-power, or public-legitimation data point, say so and assign contextual or marginal relevance.
+            - If the article cannot support or challenge the theory directly, say that under limitations rather than forcing the whole verdict to irrelevant.
+            - Reserve "irrelevant" for articles with no meaningful use even as background or illustration.
 
             Return JSON with exactly these keys:
             {{
-              "overall_initial_verdict": "irrelevant|marginal|relevant",
+              "overall_initial_verdict": "irrelevant|contextual|marginal|relevant",
               "overall_reason": "string",
               "claim_assessments": [
                 {{
                   "claim_id": "C1",
-                  "engagement_type": "none|rhetorical|indirect|direct",
+                  "engagement_type": "none|rhetorical|contextual|illustrative|direct",
                   "support_strength": "none|weak|moderate|strong",
                   "challenge_strength": "none|weak|moderate|strong",
                   "support_points": ["string"],
@@ -506,6 +588,8 @@ class TheoryArticleRunner:
                   "why_limited": "string"
                 }}
               ],
+              "contextual_relevance_points": ["string"],
+              "illustrative_relevance_points": ["string"],
               "article_level_points_for_theory": ["string"],
               "article_level_points_against_theory": ["string"],
               "irrelevance_reasons": ["string"],
@@ -541,16 +625,19 @@ class TheoryArticleRunner:
 
             Be adversarial.
             - If the initial audit inflated weak evidence into support, say so.
-            - If it missed a genuine but narrow point of contact, say so.
+            - If it erased a genuine contextual, illustrative, or narrow point of contact by applying an over-strict gate, say so.
             - Distinguish political-process evidence from evidence about economic mechanism.
+            - Do not convert every indirect data point into proof, but preserve it as contextual or marginal relevance when useful.
 
             Return JSON with exactly these keys:
             {{
               "grade_inflation_detected": true,
+              "false_negative_detected": true,
               "problems_with_initial_audit": ["string"],
               "missing_support_points": ["string"],
               "missing_challenge_points": ["string"],
-              "corrected_verdict": "irrelevant|marginal|relevant",
+              "missing_contextual_or_illustrative_points": ["string"],
+              "corrected_verdict": "irrelevant|contextual|marginal|relevant",
               "corrections_by_claim": [
                 {{
                   "claim_id": "C1",
@@ -595,15 +682,18 @@ class TheoryArticleRunner:
 
             Requirements:
             - Keep the verdict strict and calibrated.
-            - It is acceptable for the answer to say the article is mostly irrelevant.
+            - It is acceptable for the answer to say the article is mostly irrelevant, but do not call it irrelevant if it has a real contextual or illustrative use.
             - Separate "arguments for the theory" from "arguments against the theory."
+            - Also identify contextual relevance that is not yet an argument.
             - Also state what the article cannot adjudicate.
 
             Return JSON with exactly these keys:
             {{
-              "overall_verdict": "irrelevant|marginal|relevant",
+              "overall_verdict": "irrelevant|contextual|marginal|relevant",
               "confidence": 0.0,
+              "relevance_mode": "none|contextual|illustrative|direct",
               "one_paragraph_verdict": "string",
+              "contextual_relevance": ["string"],
               "arguments_for_theory": [
                 {{
                   "strength": "weak|moderate|strong",
@@ -668,9 +758,11 @@ class TheoryArticleRunner:
 
             Return JSON with exactly these keys:
             {{
-              "overall_verdict": "irrelevant|marginal|relevant",
+              "overall_verdict": "irrelevant|contextual|marginal|relevant",
               "reconciled_confidence": 0.0,
+              "relevance_mode": "none|contextual|illustrative|direct",
               "one_paragraph_verdict": "string",
+              "contextual_relevance": ["string"],
               "arguments_for_theory": [
                 {{
                   "strength": "weak|moderate|strong",
@@ -716,10 +808,33 @@ class TheoryArticleRunner:
 
     def _load_or_run(self, path: Path, builder: Any, *args: Any) -> dict[str, Any]:
         if path.exists() and not self.overwrite:
-            return json.loads(path.read_text(encoding="utf-8"))
-        payload = builder(*args)
-        path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
-        return payload
+            payload = json.loads(path.read_text(encoding="utf-8"))
+            try:
+                validate_payload_for_path(path, payload)
+                return payload
+            except ValueError as exc:
+                print(f"STALE: {path}: {exc}; rebuilding")
+        last_error: Exception | None = None
+        for attempt in range(1, self.max_step_retries + 2):
+            try:
+                payload = builder(*args)
+                validate_payload_for_path(path, payload)
+                path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+                error_path = error_artifact_path(path)
+                if error_path.exists():
+                    error_path.unlink()
+                return payload
+            except Exception as exc:
+                last_error = exc
+                if attempt <= self.max_step_retries:
+                    time.sleep(attempt)
+                    continue
+        error_path = error_artifact_path(path)
+        error_path.write_text(
+            f"Failed after {self.max_step_retries + 1} attempt(s).\n{type(last_error).__name__}: {last_error}\n",
+            encoding="utf-8",
+        )
+        raise RuntimeError(f"Failed to build {path}: {last_error}") from last_error
 
     def _load_required(self, path: Path, label: str) -> dict[str, Any]:
         if not path.exists():
@@ -749,11 +864,24 @@ class TheoryArticleRunner:
         index_md.write_text("\n".join(lines), encoding="utf-8")
         return index_md
 
-    def _write_index(self, theory_documents: list[Document], analyses: list[dict[str, Any]]) -> Path:
+    def _write_index(
+        self,
+        theory_documents: list[Document],
+        analyses: list[dict[str, Any]],
+        failures: list[dict[str, str]] | None = None,
+    ) -> Path:
+        failures = failures or []
+        failures_json = self.outputs_dir / "failures.json"
+        if failures:
+            failures_json.write_text(json.dumps(failures, ensure_ascii=False, indent=2), encoding="utf-8")
+        elif failures_json.exists():
+            failures_json.unlink()
+
         index_json = self.outputs_dir / "index.json"
         payload = {
             "model": self.client.model,
             "theory_files": [str(doc.path) for doc in theory_documents],
+            "failed_articles": failures,
             "articles": sorted(
                 analyses,
                 key=lambda item: (
@@ -771,6 +899,7 @@ class TheoryArticleRunner:
             f"- Model: `{self.client.model}`",
             f"- Theory files: {', '.join(doc.path.name for doc in theory_documents)}",
             f"- Articles analyzed: {len(analyses)}",
+            f"- Articles failed: {len(failures)}",
             "",
             "| Article | Verdict | Confidence | Recommended Use | Report |",
             "| --- | --- | --- | --- | --- |",
@@ -781,6 +910,10 @@ class TheoryArticleRunner:
                 f"| {item['article_slug']} | {item['verdict']} | {item['confidence']:.2f} | "
                 f"{item['recommended_use']} | `{report_rel}` |"
             )
+        if failures:
+            lines.extend(["", "## Failures", ""])
+            for item in failures:
+                lines.append(f"- `{item['article_slug']}`: {item['error']}")
         index_md = self.outputs_dir / "index.md"
         index_md.write_text("\n".join(lines) + "\n", encoding="utf-8")
         return index_md
@@ -807,6 +940,8 @@ def main() -> int:
     parser.add_argument("--max-reconcile-rounds", type=int, default=2)
     parser.add_argument("--num-ctx", type=int, default=131072)
     parser.add_argument("--parallel", type=int, default=3, help="Number of articles to process concurrently")
+    parser.add_argument("--step-retries", type=int, default=2)
+    parser.add_argument("--allow-failures", action="store_true")
     args = parser.parse_args()
     os.environ["GEMMA_PARALLEL"] = str(args.parallel)
 
@@ -834,6 +969,8 @@ def main() -> int:
         max_article_chars=args.max_article_chars,
         min_confidence=args.min_confidence,
         max_reconcile_rounds=args.max_reconcile_rounds,
+        max_step_retries=args.step_retries,
+        allow_failures=args.allow_failures,
     )
     result = runner.run(stage=args.stage)
     print(json.dumps(result, ensure_ascii=False, indent=2))
@@ -942,14 +1079,199 @@ def render_document_bundle(documents: list[Document], label: str) -> str:
 
 
 def parse_json_payload(content: str) -> dict[str, Any]:
+    candidate = strip_json_fence(content)
     try:
-        return json.loads(content)
-    except json.JSONDecodeError:
-        start = content.find("{")
-        end = content.rfind("}")
-        if start == -1 or end == -1 or end <= start:
-            raise ValueError(f"Model did not return JSON: {content[:500]}")
-        return json.loads(content[start : end + 1])
+        payload = json.loads(candidate)
+        if not isinstance(payload, dict):
+            raise JsonResponseError("Model returned JSON, but not a JSON object.", candidate)
+        return payload
+    except json.JSONDecodeError as first_error:
+        decoder = json.JSONDecoder()
+        for match in re.finditer(r"{", candidate):
+            try:
+                payload, _ = decoder.raw_decode(candidate[match.start() :])
+            except json.JSONDecodeError:
+                continue
+            if isinstance(payload, dict):
+                return payload
+        raise JsonResponseError(
+            f"Model did not return valid JSON: {first_error.msg} at character {first_error.pos}.",
+            candidate,
+        ) from first_error
+
+
+def strip_json_fence(content: str) -> str:
+    candidate = content.strip()
+    if candidate.startswith("```"):
+        candidate = re.sub(r"^```(?:json)?\s*", "", candidate, flags=re.IGNORECASE)
+        candidate = re.sub(r"\s*```$", "", candidate)
+    return candidate.strip()
+
+
+def chat_json_with_retries(
+    chat_text: Any,
+    messages: list[dict[str, str]],
+    max_json_retries: int,
+) -> dict[str, Any]:
+    errors: list[str] = []
+    raw = ""
+    for attempt in range(max_json_retries + 1):
+        prompt = messages if attempt == 0 or attempt % 2 == 0 else json_repair_messages(raw)
+        raw = chat_text(prompt)
+        try:
+            return parse_json_payload(raw)
+        except JsonResponseError as exc:
+            errors.append(str(exc))
+            if attempt >= max_json_retries:
+                raise JsonResponseError(
+                    "Model returned malformed JSON after retries: " + " | ".join(errors),
+                    exc.raw,
+                ) from exc
+            time.sleep(attempt + 1)
+    raise JsonResponseError("Model returned malformed JSON after retries.", raw)
+
+
+def json_repair_messages(raw: str) -> list[dict[str, str]]:
+    return [
+        {
+            "role": "user",
+            "content": (
+                "Repair the following malformed model response into valid JSON only. "
+                "Preserve the semantic content and keys as much as possible. "
+                "Do not add markdown or commentary.\n\n"
+                f"Malformed response:\n{limit_text(raw, 120_000)}"
+            ),
+        }
+    ]
+
+
+def error_artifact_path(path: Path) -> Path:
+    return path.with_name(path.name + ".error.txt")
+
+
+def validate_payload_for_path(path: Path, payload: dict[str, Any]) -> None:
+    required = required_keys_for_output(path.name)
+    missing = sorted(key for key in required if key not in payload)
+    issues = [f"missing required key `{key}`" for key in missing]
+    issues.extend(find_payload_quality_issues(payload))
+    if issues:
+        preview = "; ".join(issues[:8])
+        raise ValueError(f"Invalid payload for {path.name}: {preview}")
+
+
+def required_keys_for_output(filename: str) -> set[str]:
+    if filename == "01_theory_map.json":
+        return {
+            "thesis",
+            "core_claims",
+            "secondary_themes",
+            "article_relevance_hooks",
+            "conceptual_boundaries",
+            "relevance_red_flags",
+            "open_questions",
+        }
+    if filename == "02_theory_rubric.json":
+        return {
+            "relevance_tiers",
+            "relevance_questions",
+            "what_counts_as_real_evidence",
+            "what_counts_as_contextual_or_illustrative_relevance",
+            "what_does_not_count",
+            "support_strength_scale",
+            "challenge_strength_scale",
+            "anti_grade_inflation_rule",
+            "anti_false_negative_rule",
+            "default_verdict_rule",
+        }
+    if filename == "01_article_map.json":
+        return {
+            "article_kind",
+            "summary",
+            "main_claims",
+            "evidence_or_facts",
+            "rhetorical_frames",
+            "state_and_policy_content",
+            "capital_accumulation_content",
+            "labor_content",
+            "infrastructure_and_supply_chain_content",
+            "geopolitical_competition_content",
+            "possible_theory_hooks",
+            "what_is_missing_for_theory_evaluation",
+        }
+    if filename == "02_relevance_audit.json":
+        return {
+            "overall_initial_verdict",
+            "overall_reason",
+            "claim_assessments",
+            "contextual_relevance_points",
+            "illustrative_relevance_points",
+            "article_level_points_for_theory",
+            "article_level_points_against_theory",
+            "irrelevance_reasons",
+            "confidence",
+        }
+    if filename == "03_counter_audit.json":
+        return {
+            "grade_inflation_detected",
+            "false_negative_detected",
+            "problems_with_initial_audit",
+            "missing_support_points",
+            "missing_challenge_points",
+            "missing_contextual_or_illustrative_points",
+            "corrected_verdict",
+            "corrections_by_claim",
+            "confidence",
+        }
+    if filename == "04_final_judgment.json":
+        return {
+            "overall_verdict",
+            "confidence",
+            "relevance_mode",
+            "one_paragraph_verdict",
+            "contextual_relevance",
+            "arguments_for_theory",
+            "arguments_against_theory",
+            "what_article_cannot_adjudicate",
+            "state_capital_nexus_relevance",
+            "recommended_use",
+        }
+    if filename.startswith("04b_reconcile_round_") and filename.endswith(".json"):
+        return {
+            "overall_verdict",
+            "reconciled_confidence",
+            "relevance_mode",
+            "one_paragraph_verdict",
+            "contextual_relevance",
+            "arguments_for_theory",
+            "arguments_against_theory",
+            "what_article_cannot_adjudicate",
+            "state_capital_nexus_relevance",
+            "recommended_use",
+        }
+    return set()
+
+
+def find_payload_quality_issues(payload: Any, path: str = "$") -> list[str]:
+    issues: list[str] = []
+    if isinstance(payload, dict):
+        for key, value in payload.items():
+            issues.extend(find_payload_quality_issues(value, f"{path}.{key}"))
+    elif isinstance(payload, list):
+        for index, value in enumerate(payload):
+            if isinstance(value, str) and not value.strip():
+                issues.append(f"empty string list item at {path}[{index}]")
+            issues.extend(find_payload_quality_issues(value, f"{path}[{index}]"))
+    elif isinstance(payload, str):
+        stripped = payload.strip()
+        if stripped.startswith("{") and ('"' in stripped and ":" in stripped):
+            issues.append(f"embedded JSON-looking string at {path}")
+        if stripped.startswith("//") or "\n//" in stripped:
+            issues.append(f"comment-marker noise at {path}")
+        for pattern in SUSPECT_NOISE_PATTERNS:
+            if pattern in payload:
+                issues.append(f"suspect noise token `{pattern}` at {path}")
+                break
+    return issues
 
 
 def needs_reconcile(
@@ -983,6 +1305,8 @@ def render_report(
     verdict = final_result.get("overall_verdict", "unknown")
     confidence = final_result.get("confidence", final_result.get("reconciled_confidence", 0.0))
     paragraph = final_result.get("one_paragraph_verdict", "")
+    relevance_mode = final_result.get("relevance_mode", "unknown")
+    contextual_relevance = final_result.get("contextual_relevance", [])
     arguments_for = final_result.get("arguments_for_theory", [])
     arguments_against = final_result.get("arguments_against_theory", [])
     cannot = final_result.get("what_article_cannot_adjudicate", [])
@@ -994,15 +1318,28 @@ def render_report(
         "",
         f"- Verdict: `{verdict}`",
         f"- Confidence: `{confidence}`",
+        f"- Relevance mode: `{relevance_mode}`",
         f"- Recommended use: `{recommended_use}`",
         "",
         "## Bottom Line",
         "",
         paragraph,
         "",
-        "## Arguments For The Theory",
+        "## Contextual Relevance",
         "",
     ]
+    if contextual_relevance:
+        lines.extend(f"- {item}" for item in contextual_relevance)
+    else:
+        lines.append("- None.")
+
+    lines.extend(
+        [
+            "",
+            "## Arguments For The Theory",
+            "",
+        ]
+    )
     if arguments_for:
         for item in arguments_for:
             lines.append(
@@ -1044,7 +1381,7 @@ def render_report(
 
 
 def verdict_rank(verdict: str) -> int:
-    order = {"relevant": 0, "marginal": 1, "irrelevant": 2}
+    order = {"relevant": 0, "marginal": 1, "contextual": 2, "irrelevant": 3}
     return order.get(verdict, 3)
 
 

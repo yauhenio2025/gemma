@@ -36,6 +36,14 @@ Run only article analysis against the committed preprocessed theory files:
 uv run gemma-article-theory-analysis --stage articles
 ```
 
+For the calibrated second run, overwrite the prior article outputs and fail loudly if any article cannot be parsed:
+
+```bash
+uv run gemma-article-theory-analysis --stage articles --overwrite --parallel 2
+```
+
+The runner now retries malformed JSON responses and writes `article_theory_workspace/outputs/failures.json` before exiting nonzero if any article still fails.
+
 ## Test
 
 ```bash

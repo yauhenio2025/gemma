@@ -1,144 +1,358 @@
 {
-  "thesis": "The techno-feudalism diagnosis is analytically wrong: major tech firms are capitalist producers engaged in commodity production and massive capital investment, not feudal rentiers. The feudal label stems from unresolved weaknesses in Marxist political economy (specifically the Brenner–Wallerstein debate over exploitation vs. expropriation) rather than from an actual transformation of the mode of production.",
+  "thesis": "The 'techno-feudalism' thesis—that digital platforms have replaced capitalist profit-making with feudal rent extraction—reflects analytical weakness on the left rather than genuine systemic transformation. Tech giants are better understood as capitalist producers making massive investments in production, not as parasitic feudal rentiers. The thesis arises from unresolved tensions in Marxist debates (Brenner vs. Wallerstein) about exploitation versus expropriation, and from frameworks ('user-ism,' cognitive capitalism) that misidentify the sources of tech-company revenues. A more expansive conception of capitalism that integrates both exploitation and expropriation eliminates the need to invoke feudalism.",
   "core_claims": [
     {
       "id": "C1",
-      "claim": "Tech giants are capitalist producers making enormous productive investments, not parasitic feudal rentiers who 'need not lift a finger.' Alphabet spent $27.5B on R&D in 2020; Amazon spent $42.7B and employed over one million people. This is incompatible with the lazy-rentier characterization essential to the feudal thesis.",
-      "why_it_matters": "The entire techno-feudal argument hinges on tech firms extracting value without contributing to production. If their investments are genuinely productive, the feudal analogy collapses at the empirical level.",
+      "claim": "Tech giants (Google, Amazon, etc.) are capitalist producers engaged in massive investment and production, not parasitic feudal rentiers who 'need not lift a finger.'",
+      "why_it_matters": "This is the central empirical challenge to the techno-feudalism thesis. If tech firms spend tens of billions on R&D, employ millions, and build physical infrastructure, classifying them as lazy rentiers is untenable.",
       "support_requirements": [
-        "Evidence that tech firm R&D spending yields genuine productive innovation rather than defensive moat-building or regulatory capture",
-        "Evidence that tech firms' capital expenditure creates new commodities or improves production processes"
+        "Evidence of large and sustained capital expenditure or R&D spending by tech firms",
+        "Evidence that tech firms produce genuine commodities (search results, cloud services, logistics)",
+        "Data showing tech firms have fewer intangible assets relative to total assets than commonly assumed",
+        "Evidence of competitive investment behavior (cost-cutting, automation, capacity expansion)"
       ],
       "challenge_requirements": [
-        "Evidence that tech R&D spending is predominantly directed at reinforcing lock-in, predation, or surveillance rather than production",
-        "Evidence that rising R&D budgets coexist with declining productive output or stagnant innovation"
+        "Evidence that tech firm revenues derive primarily from IP rents, data monopolies, or political privileges rather than productive operations",
+        "Evidence that R&D spending is primarily defensive (acquiring patents to block competitors) rather than productive",
+        "Evidence that tech firms' profit rates are inexplicable without invoking monopoly rent"
+      ],
+      "indirect_relevance_hooks": [
+        "Reports on tech company capital expenditure, infrastructure buildout, or headcount growth",
+        "Stories about data-center construction, chip fabrication investment, or cloud-service expansion",
+        "Analyses of tech company earnings distinguishing revenue streams (advertising, cloud, hardware, subscriptions)",
+        "Stories about Amazon warehouse expansion or logistics network investment"
       ],
       "false_positive_matches": [
-        "Generic news about tech company revenue or stock price growth",
-        "Reports of tech layoffs (workforce size alone doesn't settle the producer vs. rentier question)",
-        "Announcements of new AI products without analysis of whether they represent genuine production or rent-extraction mechanisms"
+        "A company spending heavily on stock buybacks does not by itself prove rentierism—context of overall investment matters",
+        "High profit margins alone do not distinguish rent from profit; Marx's equalization-of-profits framework explains differential margins",
+        "A single quarter of reduced capex does not negate structural investment patterns"
       ]
     },
     {
       "id": "C2",
-      "claim": "Google's core profitability derives from its ability to index third-party content without payment, not primarily from user data extraction. The 'original sin' is unpaid indexing that produces a search-result commodity cheaply; data-driven ad personalization is secondary. Both Zuboff's 'surveillance capitalism' and Durand's techno-feudalism misidentify the profit mechanism by fixating on user data.",
-      "why_it_matters": "If Google's profits come mainly from producing a commodity (organized search results) using unpaid inputs (indexed content), the firm operates through a capitalist logic of production, not a feudal logic of rent extraction from data.",
+      "claim": "The 'rent vs. profit' distinction is systematically misapplied to the digital economy: revenues from automated or data-intensive firms can be capitalist profits (surplus value absorbed from elsewhere in the economy), not necessarily rents from monopoly control.",
+      "why_it_matters": "Morozov argues, following Marx's Volume 3, that even fully automated firms appropriate surplus value as profit, not rent. Misclassifying profit as rent leads to the false conclusion that capitalism has been replaced by feudalism.",
       "support_requirements": [
-        "Disaggregated analysis showing what proportion of Google's advertising revenue depends on personalization vs. search-query relevance and placement",
-        "Evidence on the counterfactual value of Google's ad business without behavioral targeting"
+        "Empirical analysis showing tech revenues correlate with productive investment rather than passive asset ownership",
+        "Cases where competitive dynamics among tech firms drive innovation and cost reduction, consistent with profit-seeking",
+        "Evidence that high margins derive from cost advantages in commodity production rather than from IP lock-in alone"
       ],
       "challenge_requirements": [
-        "Evidence that behavioral data targeting accounts for the majority of Google's ad-revenue premium over non-personalized alternatives",
-        "Evidence that Google's market power derives primarily from data accumulation rather than indexing scale"
+        "Evidence that specific tech revenues are structurally tied to IP monopoly, network-effect lock-in, or regulatory capture with no productive counterpart",
+        "Demonstration that rising tech profits coincide with declining productive investment economy-wide",
+        "Evidence that a firm's revenue persists even without ongoing productive activity, resembling passive rent collection"
+      ],
+      "indirect_relevance_hooks": [
+        "Antitrust cases or rulings that analyze whether a firm's market power derives from innovation or from exclusionary practices",
+        "Debates about platform fees (App Store, marketplace commissions) and whether they constitute rent",
+        "Reports on intellectual property disputes, patent trolling, or licensing revenue",
+        "Academic or policy analyses of 'intangible economy' dynamics"
       ],
       "false_positive_matches": [
-        "News about Google ad revenue figures without decomposing the source of the premium",
-        "Privacy regulations targeting data collection (relevant to surveillance but not to whether the business model is feudal)",
-        "Publisher disputes with Google over snippets or links (closer to the claim but only if they quantify the value transfer)"
+        "Any mention of 'rent-seeking' in a political lobbying context is not the same as the Marxist category of economic rent",
+        "High prices charged by a tech firm do not automatically indicate rent—they may reflect genuine scarcity or quality of commodity produced",
+        "The word 'monopoly' appearing in a news article does not by itself adjudicate the rent-vs-profit question"
       ]
     },
     {
       "id": "C3",
-      "claim": "The techno-feudal framework systematically obscures the constitutive role of the American state in building Silicon Valley's global dominance, including Cold War military spending, the War on Terror's surveillance apparatus, and ongoing Pentagon-Silicon Valley links (e.g., Eric Schmidt on the Defense Innovation Board, Palantir). Techno-feudalism falsely assumes 'parcelized sovereignty' when state power has been central.",
-      "why_it_matters": "If tech dominance is a product of deliberate state industrial and geopolitical strategy rather than autonomous feudal-lord power accumulation, the political-economy diagnosis changes entirely: from a system where private power has escaped state control to one where state and capital are deeply fused.",
+      "claim": "The state's constitutive role in building and sustaining Silicon Valley's dominance is systematically erased by the techno-feudalist framework, which assumes sovereignty has been 'parcelized' among tech lords.",
+      "why_it_matters": "If tech power is underwritten by US geopolitical strategy, military spending, surveillance infrastructure, and trade policy, then framing tech dominance as a private neo-feudal usurpation of state power is misleading and politically disabling.",
       "support_requirements": [
-        "Evidence of direct state subsidies, procurement contracts, or regulatory frameworks that constituted tech firms' market positions",
-        "Evidence that geopolitical competition (especially US-China) shapes tech industry structure and investment"
+        "Evidence of state subsidies, procurement contracts, defense funding, or regulatory frameworks that directly benefit tech firms",
+        "Links between tech executives and state national-security apparatus (e.g., Schmidt at Pentagon)",
+        "Evidence that geopolitical competition (US-China) shapes tech policy and industrial strategy",
+        "Cases where state action (sanctions, export controls, antitrust forbearance) directly enables tech firm dominance"
       ],
       "challenge_requirements": [
-        "Evidence that tech firms now dictate terms to governments rather than cooperating with them",
-        "Evidence that state capacity to regulate or redirect tech firms has meaningfully declined"
+        "Evidence that tech firms successfully override state policy against state interests",
+        "Cases where states are demonstrably unable to regulate or tax tech firms despite clear intent to do so",
+        "Evidence of genuine sovereignty transfer from states to platforms (e.g., platform currency replacing sovereign currency)"
+      ],
+      "indirect_relevance_hooks": [
+        "Industrial policy stories involving semiconductor subsidies, AI national strategies, or digital infrastructure investment",
+        "US-China tech rivalry stories (export controls, chip bans, TikTok regulation)",
+        "Government contracts awarded to tech firms (cloud, defense, surveillance)",
+        "Stories about regulatory capture or revolving door between tech and government",
+        "Sanctions regimes that leverage tech supply chains as geopolitical instruments"
       ],
       "false_positive_matches": [
-        "Generic calls for tech regulation (regulatory proposals don't test whether the state was constitutive of tech power)",
-        "Reports on lobbying spending (shows influence but not whether the state built the industry)",
-        "US-China trade tensions mentioned without connecting to the specific claim about state constitution of tech dominance"
+        "A tech CEO testifying before Congress does not prove state dominance over tech or vice versa—context matters",
+        "General stories about government 'failing to regulate Big Tech' may reflect political choice rather than incapacity"
       ]
     },
     {
       "id": "C4",
-      "claim": "Fully automated or labor-light firms appropriate surplus value as capitalist profit, not as feudal rent, per Marx's Capital Vol. 3. The absence of workers at a given firm does not mean no capitalist production occurs; such firms absorb surplus value generated elsewhere in the economy through the equalization of profit rates. Italian workerism and 'cognitive capitalism' theory are trapped in a worker-centric epistemology.",
-      "why_it_matters": "This is the theoretical linchpin: if labor-light tech firms can be explained within standard Marxist categories of profit and competition, there is no need to invoke feudal rent as a new category. The entire feudal-vs-capitalist classification depends on this distinction.",
+      "claim": "Frameworks like Zuboff's 'surveillance capitalism' and Italian 'cognitive capitalism' commit the error of 'user-ism' or 'workerism'—they fixate on data extraction from users/workers while ignoring the actual commodity-production processes (e.g., Google's indexing) that generate the bulk of tech profits.",
+      "why_it_matters": "Morozov argues Google's core advantage is not data extraction from users but the ability to index the world's information without paying content creators—an 'information communism' that enables commodity production. Misidentifying the profit source leads to wrong political demands.",
       "support_requirements": [
-        "Theoretical or empirical demonstration that tech firm profit rates behave like capitalist profit rates (subject to equalization pressures, responsive to competition) rather than like rents (persistent, non-competed-away, tied to positional monopoly)"
+        "Evidence that advertising revenue depends more on content indexing and search-result quality than on personalization from user data",
+        "Analysis showing that the value of user behavioral data is overstated relative to other revenue drivers",
+        "Cases where tech firms succeed in markets with minimal user-data extraction (e.g., enterprise cloud)"
       ],
       "challenge_requirements": [
-        "Empirical evidence that tech firm profit rates are persistently above-average and immune to competitive erosion, behaving more like monopoly rents than equalized profits",
-        "Evidence that tech firm revenues are structurally decoupled from productive investment in a way that other capital-intensive industries are not"
+        "Evidence that personalized advertising based on user data commands dramatically higher prices than non-personalized alternatives",
+        "Demonstration that data network effects create insurmountable competitive moats",
+        "Cases where user data is the demonstrable primary driver of a firm's valuation or revenue"
+      ],
+      "indirect_relevance_hooks": [
+        "Privacy regulation impacts on tech firm revenues (GDPR, ATT, cookie deprecation)",
+        "Stories about AI training data sourcing, copyright disputes over indexed content, or payments to publishers",
+        "Debates about whether users should be compensated for their data",
+        "News about shifts in advertising markets (contextual vs. behavioral targeting)"
       ],
       "false_positive_matches": [
-        "Reports of high tech profit margins (high margins alone don't distinguish capitalist super-profits from rent)",
-        "Antitrust cases against tech firms (market power is necessary but not sufficient to establish rentier status in the Marxist sense)"
+        "A data breach story is about security, not about the economic logic of data extraction",
+        "General privacy concerns do not automatically validate the 'data is the new oil' framework that Morozov critiques"
       ]
     },
     {
       "id": "C5",
-      "claim": "Big tech firms actually hold relatively fewer intangible assets on their balance sheets than other major corporations, and this ratio has declined over the past 10-15 years, because their operations require massive physical infrastructure (data centers, networks). This undermines the intangibles-driven rent thesis central to Durand's techno-feudalism.",
-      "why_it_matters": "Durand's taxonomy of four types of digital rent depends on intangibles being the dominant form of tech firm assets. If tech firms are increasingly tangible-asset-heavy, the mechanism through which they supposedly extract rent rather than profit is empirically weakened.",
+      "claim": "The unresolved Brenner–Wallerstein debate—whether capitalism is driven solely by exploitation via competitive market dynamics, or also constitutively involves extra-economic expropriation—creates the analytical opening through which the techno-feudalism thesis enters.",
+      "why_it_matters": "If capitalism is defined narrowly (Brenner) as accumulation-via-innovation through market competition, then any deviation (state redistribution, IP rents, data expropriation) looks 'feudal.' A broader definition (closer to Wallerstein/Fraser) that includes expropriation as constitutive of capitalism dissolves the need for the feudal label.",
       "support_requirements": [
-        "Updated balance-sheet data showing tech firms' tangible vs. intangible asset ratios compared to other sectors",
-        "Evidence on capital expenditure patterns showing physical infrastructure investment growth"
+        "Evidence that expropriation (of natural resources, data, cheap labor in Global South) and exploitation coexist as structural features of the same system",
+        "Cases where politically enabled upward redistribution and productive investment coexist within the same firms or sectors",
+        "Historical evidence that capitalism has always relied on extra-economic means (colonialism, state violence, IP regimes) alongside market competition"
       ],
       "challenge_requirements": [
-        "Evidence that balance-sheet accounting systematically undervalues intangible assets like data holdings, network effects, or algorithmic capabilities",
-        "Evidence that the market-to-book ratios of tech firms indicate massive unrecorded intangible value"
+        "Evidence of a genuine structural break—that accumulation-via-innovation has been comprehensively replaced by accumulation-via-redistribution across the economy",
+        "Demonstration that profit-investment decoupling is real and global, not a statistical artifact of globalization"
+      ],
+      "indirect_relevance_hooks": [
+        "Stories about global supply chain restructuring, nearshoring, or reshoring",
+        "Reports on corporate profit levels vs. investment levels (the 'profit-investment puzzle')",
+        "Stories about resource extraction, land grabs, or commodity-chain power dynamics",
+        "Analysis of shareholder payouts (buybacks, dividends) vs. productive reinvestment"
       ],
       "false_positive_matches": [
-        "Reports on tech company data center construction (supports the tangible-asset claim but only if contextualized within balance-sheet analysis)",
-        "News about cloud computing growth (could support either side depending on framing)"
+        "Rising corporate profits alone do not prove the profit-investment puzzle—one must examine investment data simultaneously",
+        "Supply chain stories that focus only on logistics efficiency are not necessarily about exploitation-expropriation dynamics"
       ]
     },
     {
       "id": "C6",
-      "claim": "If capitalism is understood expansively to include expropriation as constitutive alongside exploitation—not as an external feudal residue—then the feudal label becomes unnecessary. The techno-feudal thesis is a symptom of the unresolved Brenner–Wallerstein debate, not a discovery about the real economy. Capitalism has always leveraged extra-economic means; calling this feudalism whitewashes capitalism's actual operations.",
-      "why_it_matters": "This is the meta-theoretical claim: techno-feudalism is a category error produced by an overly narrow definition of capitalism, not an empirical finding. If correct, the entire debate is misconceived and the real task is expanding the theory of capitalism rather than declaring its end.",
+      "claim": "Capitalism is 'infinitely adaptable' (Braudel) and has always leveraged both economic and extra-economic means; invoking feudalism whitewashes capitalism's own ongoing capacity for extraction, dispossession, and coercion.",
+      "why_it_matters": "The political danger of the techno-feudalism thesis is that it implies capitalism proper was a comparatively benign regime of fair competition and innovation, and that something worse has replaced it. This normalizes capitalism's own violence and narrows the horizon of critique.",
       "support_requirements": [
-        "Historical evidence showing continuity between current tech-firm practices and longstanding capitalist practices of expropriation (colonial extraction, unfree labor, state-backed monopoly)",
-        "Theoretical frameworks that successfully integrate exploitation and expropriation without invoking feudalism"
+        "Evidence that the exploitative and extractive dynamics attributed to 'techno-feudalism' are continuous with longstanding capitalist practices",
+        "Cases where framing a problem as 'feudal' or 'post-capitalist' leads to weaker political responses than framing it as capitalist",
+        "Historical parallels showing capitalism has always incorporated rent, monopoly, and state violence"
       ],
       "challenge_requirements": [
-        "Evidence of a qualitative break—not just quantitative intensification—in how surplus is extracted, such that existing capitalist categories genuinely fail to capture the new mechanism",
-        "Evidence that the rent share of national income has structurally displaced the profit share in tech-dominated economies"
+        "Evidence of a qualitative rupture in economic organization that existing categories of capitalism genuinely cannot capture",
+        "Cases where the feudalism label mobilizes more effective political resistance than the capitalism label"
+      ],
+      "indirect_relevance_hooks": [
+        "Debates about systemic labels (platform capitalism, surveillance capitalism, rentier capitalism, techno-feudalism)",
+        "Stories about labor conditions, gig work, or precarity framed through feudal metaphors (serfdom, vassalage)",
+        "Policy proposals that differ depending on whether the target is diagnosed as capitalist or feudal"
       ],
       "false_positive_matches": [
-        "General commentary about rising inequality or 'late capitalism' malaise",
-        "Invocations of 'neo-feudalism' as rhetorical flourish without specifying the mechanism",
-        "Comparisons of tech CEOs to feudal lords based on wealth concentration alone"
+        "Rhetorical use of 'feudal' or 'serf' in journalism does not validate the techno-feudalism thesis—it may just be colorful language",
+        "Cultural commentary about medieval aesthetics in tech (metaverse, virtual worlds) is not evidence for economic feudalism"
       ]
+    }
+  ],
+  "secondary_themes": [
+    {
+      "id": "T1",
+      "theme": "Intellectual property, intangible assets, and their role in value-chain power",
+      "why_articles_may_matter": "Durand's taxonomy of four types of digital rent (legal IP rent, natural-monopoly rent, dynamic-innovation rent, intangibles-differential rent) is a key mechanism in the techno-feudalism argument. Articles about IP battles, patent regimes, or intangible-asset valuation illuminate this terrain.",
+      "typical_article_signals": [
+        "Patent disputes between tech firms",
+        "Regulatory actions on IP (compulsory licensing, patent reform)",
+        "Analysis of intangible vs. tangible asset ratios on corporate balance sheets",
+        "Trade-secret litigation or disputes over proprietary algorithms",
+        "Standard-essential patents and FRAND licensing controversies"
+      ]
+    },
+    {
+      "id": "T2",
+      "theme": "The profit-investment puzzle and financialization of tech",
+      "why_articles_may_matter": "Morozov engages with the puzzle that corporate profits have risen while productive investment stagnated. Articles about stock buybacks, dividend payouts, or investment trends in the tech sector bear directly on whether tech firms behave as productive capitalists or as financialized rentiers.",
+      "typical_article_signals": [
+        "Reports on tech company share buyback programs",
+        "Capital expenditure announcements or investment plans",
+        "Analysis of corporate cash hoards and their deployment",
+        "Comparisons of R&D spending across firms or sectors",
+        "Stories about declining business investment despite high profits"
+      ]
+    },
+    {
+      "id": "T3",
+      "theme": "Platform labor, gig work, and the 'digital labor' debate",
+      "why_articles_may_matter": "The essay critiques both the cognitive-capitalism view (users/workers produce all value, firms are parasites) and Zuboff's user-ism. Stories about gig workers, content creators, or AI training labor illuminate the contested boundary between exploitation and expropriation in digital contexts.",
+      "typical_article_signals": [
+        "Gig worker classification disputes (employee vs. contractor)",
+        "Content-creator compensation models and disputes with platforms",
+        "AI training data labor (click workers, data annotators)",
+        "Platform fee structures and revenue sharing",
+        "Labor organizing at tech firms or within platform ecosystems"
+      ]
+    },
+    {
+      "id": "T4",
+      "theme": "US-China tech competition and geopolitics of digital infrastructure",
+      "why_articles_may_matter": "Morozov argues that the techno-feudalism thesis erases geopolitics and the state's role. Stories about chip export controls, tech sanctions, digital sovereignty initiatives, and military-tech linkages directly illustrate the state's constitutive role.",
+      "typical_article_signals": [
+        "Semiconductor export controls or chip-war developments",
+        "National AI strategies or digital sovereignty legislation",
+        "Military-tech partnerships or defense-tech funding",
+        "Tech firm compliance with sanctions regimes",
+        "International disputes over data localization or cross-border data flows"
+      ]
+    },
+    {
+      "id": "T5",
+      "theme": "Antitrust and platform regulation",
+      "why_articles_may_matter": "How regulators conceptualize platform power—as monopoly rent, unfair competition, or consumer harm—implicitly engages the rent-vs-profit question central to the essay.",
+      "typical_article_signals": [
+        "Antitrust suits against Google, Amazon, Apple, Meta",
+        "Digital Markets Act enforcement or similar platform regulation",
+        "Debates about interoperability mandates or data portability",
+        "Merger review decisions in tech sector",
+        "App store fee disputes and regulatory responses"
+      ]
+    },
+    {
+      "id": "T6",
+      "theme": "Global supply chains, outsourcing, and North-South value extraction",
+      "why_articles_may_matter": "The essay draws on Wallerstein's core-periphery dynamics and Moore's 'Cheap Natures' to argue that capitalism has always involved expropriation from the periphery. Stories about supply-chain restructuring, resource extraction, and Global South labor conditions illustrate this.",
+      "typical_article_signals": [
+        "Rare-earth mineral sourcing and supply-chain dependencies",
+        "Labor conditions in electronics manufacturing (Foxconn, etc.)",
+        "Reshoring or nearshoring of production driven by geopolitical concerns",
+        "Trade agreements and their effects on peripheral economies",
+        "Stories about 'cobalt mining' or 'lithium extraction' tied to tech supply chains"
+      ]
+    },
+    {
+      "id": "T7",
+      "theme": "Quantitative easing, monetary policy, and state-enabled upward redistribution",
+      "why_articles_may_matter": "Varoufakis's version of techno-feudalism emphasizes QE's macroeconomic effects; Brenner emphasizes politically driven upward redistribution. Central bank policies that inflate asset prices and benefit tech firms are relevant to the 'political capitalism' vs. 'real capitalism' question.",
+      "typical_article_signals": [
+        "Central bank interest rate decisions affecting tech valuations",
+        "Analysis of how QE or fiscal stimulus flows to asset holders",
+        "Government bailouts or subsidies directed at tech or finance",
+        "Debates about wealth inequality driven by asset-price inflation"
+      ]
+    }
+  ],
+  "article_relevance_hooks": [
+    {
+      "hook": "Tech firm announces major capital expenditure, infrastructure build, or R&D investment",
+      "counts_as": "direct",
+      "notes": "Directly supports C1—tech firms as productive capitalists, not passive rentiers"
+    },
+    {
+      "hook": "Tech firm announces massive stock buyback or dividend program while reducing investment",
+      "counts_as": "direct",
+      "notes": "Could challenge C1 if pattern is systematic, supporting the rentier/financialization reading"
+    },
+    {
+      "hook": "Government provides subsidies, contracts, or regulatory frameworks benefiting specific tech firms",
+      "counts_as": "direct",
+      "notes": "Supports C3—state's constitutive role in tech dominance"
+    },
+    {
+      "hook": "Export controls, sanctions, or industrial policy targeting the tech sector",
+      "counts_as": "direct",
+      "notes": "Supports C3—state power actively shaping tech competition, contra parcelized-sovereignty thesis"
+    },
+    {
+      "hook": "Antitrust ruling or investigation that characterizes a tech firm's revenue as monopoly rent vs. competitive profit",
+      "counts_as": "direct",
+      "notes": "Directly engages C2—the rent vs. profit classification"
+    },
+    {
+      "hook": "Analysis of advertising revenue showing relative importance of personalization vs. content/indexing",
+      "counts_as": "direct",
+      "notes": "Tests C4—whether user data or content indexing drives revenue"
+    },
+    {
+      "hook": "Privacy regulation reduces tech ad revenue significantly",
+      "counts_as": "illustrative",
+      "notes": "Could illustrate C4 if it shows data extraction is less central than claimed, or challenge it if revenue drops are massive"
+    },
+    {
+      "hook": "Copyright or content-licensing dispute between tech platforms and publishers/creators",
+      "counts_as": "illustrative",
+      "notes": "Illustrates the 'information communism' dynamic at the heart of Google's model per C4"
+    },
+    {
+      "hook": "Gig economy labor dispute or platform-worker classification ruling",
+      "counts_as": "illustrative",
+      "notes": "Illustrates T3; relevant to exploitation-vs-expropriation boundary but rarely adjudicates the core theoretical question"
+    },
+    {
+      "hook": "Developing-country resource extraction linked to tech supply chains",
+      "counts_as": "illustrative",
+      "notes": "Illustrates C5/C6 and T6—expropriation as constitutive of capitalist accumulation"
+    },
+    {
+      "hook": "Commentary using feudal metaphors (serfs, lords, fiefdoms) to describe tech economy",
+      "counts_as": "contextual",
+      "notes": "Shows cultural diffusion of the thesis Morozov critiques, but does not provide evidence for or against it"
+    },
+    {
+      "hook": "General story about wealth inequality or billionaire excess",
+      "counts_as": "contextual",
+      "notes": "Background to the 'parasitic ruling class' imagery but does not distinguish feudal from capitalist dynamics"
+    },
+    {
+      "hook": "AI development and competitive dynamics among tech firms",
+      "counts_as": "illustrative",
+      "notes": "Can illustrate C1 (massive productive investment) or C2 (competitive profit-seeking dynamics), depending on framing"
+    },
+    {
+      "hook": "Central bank policy affecting tech valuations or asset prices",
+      "counts_as": "illustrative",
+      "notes": "Illustrates T7 and Varoufakis's QE-based version of techno-feudalism; relevant to C5 on political capitalism"
     }
   ],
   "conceptual_boundaries": [
     {
-      "boundary": "Rent vs. profit in Marxist categories",
-      "explanation": "The feudal thesis requires that tech firm revenues be classified as rent (derived from positional monopoly over assets like data, IP, or network position) rather than profit (derived from capitalist commodity production subject to competitive pressures). Merely showing that firms are very profitable does not establish rent; one must show the specific mechanism of appropriation."
+      "boundary": "Feudalism as mode of production vs. feudalism as socio-political system",
+      "explanation": "Morozov distinguishes Marxist accounts (feudalism = economic logic of extra-economic surplus extraction) from non-Marxist accounts (feudalism = arbitrary private power, absence of rule of law). The techno-feudalism thesis conflates these. Articles should be evaluated for which dimension they engage."
     },
     {
-      "boundary": "Expropriation vs. exploitation as modes of surplus extraction",
-      "explanation": "Feudalism is defined by extra-economic (political, coercive) surplus extraction; capitalism by economic surplus extraction through nominally free labor contracts. The debate turns on whether tech-firm practices constitute a return to extra-economic extraction or an expansion of economic extraction. Data collection that occurs through voluntary service use is ambiguous on this axis."
+      "boundary": "Rent vs. profit in the Marxist sense",
+      "explanation": "Rent derives from ownership of a non-produced resource (land, IP) that allows value capture without productive activity. Profit derives from surplus value in production, even if the firm is automated and absorbs surplus generated elsewhere. Merely high returns do not indicate rent."
     },
     {
-      "boundary": "Refeudalization of socio-political relations vs. feudalism as a mode of production",
-      "explanation": "Morozov distinguishes weaker claims about 'refeudalization' (privatization of public power, erosion of rule of law, personal dependencies) from stronger claims that the economic mode of production has shifted. Evidence of the former does not establish the latter."
+      "boundary": "Exploitation vs. expropriation",
+      "explanation": "Exploitation occurs through the wage relation in production; expropriation occurs through extra-economic means (force, legal fiat, political power). The essay argues both are constitutive of capitalism; techno-feudalists wrongly treat expropriation as evidence of feudalism rather than of capitalism."
     },
     {
-      "boundary": "Individual firm tactics vs. systemic logic",
-      "explanation": "Predatory behavior by individual firms (lock-in, sabotage, IP abuse) does not prove the system is feudal. Marx saw individual capitalists as potentially predatory while the system remained capitalist. The feudal thesis requires showing a systemic shift in how accumulation operates, not just bad corporate behavior."
+      "boundary": "Primitive accumulation (one-time) vs. ongoing dispossession",
+      "explanation": "Brenner treats primitive accumulation as a historical stage that created the preconditions for capitalism. Harvey and others argue dispossession is ongoing. Morozov accepts ongoing expropriation but resists the conclusion that it makes capitalism non-capitalist."
+    },
+    {
+      "boundary": "Individual firm behavior vs. systemic logic",
+      "explanation": "An individual firm engaging in rent-seeking or predatory behavior does not prove the system is feudal. Capitalist competition includes sabotage and monopolization. The question is whether the system's overall logic has shifted, not whether particular firms behave badly."
+    },
+    {
+      "boundary": "Data extraction as business input vs. data extraction as primary profit source",
+      "explanation": "Morozov argues data extraction is an add-on to the main business of commodity production (like Spotify's playlists vs. its music-streaming commodity). Conflating data extraction with the entire business model is 'user-ism.'"
     }
   ],
   "relevance_red_flags": [
-    "Article discusses tech monopoly power or antitrust without engaging the rent-vs-profit distinction",
-    "Article mentions 'feudalism' or 'neo-feudalism' purely as rhetorical provocation without specifying an economic mechanism",
-    "Article reports on data privacy or surveillance without connecting to the question of how profits are generated",
-    "Article discusses wealth inequality or billionaire power without addressing whether the source is production or extraction",
-    "Article covers AI or automation job displacement without connecting to the theoretical question of whether automated firms earn profit or rent",
-    "Article discusses US-China tech competition without linking to the state's constitutive role in tech firm dominance",
-    "Article covers platform worker conditions (gig economy) without engaging the exploitation-vs-expropriation framework"
+    "Article uses 'feudal' or 'serf' purely as rhetorical flourish without engaging any economic mechanism—contextual at best",
+    "Article is about consumer privacy without any connection to economic logic of platform revenue—likely not relevant",
+    "Article about cryptocurrency or blockchain with no connection to rent/profit, state power, or platform dynamics—likely irrelevant",
+    "Article about a specific tech product launch with no discussion of investment, competition, or market structure—likely irrelevant",
+    "Article about social-media content moderation without economic or power-structure analysis—likely irrelevant",
+    "Article conflates all tech firms into monolithic 'Big Tech' without distinguishing business models—low analytical value for this theory",
+    "Article discusses wealth inequality in general terms without connecting to mechanisms of surplus extraction—contextual only"
   ],
   "open_questions": [
-    "Do tech firm profit rates behave like competitive capitalist profits (subject to equalization) or like persistent monopoly rents?",
-    "What proportion of Google's ad-revenue premium is attributable to behavioral data targeting vs. indexing-scale advantages?",
-    "Can the Brenner–Wallerstein impasse be resolved by a framework that treats expropriation as constitutive of capitalism rather than external to it?",
-    "Does the massive physical infrastructure investment by tech firms represent productive capital formation or infrastructure for extraction?",
-    "Has the American state's role in constituting tech dominance weakened or intensified in the era of US-China competition?"
+    "Can the Brenner-Wallerstein debate be definitively resolved, or does capitalism inherently resist clean analytical separation of exploitation from expropriation?",
+    "If tech firms are capitalist producers, what exactly is the commodity they produce, and how should we measure its value?",
+    "Does the rise of AI—requiring massive capital investment but potentially displacing labor at unprecedented scale—strengthen or weaken the techno-feudalism thesis?",
+    "How should we classify platform intermediation fees (App Store 30%, Amazon marketplace commissions)—as rent or as payment for a produced service?",
+    "To what extent does the US state's active role in tech industry dominance represent a new form of state capitalism rather than either 'normal' capitalism or techno-feudalism?",
+    "Does the increasing physical-infrastructure intensity of AI (data centers, energy, chips) empirically settle the 'intangibles economy' debate in favor of Morozov's position?",
+    "How does the Global South's relationship to digital platforms—as data source, labor supply, and consumer market—map onto the core-periphery dynamics Wallerstein described?"
   ]
 }

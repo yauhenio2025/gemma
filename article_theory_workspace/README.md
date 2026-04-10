@@ -33,6 +33,14 @@ Run only the article stage using committed theory preprocessing:
 ./run.sh --stage articles
 ```
 
+Run the calibrated second pass over the articles:
+
+```bash
+./run.sh --stage articles --overwrite --parallel 2
+```
+
+If any article still fails after automatic JSON repair and retries, the command exits nonzero and writes `outputs/failures.json`.
+
 Useful flags:
 
 ```bash

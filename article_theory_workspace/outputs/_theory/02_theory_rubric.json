@@ -1,90 +1,103 @@
 {
-  "relevance_gates": [
+  "relevance_tiers": [
     {
-      "id": "G1",
-      "question": "Does the article explicitly engage at least one of the following specific theoretical distinctions: rent vs. profit in Marxist categories, expropriation vs. exploitation as modes of surplus extraction, the state's constitutive (not merely regulatory) role in building tech dominance, or the tangible vs. intangible asset composition of tech firms?",
-      "failure_means": "Irrelevant. Mentioning tech firms, monopoly power, inequality, AI, or platform economics without engaging one of these specific analytical axes is topical overlap, not theoretical relevance."
+      "label": "irrelevant",
+      "definition": "The article has no discernible connection to any core claim (C1–C6), secondary theme (T1–T7), or conceptual boundary in the theory map. It concerns a domain (e.g., sports, entertainment gossip, unrelated science) that cannot illuminate any mechanism, actor, or institution discussed in the essay, even by analogy.",
+      "recommended_use": "ignore"
     },
     {
-      "id": "G2",
-      "question": "Does the article provide or analyze evidence at the level of mechanism (how surplus is generated, appropriated, or distributed) rather than at the level of outcome (firms are rich, workers are poor, markets are concentrated)?",
-      "failure_means": "Irrelevant. Outcome-level reporting is consistent with virtually any political-economy framework and does not discriminate between the techno-feudal thesis and its critique. A story about high profits, large market share, or wealth concentration fails this gate unless it decomposes the source."
+      "label": "contextual",
+      "definition": "The article touches the same broad domain (tech industry, inequality, digital economy, state power) but does not engage any specific mechanism the theory map identifies. Examples: general wealth-inequality stories, rhetorical uses of 'feudal' or 'serf' without economic analysis, consumer-privacy stories with no revenue-model discussion, or cultural commentary about tech power that never reaches the level of rent-vs-profit, state-role, or exploitation-vs-expropriation analysis.",
+      "recommended_use": "mention_in_passing"
     },
     {
-      "id": "G3",
-      "question": "Does the article address the systemic logic of accumulation rather than individual firm tactics or isolated episodes of bad corporate behavior?",
-      "failure_means": "Irrelevant or at best weakly illustrative. The theory map explicitly warns that predatory behavior by individual firms does not establish a feudal mode of production. An antitrust case, a data scandal, or a platform's abuse of sellers is anecdotal unless the article draws a systemic conclusion about the mode of surplus extraction."
+      "label": "marginal",
+      "definition": "The article provides illustrative or indirect evidence bearing on at least one core claim or secondary theme. It makes a theoretical mechanism more concrete or vivid without being able to adjudicate the mechanism by itself. Examples: a gig-labor classification ruling (illustrates T3 and the exploitation/expropriation boundary), a single data-center buildout announcement (illustrates C1 but cannot alone establish systematic investment patterns), a copyright dispute between a platform and publishers (illustrates C4's 'information communism' dynamic), a chip-export-control story (illustrates C3 but does not resolve the sovereignty question).",
+      "recommended_use": "use_as_minor_update"
     },
     {
-      "id": "G4",
-      "question": "If the article uses terms like 'feudalism,' 'neo-feudalism,' 'rentier,' 'surveillance capitalism,' or 'platform capitalism,' does it define a specific economic mechanism behind the label, or is the term used as rhetorical shorthand?",
-      "failure_means": "Irrelevant. Rhetorical invocations of feudalism or related labels without specifying whether the mechanism is extra-economic coercion, positional rent from data monopoly, intangible-asset rent, or some other defined channel are noise, not signal."
-    },
-    {
-      "id": "G5",
-      "question": "Is the article's evidence or argument specific enough to differentially support or challenge at least one of claims C1–C6, rather than being equally compatible with both the techno-feudal thesis and its critique?",
-      "failure_means": "Irrelevant. Evidence that is symmetrically consistent with opposing frameworks has zero discriminating power. For example, reporting that Google's ad revenue grew 20% is compatible with both 'productive commodity' and 'rent extraction' readings and therefore fails this gate."
+      "label": "relevant",
+      "definition": "The article provides direct, substantive evidence that can support or challenge a specific core claim's mechanism. It contains data, analysis, regulatory findings, or structured argument that engages rent-vs-profit classification, the scale and nature of tech capital expenditure, the state's constitutive vs. subordinate role, the relative importance of user data vs. content indexing for revenue, or the exploitation-expropriation relationship. Examples: an antitrust ruling that explicitly characterizes a firm's market power as monopoly rent vs. competitive advantage; a systematic analysis of capex-to-buyback ratios across major tech firms; an industrial-policy package with specified subsidies to named tech firms; an empirical study comparing personalized vs. contextual ad revenue."
     }
   ],
+  "relevance_questions": [
+    "Does the article engage any specific mechanism identified in C1–C6 (productive investment vs. rent extraction, rent vs. profit classification, state's constitutive role, user-data vs. content-indexing revenue, exploitation vs. expropriation, capitalism's adaptability)?",
+    "Does the article provide empirical data (spending figures, revenue breakdowns, regulatory findings, employment data) that could update a prior about any core claim?",
+    "Does the article concern actors central to the theory map (major tech firms, states enacting tech policy, platform workers, Global South suppliers) in a way that illuminates their structural role rather than just reporting an event?",
+    "Does the article address any secondary theme (T1–T7) with enough specificity to illustrate a contested mechanism, even if it cannot resolve it?",
+    "Does the article engage any conceptual boundary (rent vs. profit, exploitation vs. expropriation, individual firm vs. systemic logic, data-as-input vs. data-as-primary-source) even implicitly through its framing or findings?",
+    "Could the article be cited in the theory essay to make a specific paragraph more empirically grounded, or does it only share surface-level vocabulary?"
+  ],
   "what_counts_as_real_evidence": [
-    "Disaggregated analysis of Google's advertising revenue showing what fraction is attributable to behavioral targeting vs. query-relevance and indexing scale (directly tests C2)",
-    "Balance-sheet or capital-expenditure data comparing tech firms' tangible-to-intangible asset ratios against non-tech firms, with time-series context (directly tests C5)",
-    "Empirical analysis of tech firm profit-rate trajectories over time showing whether they equalize toward economy-wide averages or persist at above-average levels immune to competition (directly tests C4)",
-    "Documented evidence of specific state procurement contracts, DARPA funding lineages, Pentagon-Silicon Valley personnel flows, or classified surveillance partnerships that constituted (not merely assisted) a tech firm's market position (directly tests C3)",
-    "Counterfactual analysis or natural experiment showing the value of Google's or Meta's business with and without personalized behavioral data (directly tests C2)",
-    "Evidence that tech R&D spending produces measurable new productive processes or commodities vs. evidence that it is predominantly spent on lock-in, IP moats, or acqui-hires that suppress competition (directly tests C1)",
-    "Historical-comparative evidence demonstrating continuity or discontinuity between current tech extraction practices and prior capitalist expropriation (colonial, monopoly-era, etc.) (directly tests C6)",
-    "Sector-wide data showing whether the rent share of national income has structurally displaced the profit share in tech-dominated economies (directly tests C6)"
+    "Systematic data on tech firm capital expenditure, R&D spending, or infrastructure investment over time (supports or challenges C1)",
+    "Revenue-stream breakdowns distinguishing advertising, cloud, hardware, subscriptions, licensing, and marketplace commissions (bears on C1, C2, C4)",
+    "Antitrust rulings, regulatory findings, or expert economic testimony that explicitly classifies a revenue source as monopoly rent, competitive profit, or innovation surplus (directly engages C2)",
+    "Government policy documents, subsidy programs, procurement contracts, or export-control regimes that name specific tech firms or sectors as beneficiaries or targets (directly engages C3)",
+    "Empirical studies or A/B-test results comparing the revenue impact of personalized behavioral targeting vs. contextual or content-quality-driven advertising (directly tests C4)",
+    "Quantitative analysis of profit-investment ratios, buyback-to-capex ratios, or cash-deployment patterns across the tech sector (bears on C1, C5, T2)",
+    "Evidence of a structural break in accumulation patterns economy-wide—not just anecdotes of individual firm behavior—that could support or undermine C5's claim about the Brenner-Wallerstein debate",
+    "Historical or comparative evidence that capitalist systems have incorporated rent, monopoly, expropriation, and state violence as constitutive features, not aberrations (supports C6)"
+  ],
+  "what_counts_as_contextual_or_illustrative_relevance": [
+    "A single tech firm's data-center or infrastructure announcement (illustrates C1 but one data point cannot establish a structural pattern)",
+    "A gig-worker reclassification case or platform-labor dispute (illustrates T3 and the exploitation-expropriation boundary without resolving it)",
+    "A chip-export-control or sanctions story that shows state power shaping tech competition (illustrates C3 without proving sovereignty has not been parcelized)",
+    "A copyright or content-licensing dispute between platforms and publishers (illustrates C4's 'information communism' mechanism)",
+    "An App Store fee dispute or marketplace commission controversy (illustrates C2's rent-vs-profit question without adjudicating it)",
+    "A rare-earth mining or cobalt-supply-chain story linked to tech products (illustrates C5/C6 and T6 on ongoing expropriation)",
+    "Privacy regulation implementation and measured revenue impact (illustrates C4 if it reveals how much revenue depends on personal data vs. other factors)",
+    "A central bank policy decision affecting tech valuations (illustrates T7 and the political-capitalism dimension of C5)",
+    "AI investment or competitive dynamics among tech firms (illustrates C1 if focused on capital intensity, C2 if focused on competitive profit-seeking)",
+    "Industrial-policy legislation (CHIPS Act, EU digital sovereignty, national AI strategies) that channels state resources toward tech (illustrates C3)"
   ],
   "what_does_not_count": [
-    "Tech company revenue, stock price, or market capitalization reports without decomposition of the surplus-extraction mechanism",
-    "Antitrust lawsuits or regulatory actions unless they include evidence that specifically distinguishes rent from profit or demonstrates state constitution of market position",
-    "Reports on tech layoffs or hiring surges, which are ambiguous between capitalist restructuring and rentier behavior",
-    "New AI product announcements without analysis of whether they represent genuine commodity production or mechanisms of lock-in and data extraction",
-    "Privacy regulation developments (GDPR, state privacy laws) unless linked to quantified evidence about how much of tech revenue depends on the data practices being regulated",
-    "Gig-economy or platform-worker conditions stories unless they explicitly engage the exploitation-vs-expropriation framework",
-    "US-China tech competition reporting unless it specifically addresses the state's constitutive role in building firm dominance rather than just describing geopolitical tension",
-    "Wealth inequality statistics or billionaire rankings that describe distributional outcomes without analyzing the production-vs-extraction source",
-    "Opinion pieces comparing tech CEOs to feudal lords, using 'digital serfdom' metaphors, or invoking 'late capitalism' without specifying a mechanism",
-    "Reports on data center construction unless contextualized within balance-sheet analysis of tangible vs. intangible asset composition",
-    "Generic lobbying expenditure data, which shows political influence but does not test whether the state constituted or merely accommodates tech power",
-    "Cloud computing market growth figures, which are compatible with both productive-investment and rent-extraction interpretations"
+    "Articles about consumer tech product launches, features, or reviews with no discussion of investment, competition, market structure, or revenue models",
+    "Articles about social-media content moderation, misinformation, or online harassment with no connection to economic structure or power dynamics",
+    "Articles using 'feudal,' 'serf,' or 'lord' purely as rhetorical color without engaging any economic mechanism—these confirm cultural diffusion of the metaphor but provide zero evidence for or against the thesis",
+    "Articles about cryptocurrency, blockchain, or DeFi with no connection to rent/profit dynamics, state power, or platform economics",
+    "Articles about individual billionaire lifestyles, philanthropy, or personal scandals with no structural analysis of how wealth was accumulated",
+    "Articles about general wealth inequality that do not connect to any mechanism of surplus extraction, rent, or profit",
+    "Articles about data breaches or cybersecurity incidents that concern security rather than the economic logic of data use",
+    "Articles that conflate all tech firms into undifferentiated 'Big Tech' without distinguishing business models, revenue streams, or investment patterns",
+    "Articles about tech-sector stock-price movements driven by earnings sentiment rather than structural analysis of what those earnings represent"
   ],
   "support_strength_scale": [
     {
       "label": "none",
-      "definition": "The article fails one or more relevance gates. It does not engage any specific claim mechanism, provides only outcome-level or rhetorical overlap, or its evidence is symmetrically compatible with both the techno-feudal thesis and its critique. Assign this grade by default unless there is an affirmative reason to upgrade."
+      "definition": "The article provides no information that could update confidence in any core claim. It is either irrelevant or purely contextual."
     },
     {
       "label": "weak",
-      "definition": "The article passes all relevance gates but provides only indirect or partial support for one claim. For example, it reports tech firms' rising capital expenditure on physical infrastructure (consistent with C1/C5) but does not demonstrate that this spending is productively deployed rather than moat-building. Or it describes a state-tech partnership (consistent with C3) but does not establish that the state constituted the firm's market position. The evidence is suggestive but does not rule out the opposing interpretation."
+      "definition": "The article provides a single illustrative data point or anecdote consistent with a core claim but insufficient to establish a pattern. Example: one firm's quarterly capex increase (for C1), one government contract award (for C3). Direction is right but weight is minimal."
     },
     {
       "label": "moderate",
-      "definition": "The article passes all relevance gates and provides evidence that bears directly on the mechanism of at least one specific claim, with enough analytical depth to shift the balance of evidence. For example, a disaggregated revenue analysis showing Google's search-ad premium persists even without behavioral targeting (supporting C2), or profit-rate data showing tech firm returns converging toward sector averages (supporting C4). The evidence favors the thesis but could be contested on methodological or scope grounds."
+      "definition": "The article provides structured evidence—multiple data points, a regulatory finding, an analytical framework, or a sectoral trend—that corroborates a core claim's mechanism in a non-trivial way. Example: a multi-firm comparison of R&D spending trends (for C1), a detailed antitrust ruling analyzing the source of market power (for C2), or an industrial-policy package with named beneficiaries and budget figures (for C3)."
     },
     {
       "label": "strong",
-      "definition": "The article passes all relevance gates and provides evidence that decisively tests a core mechanism of one or more claims, using methodology or data that would be difficult to dismiss. For example, a rigorous counterfactual showing Google's revenue with and without personalization (C2), or sector-wide profit-rate equalization data over a meaningful time horizon (C4), or declassified procurement records showing the state built a firm's core technology (C3). The evidence substantially narrows the space for the opposing interpretation."
+      "definition": "The article provides systematic, hard-to-dismiss evidence that directly confirms a core claim's mechanism at a structural level. Example: economy-wide data showing tech-sector capital expenditure rising faster than profit distributions (for C1), a landmark regulatory determination that a platform's revenue derives from competitive production rather than monopoly position (for C2), or declassified evidence of state-tech coordination in strategic planning (for C3). Strong support should be rare; most articles will not reach this level."
     }
   ],
   "challenge_strength_scale": [
     {
       "label": "none",
-      "definition": "The article fails one or more relevance gates or provides no evidence that discriminates against any specific claim. Surface-level descriptions of tech monopoly power, high profits, or inequality do not constitute a challenge unless they decompose the extraction mechanism."
+      "definition": "The article provides no information that could reduce confidence in any core claim."
     },
     {
       "label": "weak",
-      "definition": "The article passes all relevance gates and provides evidence mildly inconsistent with one claim but without sufficient analytical depth or specificity to be compelling. For example, it notes tech firm profit margins have remained persistently high (potentially challenging C4) but does not control for whether this reflects Schumpeterian temporary rents from genuine innovation or structural monopoly rents immune to competition."
+      "definition": "The article provides a single data point or anecdote in tension with a core claim but easily absorbed by existing caveats or boundary conditions. Example: one firm's buyback exceeding its capex in one quarter (against C1), or a tech firm successfully lobbying against one regulation (against C3). The claim can accommodate this without modification."
     },
     {
       "label": "moderate",
-      "definition": "The article passes all relevance gates and provides evidence that directly pressures the mechanism of a specific claim. For example, a study showing that behavioral data targeting accounts for the majority of Google's ad-revenue premium (challenging C2), or market-to-book ratio analysis showing massive unrecorded intangible value in tech firms (challenging C5), or evidence that tech firm profit rates have been structurally decoupled from competitive pressures for 15+ years (challenging C4). The evidence creates a genuine problem for the claim but does not conclusively refute it."
+      "definition": "The article provides structured evidence that creates genuine tension with a core claim's mechanism, requiring at minimum a qualifying footnote or narrowing of scope. Example: a sectoral analysis showing IP licensing revenue growing faster than revenue from commodity production across multiple firms (against C1/C2), or evidence that privacy-regulation-driven revenue losses are large enough to suggest user data is more central than C4 claims."
     },
     {
       "label": "strong",
-      "definition": "The article passes all relevance gates and provides evidence of a qualitative break in the mode of surplus extraction—not merely quantitative intensification—that existing capitalist categories genuinely cannot accommodate. For example, rigorous demonstration that the rent share has structurally displaced the profit share in tech-dominated economies (challenging C6), or evidence that tech firms now exercise extra-economic coercion indistinguishable from political sovereignty (challenging C3's state-centrism). This grade requires the article to engage and overcome the thesis's specific defenses, not merely present contrary data."
+      "definition": "The article provides systematic evidence that, if accurate, would require significant revision of a core claim or the overall thesis. Example: economy-wide evidence that productive investment has structurally decoupled from profits specifically in the tech sector (against C1), or demonstration that tech firms have effectively overridden state sovereignty in ways states could not prevent despite trying (against C3). Strong challenges should be rare and must engage the mechanism, not just the surface claim."
     }
   ],
-  "default_verdict_rule": "The default verdict is 'none' for both support and challenge. Any article is presumed irrelevant to the theory map unless it affirmatively passes all five relevance gates (G1–G5). Topical proximity to tech industry, digital economy, platform power, AI, data privacy, inequality, or US-China competition is insufficient. The evaluator must resist the temptation to award weak support or challenge merely because the article 'is about tech companies' or 'mentions monopoly.' If in doubt, grade 'none.' Grade inflation—treating rhetorical overlap, anecdotal consistency, or thematic adjacency as genuine evidence—is the primary error to avoid."
+  "anti_grade_inflation_rule": "Do not promote an article from 'contextual' to 'marginal' merely because it shares vocabulary (rent, monopoly, platform, extraction, data) with the theory map. The article must engage a specific mechanism—how revenue is generated, how surplus is distributed, how state and firm interact structurally, how exploitation and expropriation relate—not just inhabit the same semantic neighborhood. Do not promote from 'marginal' to 'relevant' unless the article provides data, findings, or structured argument that could actually update a Bayesian prior about a core claim rather than merely illustrating what the claim describes. A story about one tech company doing one thing is almost never 'relevant'—it is at best 'marginal.' A story that uses the word 'feudal' is not automatically engaging the techno-feudalism thesis. Support and challenge strengths of 'strong' should be genuinely uncommon; most substantive articles will be 'moderate' at best.",
+  "anti_false_negative_rule": "Do not dismiss an article as 'irrelevant' merely because it does not use the essay's theoretical vocabulary or cite any theorist. An article about state industrial policy, geopolitics, data centers, AI infrastructure buildout, platform lock-in dynamics, talent flows, sanctions regimes, labor displacement, or public legitimacy of tech power may be contextually or marginally relevant even when it does not mention rent, profit, feudalism, or Marx. Articles about capital expenditure, infrastructure investment, government subsidies, export controls, antitrust enforcement, advertising-market dynamics, IP disputes, platform fees, gig labor, Global South supply chains, or central bank policy should be evaluated against the theory map's hooks and secondary themes before being classified as irrelevant. If an article describes facts that a proponent or critic of the thesis would cite, it has at least marginal relevance. When in doubt between 'irrelevant' and 'contextual,' or between 'contextual' and 'marginal,' choose the higher tier and note the uncertainty.",
+  "default_verdict_rule": "If an article does not clearly match any relevance hook, secondary theme, core claim, or conceptual boundary, classify it as 'irrelevant' with support and challenge strengths of 'none.' If it matches surface vocabulary but no mechanism, classify as 'contextual' with 'none.' If it illustrates a mechanism through a single instance or narrow case, classify as 'marginal' with 'weak' support or challenge. Reserve 'relevant' for articles that provide data, analysis, or findings engaging a core claim's mechanism with enough specificity to warrant a substantive update. The burden of proof for relevance is low (any plausible connection to a mechanism), but the burden for high support or challenge strength is high (structured evidence, not anecdote)."
 }
