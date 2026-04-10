@@ -12,6 +12,7 @@ import urllib.error
 import urllib.request
 import xml.etree.ElementTree as ET
 import zipfile
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -51,7 +52,7 @@ class OllamaClient:
         system_prompt: str = DEFAULT_SYSTEM_PROMPT,
         temperature: float = 0.1,
         num_ctx: int | None = 131072,
-        timeout_seconds: int = 600,
+        timeout_seconds: int = 3600,
     ) -> None:
         self.model = model
         self.base_url = base_url.rstrip("/")
@@ -64,7 +65,7 @@ class OllamaClient:
         payload: dict[str, Any] = {
             "model": self.model,
             "messages": [{"role": "system", "content": self.system_prompt}, *messages],
-            "stream": False,
+            "stream": True,
             "format": "json",
             "options": {
                 "temperature": self.temperature,
@@ -80,12 +81,17 @@ class OllamaClient:
         )
         try:
             with urllib.request.urlopen(request, timeout=self.timeout_seconds) as response:
-                body = json.loads(response.read().decode("utf-8"))
+                content_parts: list[str] = []
+                for line in response:
+                    chunk = json.loads(line.decode("utf-8"))
+                    content_parts.append(chunk.get("message", {}).get("content", ""))
+                    if chunk.get("done"):
+                        break
         except urllib.error.URLError as exc:
             raise RuntimeError(
                 f"Unable to reach Ollama at {self.base_url}. Start the server or pass --ollama-url."
             ) from exc
-        content = body.get("message", {}).get("content", "").strip()
+        content = "".join(content_parts).strip()
         return parse_json_payload(content)
 
 
@@ -243,9 +249,23 @@ class TheoryArticleRunner:
         if not other_documents:
             raise RuntimeError(f"No supported comparison files found in {self.others_dir}")
 
+        max_workers = int(os.environ.get("GEMMA_PARALLEL", "3"))
         analyses: list[dict[str, Any]] = []
-        for article in other_documents:
-            analyses.append(self._analyze_article(article, theory_map, theory_rubric))
+        if max_workers > 1:
+            with ThreadPoolExecutor(max_workers=max_workers) as pool:
+                futures = {
+                    pool.submit(self._analyze_article, article, theory_map, theory_rubric): article
+                    for article in other_documents
+                }
+                for future in as_completed(futures):
+                    article = futures[future]
+                    try:
+                        analyses.append(future.result())
+                    except Exception as exc:
+                        print(f"FAILED: {article.slug}: {exc}")
+        else:
+            for article in other_documents:
+                analyses.append(self._analyze_article(article, theory_map, theory_rubric))
 
         index = self._write_index(theory_documents, analyses)
         return {
@@ -786,7 +806,9 @@ def main() -> int:
     parser.add_argument("--min-confidence", type=float, default=0.7)
     parser.add_argument("--max-reconcile-rounds", type=int, default=2)
     parser.add_argument("--num-ctx", type=int, default=131072)
+    parser.add_argument("--parallel", type=int, default=3, help="Number of articles to process concurrently")
     args = parser.parse_args()
+    os.environ["GEMMA_PARALLEL"] = str(args.parallel)
 
     if args.provider == "anthropic":
         client = AnthropicClient(
