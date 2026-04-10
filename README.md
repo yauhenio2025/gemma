@@ -10,6 +10,8 @@ The current workflow is built for:
 
 The runner is intentionally skeptical. It does not treat loose overlap about AI, jobs, regulation, growth, or China as substantive engagement unless an article actually bears on the theory's mechanism or categories.
 
+The theory preprocessing stage can be run once with Claude Opus 4.6, committed, and reused by article-only runs on another machine.
+
 ## Run
 
 ```bash
@@ -22,6 +24,18 @@ Or:
 ./article_theory_workspace/run.sh
 ```
 
+Preprocess the theory only with Anthropic Claude Opus 4.6 and adaptive max-effort thinking:
+
+```bash
+uv run gemma-article-theory-analysis --provider anthropic --stage theory --overwrite
+```
+
+Run only article analysis against the committed preprocessed theory files:
+
+```bash
+uv run gemma-article-theory-analysis --stage articles
+```
+
 ## Test
 
 ```bash
@@ -32,4 +46,5 @@ uv run --extra dev pytest
 
 - `article_theory_workspace/` contains the portable working folder.
 - The current source corpus under `article_theory_workspace/nlr/` and `article_theory_workspace/others/` is versioned in git.
-- Extracted text caches and generated outputs stay out of git by default.
+- Extracted text caches and generated article outputs stay out of git by default.
+- The preprocessed theory outputs under `article_theory_workspace/outputs/_theory/` are versioned so remote machines can skip the theory stage.

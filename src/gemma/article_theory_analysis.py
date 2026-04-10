@@ -2,10 +2,12 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import shutil
 import subprocess
 import textwrap
+import time
 import urllib.error
 import urllib.request
 import xml.etree.ElementTree as ET
@@ -19,7 +21,8 @@ from bs4 import BeautifulSoup
 SUPPORTED_EXTENSIONS = {".docx", ".htm", ".html", ".md", ".pdf", ".txt"}
 STRENGTH_ORDER = {"none": 0, "weak": 1, "moderate": 2, "strong": 3}
 DEFAULT_WORKSPACE = Path("article_theory_workspace")
-DEFAULT_MODEL = "gemma4-31b-bf16-256k"
+DEFAULT_OLLAMA_MODEL = "gemma4-31b-bf16-256k"
+DEFAULT_ANTHROPIC_MODEL = "claude-opus-4-6"
 DEFAULT_SYSTEM_PROMPT = """You are evaluating whether a non-academic text genuinely bears on a political-economy theory essay.
 
 Default assumption: the pairing is only weakly related or irrelevant unless the later text clearly engages the theory's actual mechanism, categories, or evidence.
@@ -86,6 +89,94 @@ class OllamaClient:
         return parse_json_payload(content)
 
 
+class AnthropicClient:
+    def __init__(
+        self,
+        model: str = DEFAULT_ANTHROPIC_MODEL,
+        api_key_env: str = "ANTHROPIC_API_KEY",
+        base_url: str = "https://api.anthropic.com",
+        system_prompt: str = DEFAULT_SYSTEM_PROMPT,
+        max_tokens: int = 32_000,
+        effort: str = "max",
+        thinking_type: str = "adaptive",
+        timeout_seconds: int = 1800,
+        max_retries: int = 3,
+    ) -> None:
+        api_key = os.environ.get(api_key_env)
+        if not api_key:
+            raise RuntimeError(f"Missing {api_key_env}; export it before using the Anthropic provider.")
+        self.model = model
+        self.api_key = api_key
+        self.base_url = base_url.rstrip("/")
+        self.system_prompt = system_prompt
+        self.max_tokens = max_tokens
+        self.effort = effort
+        self.thinking_type = thinking_type
+        self.timeout_seconds = timeout_seconds
+        self.max_retries = max_retries
+
+    def chat_json(self, messages: list[dict[str, str]]) -> dict[str, Any]:
+        payload: dict[str, Any] = {
+            "model": self.model,
+            "max_tokens": self.max_tokens,
+            "system": self.system_prompt,
+            "messages": messages,
+            "output_config": {
+                "effort": self.effort,
+            },
+        }
+        if self.thinking_type != "disabled":
+            payload["thinking"] = {"type": self.thinking_type}
+
+        body = self._post_messages(payload)
+        text = "".join(
+            block.get("text", "")
+            for block in body.get("content", [])
+            if isinstance(block, dict) and block.get("type") == "text"
+        ).strip()
+        if not text:
+            content_types = [
+                block.get("type", "unknown")
+                for block in body.get("content", [])
+                if isinstance(block, dict)
+            ]
+            raise RuntimeError(f"Anthropic response contained no text block; content types: {content_types}")
+        return parse_json_payload(text)
+
+    def _post_messages(self, payload: dict[str, Any]) -> dict[str, Any]:
+        data = json.dumps(payload).encode("utf-8")
+        for attempt in range(1, self.max_retries + 1):
+            request = urllib.request.Request(
+                url=f"{self.base_url}/v1/messages",
+                data=data,
+                headers={
+                    "Content-Type": "application/json",
+                    "anthropic-version": "2023-06-01",
+                    "x-api-key": self.api_key,
+                },
+                method="POST",
+            )
+            try:
+                with urllib.request.urlopen(request, timeout=self.timeout_seconds) as response:
+                    return json.loads(response.read().decode("utf-8"))
+            except urllib.error.HTTPError as exc:
+                body = exc.read().decode("utf-8", errors="replace")
+                if exc.code in {408, 409, 429, 500, 502, 503, 529} and attempt < self.max_retries:
+                    time.sleep(2**attempt)
+                    continue
+                raise RuntimeError(
+                    f"Anthropic request failed with HTTP {exc.code}: {body[:500]}"
+                ) from exc
+            except urllib.error.URLError as exc:
+                if attempt < self.max_retries:
+                    time.sleep(2**attempt)
+                    continue
+                raise RuntimeError(
+                    f"Unable to reach Anthropic at {self.base_url}. Check network access."
+                ) from exc
+        raise RuntimeError("Anthropic request failed after retries.")
+
+
 class TheoryArticleRunner:
     def __init__(
         self,
@@ -109,27 +200,48 @@ class TheoryArticleRunner:
         self.theory_dir = workspace / "nlr"
         self.others_dir = workspace / "others"
 
-    def run(self) -> dict[str, Any]:
+    def run(self, stage: str = "all") -> dict[str, Any]:
         ensure_workspace(self.workspace)
         theory_documents = load_documents(self.theory_dir, self.cache_dir / "nlr", self.max_theory_chars)
         if not theory_documents:
             raise RuntimeError(f"No supported theory files found in {self.theory_dir}")
-        other_documents = load_documents(self.others_dir, self.cache_dir / "others", self.max_article_chars)
-        if not other_documents:
-            raise RuntimeError(f"No supported comparison files found in {self.others_dir}")
 
         theory_outputs_dir = self.outputs_dir / "_theory"
         theory_outputs_dir.mkdir(parents=True, exist_ok=True)
-        theory_map = self._load_or_run(
-            theory_outputs_dir / "01_theory_map.json",
-            self._build_theory_map,
-            theory_documents,
-        )
-        theory_rubric = self._load_or_run(
-            theory_outputs_dir / "02_theory_rubric.json",
-            self._build_theory_rubric,
-            theory_map,
-        )
+        theory_map_path = theory_outputs_dir / "01_theory_map.json"
+        theory_rubric_path = theory_outputs_dir / "02_theory_rubric.json"
+        if stage in {"all", "theory"}:
+            theory_map = self._load_or_run(
+                theory_map_path,
+                self._build_theory_map,
+                theory_documents,
+            )
+            theory_rubric = self._load_or_run(
+                theory_rubric_path,
+                self._build_theory_rubric,
+                theory_map,
+            )
+        elif stage == "articles":
+            theory_map = self._load_required(theory_map_path, "preprocessed theory map")
+            theory_rubric = self._load_required(theory_rubric_path, "preprocessed theory rubric")
+        else:
+            raise ValueError(f"Unknown stage: {stage}")
+
+        if stage == "theory":
+            index = self._write_theory_index(theory_documents, theory_map_path, theory_rubric_path)
+            return {
+                "workspace": str(self.workspace),
+                "model": self.client.model,
+                "stage": stage,
+                "theory_files": [str(doc.path) for doc in theory_documents],
+                "theory_index_path": str(index),
+                "theory_map_path": str(theory_map_path),
+                "theory_rubric_path": str(theory_rubric_path),
+            }
+
+        other_documents = load_documents(self.others_dir, self.cache_dir / "others", self.max_article_chars)
+        if not other_documents:
+            raise RuntimeError(f"No supported comparison files found in {self.others_dir}")
 
         analyses: list[dict[str, Any]] = []
         for article in other_documents:
@@ -139,6 +251,7 @@ class TheoryArticleRunner:
         return {
             "workspace": str(self.workspace),
             "model": self.client.model,
+            "stage": stage,
             "theory_files": [str(doc.path) for doc in theory_documents],
             "article_count": len(analyses),
             "index_path": str(index),
@@ -588,6 +701,34 @@ class TheoryArticleRunner:
         path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
         return payload
 
+    def _load_required(self, path: Path, label: str) -> dict[str, Any]:
+        if not path.exists():
+            raise RuntimeError(
+                f"Missing {label} at {path}. Run `--stage theory` first and commit the generated output."
+            )
+        return json.loads(path.read_text(encoding="utf-8"))
+
+    def _write_theory_index(
+        self,
+        theory_documents: list[Document],
+        theory_map_path: Path,
+        theory_rubric_path: Path,
+    ) -> Path:
+        lines = [
+            "# Preprocessed Theory Outputs",
+            "",
+            f"- Model: `{self.client.model}`",
+            f"- Theory files: {', '.join(doc.path.name for doc in theory_documents)}",
+            f"- Theory map: `{theory_map_path.relative_to(self.workspace)}`",
+            f"- Theory rubric: `{theory_rubric_path.relative_to(self.workspace)}`",
+            "",
+            "These files are committed so remote machines can run only the article-analysis stage.",
+            "",
+        ]
+        index_md = self.outputs_dir / "_theory" / "README.md"
+        index_md.write_text("\n".join(lines), encoding="utf-8")
+        return index_md
+
     def _write_index(self, theory_documents: list[Document], analyses: list[dict[str, Any]]) -> Path:
         index_json = self.outputs_dir / "index.json"
         payload = {
@@ -627,11 +768,18 @@ class TheoryArticleRunner:
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Run a multi-pass theory-vs-article analysis pipeline through Ollama."
+        description="Run a multi-pass theory-vs-article analysis pipeline."
     )
     parser.add_argument("--workspace", type=Path, default=DEFAULT_WORKSPACE)
-    parser.add_argument("--model", default=DEFAULT_MODEL)
+    parser.add_argument("--stage", choices=("all", "theory", "articles"), default="all")
+    parser.add_argument("--provider", choices=("ollama", "anthropic"), default="ollama")
+    parser.add_argument("--model")
     parser.add_argument("--ollama-url", default="http://localhost:11434")
+    parser.add_argument("--anthropic-url", default="https://api.anthropic.com")
+    parser.add_argument("--anthropic-api-key-env", default="ANTHROPIC_API_KEY")
+    parser.add_argument("--anthropic-max-tokens", type=int, default=32_000)
+    parser.add_argument("--anthropic-effort", choices=("low", "medium", "high", "max"), default="max")
+    parser.add_argument("--anthropic-thinking", choices=("adaptive", "disabled"), default="adaptive")
     parser.add_argument("--overwrite", action="store_true")
     parser.add_argument("--max-theory-chars", type=int, default=180_000)
     parser.add_argument("--max-article-chars", type=int, default=90_000)
@@ -640,20 +788,32 @@ def main() -> int:
     parser.add_argument("--num-ctx", type=int, default=131072)
     args = parser.parse_args()
 
-    runner = TheoryArticleRunner(
-        workspace=args.workspace,
-        client=OllamaClient(
-            model=args.model,
+    if args.provider == "anthropic":
+        client = AnthropicClient(
+            model=args.model or DEFAULT_ANTHROPIC_MODEL,
+            api_key_env=args.anthropic_api_key_env,
+            base_url=args.anthropic_url,
+            max_tokens=args.anthropic_max_tokens,
+            effort=args.anthropic_effort,
+            thinking_type=args.anthropic_thinking,
+        )
+    else:
+        client = OllamaClient(
+            model=args.model or DEFAULT_OLLAMA_MODEL,
             base_url=args.ollama_url,
             num_ctx=args.num_ctx,
-        ),
+        )
+
+    runner = TheoryArticleRunner(
+        workspace=args.workspace,
+        client=client,
         overwrite=args.overwrite,
         max_theory_chars=args.max_theory_chars,
         max_article_chars=args.max_article_chars,
         min_confidence=args.min_confidence,
         max_reconcile_rounds=args.max_reconcile_rounds,
     )
-    result = runner.run()
+    result = runner.run(stage=args.stage)
     print(json.dumps(result, ensure_ascii=False, indent=2))
     return 0
 

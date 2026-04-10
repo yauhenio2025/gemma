@@ -21,6 +21,18 @@ Or run the wrapper in this folder:
 ./run.sh
 ```
 
+Run the theory preprocessing stage only:
+
+```bash
+./run.sh --provider anthropic --stage theory --overwrite
+```
+
+Run only the article stage using committed theory preprocessing:
+
+```bash
+./run.sh --stage articles
+```
+
 Useful flags:
 
 ```bash
@@ -48,6 +60,8 @@ Supported input types:
 - `.docx`
 - `.pdf`
 
-The workspace keeps generated cache and outputs out of git.
+The workspace keeps generated cache and article outputs out of git.
 
 The current source corpus in `nlr/` and `others/` is versioned so the seeded materials travel with the repo.
+
+The preprocessed theory outputs in `outputs/_theory/` are also versioned so another machine can run only `--stage articles`.

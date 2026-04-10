@@ -2,3 +2,6 @@ cache/*
 !cache/.gitkeep
 outputs/*
 !outputs/.gitkeep
+!outputs/_theory/
+!outputs/_theory/*.json
+!outputs/_theory/README.md

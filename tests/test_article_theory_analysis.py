@@ -13,9 +13,11 @@ class FakeClient:
     def __init__(self, responses: list[dict]):
         self.responses = list(responses)
         self.model = "fake-model"
+        self.calls: list[list[dict[str, str]]] = []
 
     def chat_json(self, messages: list[dict[str, str]]) -> dict:
         assert messages
+        self.calls.append(messages)
         if not self.responses:
             raise AssertionError("No fake responses left for chat_json")
         return self.responses.pop(0)
@@ -209,3 +211,122 @@ def test_runner_writes_outputs_and_reconcile_round(tmp_path: Path) -> None:
     assert "largely irrelevant" in report_path.read_text(encoding="utf-8")
     assert (workspace / "outputs" / "wsj" / "04b_reconcile_round_1.json").exists()
     assert (workspace / "outputs" / "index.md").exists()
+
+
+def test_articles_stage_reuses_preprocessed_theory(tmp_path: Path) -> None:
+    workspace = tmp_path / "workspace"
+    (workspace / "nlr").mkdir(parents=True)
+    (workspace / "others").mkdir(parents=True)
+    theory_output = workspace / "outputs" / "_theory"
+    theory_output.mkdir(parents=True)
+
+    (workspace / "nlr" / "morozov.txt").write_text(
+        "The theory says platform capitalism is still capitalism, not techno-feudalism.",
+        encoding="utf-8",
+    )
+    (workspace / "others" / "article.txt").write_text(
+        "A short article about an AI policy fight.",
+        encoding="utf-8",
+    )
+    (theory_output / "01_theory_map.json").write_text(
+        """{
+          "thesis": "Capitalism has not turned into techno-feudalism.",
+          "core_claims": [
+            {
+              "id": "C1",
+              "claim": "Digital firms still operate through capitalist accumulation.",
+              "why_it_matters": "It rejects the feudal thesis.",
+              "support_requirements": ["Mechanism-level evidence."],
+              "challenge_requirements": ["Mechanism-level contradiction."],
+              "false_positive_matches": ["Generic AI policy news."]
+            }
+          ],
+          "conceptual_boundaries": [],
+          "relevance_red_flags": [],
+          "open_questions": []
+        }""",
+        encoding="utf-8",
+    )
+    (theory_output / "02_theory_rubric.json").write_text(
+        """{
+          "relevance_gates": [
+            {"id": "G1", "question": "Does it address mechanism?", "failure_means": "Irrelevant."}
+          ],
+          "what_counts_as_real_evidence": ["Mechanism-level evidence."],
+          "what_does_not_count": ["Topical overlap."],
+          "support_strength_scale": [{"label": "none", "definition": "No support."}],
+          "challenge_strength_scale": [{"label": "none", "definition": "No challenge."}],
+          "default_verdict_rule": "Default to irrelevant."
+        }""",
+        encoding="utf-8",
+    )
+
+    fake_client = FakeClient(
+        [
+            {
+                "article_kind": "news",
+                "summary": "A short policy story.",
+                "main_claims": ["Policy conflict."],
+                "evidence_or_facts": [],
+                "rhetorical_frames": [],
+                "state_and_policy_content": [],
+                "capital_accumulation_content": [],
+                "labor_content": [],
+                "what_is_missing_for_theory_evaluation": ["No mechanism-level evidence."],
+            },
+            {
+                "overall_initial_verdict": "irrelevant",
+                "overall_reason": "No mechanism-level contact.",
+                "claim_assessments": [
+                    {
+                        "claim_id": "C1",
+                        "engagement_type": "none",
+                        "support_strength": "none",
+                        "challenge_strength": "none",
+                        "support_points": [],
+                        "challenge_points": [],
+                        "why_limited": "Only topical overlap.",
+                    }
+                ],
+                "article_level_points_for_theory": [],
+                "article_level_points_against_theory": [],
+                "irrelevance_reasons": ["No mechanism-level evidence."],
+                "confidence": 0.9,
+            },
+            {
+                "grade_inflation_detected": False,
+                "problems_with_initial_audit": [],
+                "missing_support_points": [],
+                "missing_challenge_points": [],
+                "corrected_verdict": "irrelevant",
+                "corrections_by_claim": [
+                    {
+                        "claim_id": "C1",
+                        "corrected_support_strength": "none",
+                        "corrected_challenge_strength": "none",
+                        "note": "No contact.",
+                    }
+                ],
+                "confidence": 0.9,
+            },
+            {
+                "overall_verdict": "irrelevant",
+                "confidence": 0.9,
+                "one_paragraph_verdict": "The article is irrelevant to the theory.",
+                "arguments_for_theory": [],
+                "arguments_against_theory": [],
+                "what_article_cannot_adjudicate": ["Everything mechanism-level."],
+                "state_capital_nexus_relevance": "None.",
+                "recommended_use": "ignore",
+            },
+        ]
+    )
+
+    runner = TheoryArticleRunner(workspace=workspace, client=fake_client)
+
+    result = runner.run(stage="articles")
+
+    assert result["stage"] == "articles"
+    assert result["article_count"] == 1
+    assert len(fake_client.calls) == 4
+    assert not fake_client.responses
