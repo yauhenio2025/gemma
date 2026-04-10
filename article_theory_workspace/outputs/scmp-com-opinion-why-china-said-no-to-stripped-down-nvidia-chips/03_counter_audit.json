@@ -1,0 +1,46 @@
+{
+  "grade_inflation_detected": false,
+  "problems_with_initial_audit": [],
+  "missing_support_points": [],
+  "missing_challenge_points": [],
+  "corrected_verdict": "irrelevant",
+  "corrections_by_claim": [
+    {
+      "claim_id": "C1",
+      "corrected_support_strength": "none",
+      "corrected_challenge_strength": "none",
+      "note": "The article discusses chip production and revenue loss, but does not analyze the nature of the investment (productive vs. rent-seeking) as required by the theory map."
+    },
+    {
+      "claim_id": "C2",
+      "corrected_support_strength": "none",
+      "corrected_challenge_strength": "none",
+      "note": "No engagement with the specific mechanism of search indexing or data extraction."
+    },
+    {
+      "claim_id": "C3",
+      "corrected_support_strength": "none",
+      "corrected_challenge_strength": "none",
+      "note": "While the article describes the Chinese state's role in fostering domestic industry, it does not engage with the state's constitutive role in the US tech sector or the 'parcelized sovereignty' debate."
+    },
+    {
+      "claim_id": "C4",
+      "corrected_support_strength": "none",
+      "corrected_challenge_strength": "none",
+      "note": "No discussion of profit rates or the Marxist distinction between profit and rent."
+    },
+    {
+      "claim_id": "C5",
+      "corrected_support_strength": "none",
+      "corrected_challenge_strength": "none",
+      "note": "No balance-sheet analysis of tangible vs. intangible assets."
+    },
+    {
+      "claim_id": "C6",
+      "corrected_support_strength": "none",
+      "corrected_challenge_strength": "none",
+      "note": "No engagement with the theoretical framework of expropriation vs. exploitation."
+    }
+  ],
+  "confidence": 1.0
+}

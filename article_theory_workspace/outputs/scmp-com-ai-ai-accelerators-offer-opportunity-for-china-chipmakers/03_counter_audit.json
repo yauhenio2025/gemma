@@ -1,0 +1,46 @@
+{
+  "grade_inflation_detected": false,
+  "problems_with_initial_audit": [],
+  "missing_support_points": [],
+  "missing_challenge_points": [],
+  "corrected_verdict": "irrelevant",
+  "corrections_by_claim": [
+    {
+      "claim_id": "C1",
+      "corrected_support_strength": "none",
+      "corrected_challenge_strength": "none",
+      "note": "The article reports on the production of chips, but does not analyze the nature of the investment (productive vs. rent-seeking) as required by the theory map."
+    },
+    {
+      "claim_id": "C2",
+      "corrected_support_strength": "none",
+      "corrected_challenge_strength": "none",
+      "note": "No engagement with the mechanism of search indexing or data extraction."
+    },
+    {
+      "claim_id": "C3",
+      "corrected_support_strength": "none",
+      "corrected_challenge_strength": "none",
+      "note": "While the article describes state-led industrial policy in China, it does not engage with the theoretical claim that the state is constitutive of the mode of production or the 'parcelized sovereignty' debate."
+    },
+    {
+      "claim_id": "C4",
+      "corrected_support_strength": "none",
+      "corrected_challenge_strength": "none",
+      "note": "No discussion of profit rates or the Marxist theory of surplus value."
+    },
+    {
+      "claim_id": "C5",
+      "corrected_support_strength": "none",
+      "corrected_challenge_strength": "none",
+      "note": "Mentions physical hardware, but provides no balance-sheet analysis of tangible vs. intangible assets."
+    },
+    {
+      "claim_id": "C6",
+      "corrected_support_strength": "none",
+      "corrected_challenge_strength": "none",
+      "note": "No engagement with the meta-theoretical debate on capitalism vs. feudalism."
+    }
+  ],
+  "confidence": 1.0
+}

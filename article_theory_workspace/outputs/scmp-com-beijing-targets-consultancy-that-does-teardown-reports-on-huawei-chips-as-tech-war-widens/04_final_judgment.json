@@ -1,0 +1,17 @@
+{
+  "overall_verdict": "irrelevant",
+  "confidence": 1.0,
+  "one_paragraph_verdict": "The article is a standard news report regarding the Chinese government's blacklisting of the consultancy TechInsights due to its reverse-engineering reports on Huawei's semiconductor supply chain. While it mentions the 'tech war' and state intervention, these are described as geopolitical and regulatory actions (sanctions and blacklists) rather than as a constitutive role of the state in building a firm's mode of production. The text does not engage with the theoretical distinctions between rent and profit, exploitation and expropriation, or the asset composition of tech firms. It provides no evidence regarding the systemic logic of accumulation or the nature of surplus extraction, failing all five relevance gates.",
+  "arguments_for_theory": [],
+  "arguments_against_theory": [],
+  "what_article_cannot_adjudicate": [
+    "Whether tech firm R&D is productive or rent-seeking (C1)",
+    "The source of Google's profitability (C2)",
+    "Whether the state's role in tech is constitutive of the business model or merely regulatory (C3)",
+    "Whether tech profit rates behave as capitalist profits or feudal rents (C4)",
+    "The ratio of tangible to intangible assets in tech firms (C5)",
+    "The theoretical validity of the techno-feudalism framework versus an expanded theory of capitalism (C6)"
+  ],
+  "state_capital_nexus_relevance": "The article describes the state's use of punitive trade lists to protect national security, which is a regulatory/geopolitical function, not the constitutive state-capital nexus described in C3.",
+  "recommended_use": "ignore"
+}

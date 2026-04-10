@@ -1,0 +1,33 @@
+{
+  "overall_initial_verdict": "irrelevant",
+  "overall_reason": "The article is a standard piece of tech reporting on product launches and geopolitical competition. It describes Huawei's new AI computing clusters and their intended performance relative to US competitors. While it mentions 'domestic ecosystems' and 'trade blacklists,' it does not engage with the theoretical distinctions of the theory map (e.g., rent vs. profit, exploitation vs. expropriation, or the state's constitutive role in the mode of production). It provides outcome-level data (specs and scale) rather than mechanism-level analysis of surplus extraction.",
+  "claim_assessments": [
+    {
+      "claim_id": "C1",
+      "engagement_type": "none",
+      "support_strength": "none",
+      "challenge_strength": "none",
+      "support_points": [],
+      "challenge_points": [],
+      "why_limited": "The article mentions the development of new hardware, which is consistent with productive investment, but it does not analyze whether this investment is 'productive innovation' versus 'moat-building' or 'regulatory capture' as required by the theory map."
+    },
+    {
+      "claim_id": "C3",
+      "engagement_type": "none",
+      "support_strength": "none",
+      "challenge_strength": "none",
+      "support_points": [],
+      "challenge_points": [],
+      "why_limited": "The article mentions the US trade blacklist and the goal of a 'domestic ecosystem,' but it does not provide evidence of the state's constitutive role in building Huawei's market position or the fusion of state and capital as a systemic logic of accumulation."
+    }
+  ],
+  "article_level_points_for_theory": [],
+  "article_level_points_against_theory": [],
+  "irrelevance_reasons": [
+    "Fails G1: Does not engage with rent vs. profit, expropriation vs. exploitation, or the state's constitutive role.",
+    "Fails G2: Provides outcome-level reporting (hardware specs) rather than mechanism-level analysis of surplus generation.",
+    "Fails G3: Focuses on individual firm product launches rather than the systemic logic of accumulation.",
+    "Fails G5: The information is symmetrically compatible with any narrative of industrial competition and does not differentially support or challenge the specific claims of the theory map."
+  ],
+  "confidence": 1.0
+}

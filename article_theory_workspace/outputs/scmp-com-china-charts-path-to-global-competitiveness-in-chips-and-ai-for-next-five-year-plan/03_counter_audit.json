@@ -1,0 +1,46 @@
+{
+  "grade_inflation_detected": false,
+  "problems_with_initial_audit": [],
+  "missing_support_points": [],
+  "missing_challenge_points": [],
+  "corrected_verdict": "irrelevant",
+  "corrections_by_claim": [
+    {
+      "claim_id": "C1",
+      "corrected_support_strength": "none",
+      "corrected_challenge_strength": "none",
+      "note": "The article mentions R&D spending increases, but this is a national aggregate, not a firm-level analysis of productive investment vs. rent-seeking. It fails the mechanism gate."
+    },
+    {
+      "claim_id": "C2",
+      "corrected_support_strength": "none",
+      "corrected_challenge_strength": "none",
+      "note": "No engagement with the specific profit mechanisms of search or data."
+    },
+    {
+      "claim_id": "C3",
+      "corrected_support_strength": "none",
+      "corrected_challenge_strength": "none",
+      "note": "The article describes state industrial policy (planning, funding), but it does not engage with the theoretical claim that the state is 'constitutive' of tech dominance as a counter to the 'parcelized sovereignty' of techno-feudalism. It is a descriptive account of state-led capitalism, not a theoretical test of the mode of production."
+    },
+    {
+      "claim_id": "C4",
+      "corrected_support_strength": "none",
+      "corrected_challenge_strength": "none",
+      "note": "No discussion of profit rates or the nature of surplus value."
+    },
+    {
+      "claim_id": "C5",
+      "corrected_support_strength": "none",
+      "corrected_challenge_strength": "none",
+      "note": "No balance-sheet data provided."
+    },
+    {
+      "claim_id": "C6",
+      "corrected_support_strength": "none",
+      "corrected_challenge_strength": "none",
+      "note": "No engagement with the meta-theoretical debate on expropriation."
+    }
+  ],
+  "confidence": 1.0
+}

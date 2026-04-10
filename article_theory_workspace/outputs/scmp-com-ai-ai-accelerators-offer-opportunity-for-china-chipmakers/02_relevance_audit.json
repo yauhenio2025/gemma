@@ -1,0 +1,69 @@
+{
+  "overall_initial_verdict": "irrelevant",
+  "overall_reason": "The article is a technical and geopolitical report on the shift from GPUs to ASICs in China's AI chip industry. While it mentions state goals and corporate R&D, it does not engage with the theoretical distinctions of the techno-feudalism debate (rent vs. profit, exploitation vs. expropriation, or the specific constitutive role of the state in building the mode of production). It describes a market shift driven by export bans, which is a matter of industrial policy and trade, not a test of whether the mode of production has shifted from capitalism to feudalism.",
+  "claim_assessments": [
+    {
+      "claim_id": "C1",
+      "engagement_type": "none",
+      "support_strength": "none",
+      "challenge_strength": "none",
+      "support_points": [],
+      "challenge_points": [],
+      "why_limited": "The article mentions R&D and the development of new chips, but it does not analyze whether this spending is 'productive investment' in the Marxist sense or 'moat-building' to extract rent. It simply reports that companies are making chips."
+    },
+    {
+      "claim_id": "C2",
+      "engagement_type": "none",
+      "support_strength": "none",
+      "challenge_strength": "none",
+      "support_points": [],
+      "challenge_points": [],
+      "why_limited": "No mention of Google's revenue sources or the role of indexing vs. data extraction."
+    },
+    {
+      "claim_id": "C3",
+      "engagement_type": "indirect",
+      "support_strength": "none",
+      "challenge_strength": "none",
+      "support_points": [],
+      "challenge_points": [],
+      "why_limited": "The article discusses the Chinese state's role in encouraging domestic chip production and US export bans. However, this is described as a response to geopolitical tension and a goal for 'strategic autonomy,' not as an analysis of the state's constitutive role in the systemic logic of accumulation or the 'parcelized sovereignty' claim."
+    },
+    {
+      "claim_id": "C4",
+      "engagement_type": "none",
+      "support_strength": "none",
+      "challenge_strength": "none",
+      "support_points": [],
+      "challenge_points": [],
+      "why_limited": "No discussion of profit rates, equalization of profit, or the nature of surplus value in labor-light firms."
+    },
+    {
+      "claim_id": "C5",
+      "engagement_type": "none",
+      "support_strength": "none",
+      "challenge_points": [],
+      "support_points": [],
+      "why_limited": "While it mentions the physical infrastructure of chips, it does not engage with balance-sheet analysis of tangible vs. intangible assets."
+    },
+    {
+      "claim_id": "C6",
+      "engagement_type": "none",
+      "support_strength": "none",
+      "challenge_strength": "none",
+      "support_points": [],
+      "challenge_points": [],
+      "why_limited": "No engagement with the Brenner-Wallerstein debate or the theoretical definition of capitalism vs. feudalism."
+    }
+  ],
+  "article_level_points_for_theory": [],
+  "article_level_points_against_theory": [],
+  "irrelevance_reasons": [
+    "Fails G1: Does not engage with rent vs. profit, expropriation vs. exploitation, or the tangible/intangible asset distinction.",
+    "Fails G2: Reports on outcomes (market share, chip performance) rather than the mechanism of surplus appropriation.",
+    "Fails G3: Focuses on individual firm tactics and geopolitical competition rather than the systemic logic of accumulation.",
+    "Fails G4: Does not use theoretical labels like 'rentier' or 'feudalism' to describe an economic mechanism.",
+    "Fails G5: The evidence (China making ASICs) is symmetrically compatible with any industrial policy framework and does not discriminate between the techno-feudal thesis and its critique."
+  ],
+  "confidence": 1.0
+}

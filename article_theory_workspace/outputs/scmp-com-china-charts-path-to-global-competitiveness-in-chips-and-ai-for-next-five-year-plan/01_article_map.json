@@ -1,0 +1,47 @@
+{
+  "article_kind": "news",
+  "summary": "The article discusses China's strategic planning for the 15th five-year plan (2026-2030), focusing on achieving global competitiveness in semiconductors and AI. It highlights the transition from 'catching up' and 'import substitution' to pioneering new technological pathways to bypass US-led export curbs and avoid redundant internal competition. It mentions specific technical goals like FDSOI technology, RISC-V, and brain-inspired computing, and and the AI ecosystem integration of data, algorithms, and computing power.",
+  "main_claims": [
+    "China aims to be a global leader in science and technology by 2035",
+    "The 15th five-year plan period is a critical window for breakthroughs in AI and semiconductors",
+    "China must move from 'import substitution' to pioneering new technological pathways to overcome US export curbs",
+    "Redundant internal competition among domestic firms is wasting innovative resources",
+    "AI is a dual catalyst: it creates demand for AI chips and transforms the manufacturing process itself",
+    "The AI strategy involves breakthroughs in foundational algorithms, brain-inspired computing, and the integration of data/computing power"
+  ],
+  "evidence_or_facts": [
+    "National R&D investment has increased by 48% since 2020",
+    "China is 10th in the Global Innovation Index",
+    "China leads in volume of high-impact international journal publications and patent applications",
+    "China has achieved self-sufficiency in mature process nodes (28nm and above)",
+    "US-led export curbs on advanced chip manufacturing technology",
+    "Mention of specific technologies: FDSOI, RISC-V, and nanoimprint lithography"
+  ],
+  "rhetorical_frames": [
+    "Strategic competition/Battleground",
+    "National competitiveness",
+    " "
+  ],
+  "state_and_policy_content": [
+    "Drafting of the 15th five-year plan (2026-2030)",
+    "State Council press briefing by Minister Yin Hejun",
+    "Policy incentives attracting capital to replicate mature products",
+    "Establishment of national computing power scheduling platforms",
+    "Focus on creating AI and manufacturing application scenarios"
+  ],
+  "capital_accumulation_content": [
+    "R&D investment surge",
+    "Capital attracted to 'low-level, redundant internal competition' due to policy incentives",
+    "Investment in emerging and disruptive technologies"
+  ],
+  "labor_content": [
+    "Mention of the number of researchers being the world's largest",
+    "Focus on the introduction of scientific talent"
+  ],
+  "what_is_missing_for_theory_evaluation": [
+    "Specifics on how the state's funding mechanisms (subsidies, guidance funds) работает exactly",
+    "Detailed data on the majorité of the private sector's role versus state-owned enterprises (SOEs) in these specific breakthroughs",
+    "Detailed labor market dynamics beyond the general mention of 'talent'",
+    "Detailed cost-benefit analysis of the technical pathways chosen"
+  ]
+}

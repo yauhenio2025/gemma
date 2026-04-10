@@ -1,0 +1,35 @@
+{
+  "article_kind": "news",
+  "summary": "The article reports on new Chinese export controls on rare earth materials and technologies specifically targeting advanced chipmaking (14nm logic chips and 256-layer memory) and military AI. It features commentary from industry observer Xiang Ligang, who claims that China has largely overcome its semiconductor equipment bottlenecks and is shifting from a defensive to an offensive posture in the 'chip war' with the US.",
+  "main_claims": [
+    "China's new export controls on rare earths indicate that the country has resolved its semiconductor equipment bottlenecks.",
+    "Beijing is now shifting from a defensive to an offensive strategy in the global chip rivalry.",
+    "China has developed world-class semiconductor equipment that may soon surpass foreign alternatives.",
+    "Export controls on rare earths are intended to complicate foreign production of advanced lithography systems."
+  ],
+  "evidence_or_facts": [
+    "China produces approximately 70% of mined rare earth output and over 80% of refined materials.",
+    "New export rules (effective Dec 1) require case-by-case review for exports related to logic chips <= 14nm and memory chips >= 256 layers.",
+    "Specific restricted materials include neodymium, praseodymium, samarium, dysprosium, and related magnetic materials/sputtering targets.",
+    "China also announced separate export controls on lithium battery and graphite anode materials."
+  ],
+  "rhetorical_frames": [
+    "'Chip war' as a strategic struggle for technological dominance.",
+    "Shift from 'defense to offense'.",
+    "Overcoming 'bottlenecks' and 'hurdles' to achieve self-reliance."
+  ],
+  "state_and_policy_content": [
+    "Ministry of Commerce and Customs announced export controls on rare earths, lithium battery materials, and graphite anode materials.",
+    "Implementation of a 'case-by-case review' system for exports to sensitive industries (advanced chips and military AI)."
+  ],
+  "capital_accumulation_content": [
+    "Mention of the expansion of production capacity and strengthening of manufacturing in the chip industry."
+  ],
+  "labor_content": [],
+  "what_is_missing_for_theory_evaluation": [
+    "Detailed data on the actual production costs or profit margins of these new Chinese chip-making machines.",
+    "Information on the actual market share or independent verification of Xiang Ligang's claims regarding the 'resolution' of bottlenecks.",
+    "Analysis of the relationship between state subsidies and the private capital accumulation of the firms producing this equipment.",
+    "Specifics on how these controls affect the global supply chain's value distribution."
+  ]
+}

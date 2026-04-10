@@ -1,0 +1,17 @@
+{
+  "overall_verdict": "irrelevant",
+  "confidence": 1.0,
+  "one_paragraph_verdict": "The article is a standard news report on a US government assessment of Chinese AI models, focusing on performance benchmarks, national security risks, and API pricing. It does not engage with the theoretical distinctions between rent and profit, the mode of production, or the constitutive role of the state in building the industry's capital structure. While it mentions the US government's role in evaluating models to ensure 'US leadership,' this is a regulatory and geopolitical framing that does not provide evidence regarding whether the state's procurement or funding constituted the market position of the firms involved. Consequently, it fails all five relevance gates (G1-G5) and provides no discriminating evidence for or against the theory map's claims.",
+  "arguments_for_theory": [],
+  "arguments_against_theory": [],
+  "what_article_cannot_adjudicate": [
+    "Whether AI R&D spending represents productive capital investment (C1) or rent-seeking moat-building.",
+    "The specific mechanism of surplus extraction (rent vs. profit) for AI firms (C4).",
+    "The role of data extraction versus indexing/commodity production in AI profitability (C2).",
+    "Whether the US state's role in AI is constitutive of the firms' market power or merely regulatory/geopolitical (C3).",
+    "The tangible vs. intangible asset composition of AI firms' balance sheets (C5).",
+    "The theoretical validity of the techno-feudalism diagnosis versus an expanded capitalist framework (C6)."
+  ],
+  "state_capital_nexus_relevance": "The article describes the state as a regulator and geopolitical competitor, which is a 'false positive' for C3 as it does not address the state's constitutive role in the firms' capital accumulation.",
+  "recommended_use": "ignore"
+}

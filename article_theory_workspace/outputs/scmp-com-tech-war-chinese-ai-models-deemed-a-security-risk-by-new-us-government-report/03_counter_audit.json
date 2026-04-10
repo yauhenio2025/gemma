@@ -1,0 +1,46 @@
+{
+  "grade_inflation_detected": false,
+  "problems_with_initial_audit": [],
+  "missing_support_points": [],
+  "missing_challenge_points": [],
+  "corrected_verdict": "irrelevant",
+  "corrections_by_claim": [
+    {
+      "claim_id": "C1",
+      "corrected_support_strength": "none",
+      "corrected_challenge_strength": "none",
+      "note": "API pricing and model performance are outcome-level metrics; they do not reveal whether the underlying R&D was productive investment or rent-seeking."
+    },
+    {
+      "claim_id": "C2",
+      "corrected_support_strength": "none",
+      "corrected_challenge_strength": "none",
+      "note": "No analysis of the source of revenue or the role of data extraction."
+    },
+    {
+      "claim_id": "eC3",
+      "corrected_support_strength": "none",
+      "corrected_challenge_strength": "none",
+      "note": "The article describes the state as a regulator and geopolitical competitor, not as the constitutive force that built the firms' capital structure."
+    },
+    {
+      "claim_id": "C4",
+      "corrected_support_strength": "none",
+      "corrected_challenge_strength": "none",
+      "note": "No discussion of profit rates or equalization."
+    },
+    {
+      "claim_id": "C5",
+      "corrected_support_strength": "none",
+      "corrected_challenge_strength": "none",
+      "note": "No balance-sheet data."
+    },
+    {
+      "claim_id": "C6",
+      "corrected_support_strength": "none",
+      "corrected_challenge_strength": "none",
+      "note": "No engagement with the exploitation vs. expropriation framework."
+    }
+  ],
+  "confidence": 1.0
+}

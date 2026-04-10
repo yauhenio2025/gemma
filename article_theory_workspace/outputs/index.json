@@ -1,0 +1,152 @@
+{
+  "model": "gemma4-31b-bf16-256k",
+  "theory_files": [
+    "article_theory_workspace/nlr/Evgeny Morozov, Critique of Techno Feudal Reason, NLR 133 134, January April 2022.pdf"
+  ],
+  "articles": [
+    {
+      "article_path": "article_theory_workspace/others/scmp.com-AI AI accelerators offer opportunity for China chipmakers.pdf",
+      "article_slug": "scmp-com-ai-ai-accelerators-offer-opportunity-for-china-chipmakers",
+      "report_path": "article_theory_workspace/outputs/scmp-com-ai-ai-accelerators-offer-opportunity-for-china-chipmakers/report.md",
+      "verdict": "irrelevant",
+      "confidence": 1.0,
+      "recommended_use": "ignore"
+    },
+    {
+      "article_path": "article_theory_workspace/others/scmp.com-Anthropics anti-China stance triggers exit of star AI researcher.pdf",
+      "article_slug": "scmp-com-anthropics-anti-china-stance-triggers-exit-of-star-ai-researcher",
+      "report_path": "article_theory_workspace/outputs/scmp-com-anthropics-anti-china-stance-triggers-exit-of-star-ai-researcher/report.md",
+      "verdict": "irrelevant",
+      "confidence": 1.0,
+      "recommended_use": "ignore"
+    },
+    {
+      "article_path": "article_theory_workspace/others/scmp.com-Beijing targets consultancy that does teardown reports on Huawei chips as tech war widens.pdf",
+      "article_slug": "scmp-com-beijing-targets-consultancy-that-does-teardown-reports-on-huawei-chips-as-tech-war-widens",
+      "report_path": "article_theory_workspace/outputs/scmp-com-beijing-targets-consultancy-that-does-teardown-reports-on-huawei-chips-as-tech-war-widens/report.md",
+      "verdict": "irrelevant",
+      "confidence": 1.0,
+      "recommended_use": "ignore"
+    },
+    {
+      "article_path": "article_theory_workspace/others/scmp.com-China bets on AI to pump trillions into economy amid national computing push.pdf",
+      "article_slug": "scmp-com-china-bets-on-ai-to-pump-trillions-into-economy-amid-national-computing-push",
+      "report_path": "article_theory_workspace/outputs/scmp-com-china-bets-on-ai-to-pump-trillions-into-economy-amid-national-computing-push/report.md",
+      "verdict": "irrelevant",
+      "confidence": 1.0,
+      "recommended_use": "ignore"
+    },
+    {
+      "article_path": "article_theory_workspace/others/scmp.com-China charts path to global competitiveness in chips and AI for next five-year plan.pdf",
+      "article_slug": "scmp-com-china-charts-path-to-global-competitiveness-in-chips-and-ai-for-next-five-year-plan",
+      "report_path": "article_theory_workspace/outputs/scmp-com-china-charts-path-to-global-competitiveness-in-chips-and-ai-for-next-five-year-plan/report.md",
+      "verdict": "irrelevant",
+      "confidence": 1.0,
+      "recommended_use": "ignore"
+    },
+    {
+      "article_path": "article_theory_workspace/others/scmp.com-China joins South American trade bloc boosting its AI and EV industries analysts.pdf",
+      "article_slug": "scmp-com-china-joins-south-american-trade-bloc-boosting-its-ai-and-ev-industries-analysts",
+      "report_path": "article_theory_workspace/outputs/scmp-com-china-joins-south-american-trade-bloc-boosting-its-ai-and-ev-industries-analysts/report.md",
+      "verdict": "irrelevant",
+      "confidence": 1.0,
+      "recommended_use": "ignore"
+    },
+    {
+      "article_path": "article_theory_workspace/others/scmp.com-China sanctions US defence firms chip data provider in latest curbs.pdf",
+      "article_slug": "scmp-com-china-sanctions-us-defence-firms-chip-data-provider-in-latest-curbs",
+      "report_path": "article_theory_workspace/outputs/scmp-com-china-sanctions-us-defence-firms-chip-data-provider-in-latest-curbs/report.md",
+      "verdict": "irrelevant",
+      "confidence": 1.0,
+      "recommended_use": "ignore"
+    },
+    {
+      "article_path": "article_theory_workspace/others/scmp.com-China tests underwater data centres to reduce AI carbon footprint.pdf",
+      "article_slug": "scmp-com-china-tests-underwater-data-centres-to-reduce-ai-carbon-footprint",
+      "report_path": "article_theory_workspace/outputs/scmp-com-china-tests-underwater-data-centres-to-reduce-ai-carbon-footprint/report.md",
+      "verdict": "irrelevant",
+      "confidence": 1.0,
+      "recommended_use": "ignore"
+    },
+    {
+      "article_path": "article_theory_workspace/others/scmp.com-Chinas latest rare earth export controls add new twist in US chip war observer says.pdf",
+      "article_slug": "scmp-com-chinas-latest-rare-earth-export-controls-add-new-twist-in-us-chip-war-observer-says",
+      "report_path": "article_theory_workspace/outputs/scmp-com-chinas-latest-rare-earth-export-controls-add-new-twist-in-us-chip-war-observer-says/report.md",
+      "verdict": "irrelevant",
+      "confidence": 1.0,
+      "recommended_use": "ignore"
+    },
+    {
+      "article_path": "article_theory_workspace/others/scmp.com-Chinese fintech giant Ant Group releases powerful AI model to rival DeepSeek and OpenAI.pdf",
+      "article_slug": "scmp-com-chinese-fintech-giant-ant-group-releases-powerful-ai-model-to-rival-deepseek-and-openai",
+      "report_path": "article_theory_workspace/outputs/scmp-com-chinese-fintech-giant-ant-group-releases-powerful-ai-model-to-rival-deepseek-and-openai/report.md",
+      "verdict": "irrelevant",
+      "confidence": 1.0,
+      "recommended_use": "ignore"
+    },
+    {
+      "article_path": "article_theory_workspace/others/scmp.com-Mapping shifts in the geography of tech innovation China becomes a big player in AI research.pdf",
+      "article_slug": "scmp-com-mapping-shifts-in-the-geography-of-tech-innovation-china-becomes-a-big-player-in-ai-research",
+      "report_path": "article_theory_workspace/outputs/scmp-com-mapping-shifts-in-the-geography-of-tech-innovation-china-becomes-a-big-player-in-ai-research/report.md",
+      "verdict": "irrelevant",
+      "confidence": 1.0,
+      "recommended_use": "ignore"
+    },
+    {
+      "article_path": "article_theory_workspace/others/scmp.com-Nvidia to invest in Musks xAI as part of US20 billion funding.pdf",
+      "article_slug": "scmp-com-nvidia-to-invest-in-musks-xai-as-part-of-us20-billion-funding",
+      "report_path": "article_theory_workspace/outputs/scmp-com-nvidia-to-invest-in-musks-xai-as-part-of-us20-billion-funding/report.md",
+      "verdict": "irrelevant",
+      "confidence": 1.0,
+      "recommended_use": "ignore"
+    },
+    {
+      "article_path": "article_theory_workspace/others/scmp.com-Opinion Why China said no to stripped-down Nvidia chips.pdf",
+      "article_slug": "scmp-com-opinion-why-china-said-no-to-stripped-down-nvidia-chips",
+      "report_path": "article_theory_workspace/outputs/scmp-com-opinion-why-china-said-no-to-stripped-down-nvidia-chips/report.md",
+      "verdict": "irrelevant",
+      "confidence": 1.0,
+      "recommended_use": "ignore"
+    },
+    {
+      "article_path": "article_theory_workspace/others/scmp.com-Palantir books its first US1 billion in quarterly sales and dodges Doge axe.pdf",
+      "article_slug": "scmp-com-palantir-books-its-first-us1-billion-in-quarterly-sales-and-dodges-doge-axe",
+      "report_path": "article_theory_workspace/outputs/scmp-com-palantir-books-its-first-us1-billion-in-quarterly-sales-and-dodges-doge-axe/report.md",
+      "verdict": "irrelevant",
+      "confidence": 1.0,
+      "recommended_use": "ignore"
+    },
+    {
+      "article_path": "article_theory_workspace/others/scmp.com-Tech war Chinese AI models deemed a security risk by new US government report.pdf",
+      "article_slug": "scmp-com-tech-war-chinese-ai-models-deemed-a-security-risk-by-new-us-government-report",
+      "report_path": "article_theory_workspace/outputs/scmp-com-tech-war-chinese-ai-models-deemed-a-security-risk-by-new-us-government-report/report.md",
+      "verdict": "irrelevant",
+      "confidence": 1.0,
+      "recommended_use": "ignore"
+    },
+    {
+      "article_path": "article_theory_workspace/others/scmp.com-Tech war Huaweis computing cluster to power AI projects challenge US platforms.pdf",
+      "article_slug": "scmp-com-tech-war-huaweis-computing-cluster-to-power-ai-projects-challenge-us-platforms",
+      "report_path": "article_theory_workspace/outputs/scmp-com-tech-war-huaweis-computing-cluster-to-power-ai-projects-challenge-us-platforms/report.md",
+      "verdict": "irrelevant",
+      "confidence": 1.0,
+      "recommended_use": "ignore"
+    },
+    {
+      "article_path": "article_theory_workspace/others/scmp.com-Tencents AI model Hunyuan Image 30 tops leaderboard beating Googles Nano Banana.pdf",
+      "article_slug": "scmp-com-tencents-ai-model-hunyuan-image-30-tops-leaderboard-beating-googles-nano-banana",
+      "report_path": "article_theory_workspace/outputs/scmp-com-tencents-ai-model-hunyuan-image-30-tops-leaderboard-beating-googles-nano-banana/report.md",
+      "verdict": "irrelevant",
+      "confidence": 1.0,
+      "recommended_use": "ignore"
+    },
+    {
+      "article_path": "article_theory_workspace/others/wsj-at-david-sackss-behest-white-house-barrels-forward-on-industry-friendly-ai-policy.txt",
+      "article_slug": "wsj-at-david-sackss-behest-white-house-barrels-forward-on-industry-friendly-ai-policy",
+      "report_path": "article_theory_workspace/outputs/wsj-at-david-sackss-behest-white-house-barrels-forward-on-industry-friendly-ai-policy/report.md",
+      "verdict": "irrelevant",
+      "confidence": 1.0,
+      "recommended_use": "ignore"
+    }
+  ]
+}

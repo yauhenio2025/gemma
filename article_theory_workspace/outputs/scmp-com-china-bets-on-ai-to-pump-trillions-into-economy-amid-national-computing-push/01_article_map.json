@@ -1,0 +1,39 @@
+{
+  "article_kind": "news",
+  "summary": "The article reports on China's strategic push to integrate AI and computing power as a new economic growth engine, focusing on the national computing network and the projected GDP contribution of 11 trillion yuan by 2035.",
+  "main_claims": [
+    "AI is projected to add several trillion yuan to the economy by 20"
+  ],
+  "evidence_or_facts": [
+    "10 provinces and municipalities have joined a unified computing platform to match business demand with underused resources.",
+    "The platform has signed up over 100 service providers, 1000 industry users, and nearly 100 AI models.",
+    "Smart computing power is projected to grow by 43% this year.",
+    "Overall computing capacity is expanding by about 30% annually.",
+    "Rao Shaoyang (China Telecom Research Institute) projects AI could contribute 11 trillion yuan to GDP by 2035 (4-5% of output).",
+    "The US White House has tightened export controls on chipmaking tools and restricted the spread of Chinese AI models."
+  ],
+  "rhetorical_frames": [
+    "AI as a 'growth engine'",
+    "AI as a 'critical battleground' in the US-China rivalry",
+    ""
+  ],
+  "state_and_policy_content": [
+    "Beijing is creating a national computing network to unify data markets and match resources across regions.",
+    "Push for self-reliance in chips and data centers.",
+    "US government export controls on chipmaking tools and AI models."
+  ],
+  "capital_accumulation_content": [
+    "Heavy investment in data centers and chips.",
+    "Growth in 'smart computing power' (CAGR of 46.2% from 2023-2028).",
+    "Projection of GDP contribution via AI-driven demand for computing power."
+  ],
+  "labor_content": [
+    "None mentioned."
+  ],
+  "what_is_missing_for_theory_evaluation": [
+    "Information on how AI actually changes the production process or the production relation",
+    "Details on the labor-saving or labor-displacing effects of AI",
+    "Details on the specific mechanisms of state-led investment (eg., whether it is a state-owned enterprise focused or private sector led)",
+    "Analysis of the profitability of these investments in relação to the relação between constant capital (machinery/chips) and variable capital (labor)."
+  ]
+}

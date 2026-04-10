@@ -1,0 +1,41 @@
+{
+  "article_kind": "news",
+  "summary": "The Chinese government has added the Canadian semiconductor consultancy TechInsights to its 'unreliable entity list,' banning it from doing business in China. This action was triggered by TechInsights' reverse-engineering reports claiming that Huawei used advanced components from TSMC, Samsung, and SK Hynix in its AI processors, suggesting a possible evasion of US sanctions.",
+  "main_claims": [
+    "China's Ministry of Commerce has blacklisted TechInsights to safeguard national sovereignty and security.",
+    "TechInsights' reports on Huawei's chip sources (specifically the Ascend AI processors) suggested that Huawei may have bypassed US sanctions to obtain advanced semiconductors.",
+    "The move is part of a widening tech war between the US and China, coinciding with US Department of Commerce additions to its own Entity List.",
+    ""
+  ],
+  "evidence_or_facts": [
+    "TechInsights was added to the 'unreliable entity list 'unreliable entity list' by China's Ministry of Commerce.",
+    "TechInsights subsidiaries in the US, Europe, and South Korea were also blacklisted.",
+    "Chinese individuals and organizations are banned from transmitting data or providing sensitive information to the firm.",
+    "TechInsights reported that Huawei's Ascend AI processors used components from TSMC, Samsung, and SK Hynix.",
+    "TechInsights reported that SMIC produced the 7-nanometre Kirin processor in the Huawei Mate 60 Pro.",
+    ""
+  ],
+  "rhetorical_frames": [
+    "Tech war",
+    "National sovereignty and security",
+    "Citing 'unreliable entity list' as retaliatory or strategic state action",
+    "Widening conflict between Western consultancies and the tech supply chain"
+  ],
+  "state_and_policy_content": [
+    "China's Ministry of Commerce use of the 'unreliable entity list' as a trade blacklist.",
+    "US Department of Commerce's 'Entity List' used to restrict access to American components.",
+    "Trade bans on import/export activities related to China.",
+    ""
+  ],
+  "capital_accumulation_content": [
+    "Mention of the semiconductor supply chain (TSMC, Samsung, SK Hynix, SMIC) as a critical infrastructure for AI and 5G technology.",
+    "The role of technology intelligence services (TechInsights) as a commodity/service provided to the rest of the supply chain."
+  ],
+  "labor_content": [
+    "None"
+  ],
+  "what_is_missing_for_theory_evaluation": [
+    "Analysis of the ownership structures of these companies.",
+    ""
+  ]
+}

@@ -1,0 +1,33 @@
+# scmp.com-Opinion Why China said no to stripped-down Nvidia chips.pdf
+
+- Verdict: `irrelevant`
+- Confidence: `1.0`
+- Recommended use: `ignore`
+
+## Bottom Line
+
+The article is a geopolitical analysis of the US-China 'chip war' and China's strategic pursuit of technological self-reliance. While it discusses the role of the state in directing industrial policy and the impact of export controls on market dynamics, it does not engage with the specific political-economy mechanisms outlined in the theory map. It fails all relevance gates: it does not distinguish between rent and profit, it does not analyze the mode of surplus extraction (exploitation vs. expropriation), and it does not investigate the balance-sheet composition of tech firms. The mention of state intervention is framed as national security strategy rather than a theoretical investigation into whether the state is constitutive of the capitalist mode of production in the tech sector.
+
+## Arguments For The Theory
+
+- None.
+
+## Arguments Against The Theory
+
+- None.
+
+## What The Article Cannot Adjudicate
+
+- Whether tech firms' R&D spending is productive investment or rent-seeking moat-building (C1)
+- The source of Google's profitability (indexing vs. data extraction) (C2)
+- Whether the US state was constitutive of Silicon Valley's dominance (C3)
+- Whether labor-light firms earn capitalist profit or feudal rent (C4)
+- The ratio of tangible to intangible assets on tech balance sheets (C5)
+- The theoretical validity of the techno-feudalism label versus an expanded theory of capitalism (C6)
+
+## Notes
+
+- State-capital nexus relevance: The article describes the state's role in promoting domestic industry for national security reasons, but this is topical overlap with C3, not theoretical engagement with the state's constitutive role in the mode of production.
+- Initial audit verdict: irrelevant
+- Counter-audit verdict: irrelevant
+- Theory thesis: The techno-feudalism diagnosis is analytically wrong: major tech firms are capitalist producers engaged in commodity production and massive capital investment, not feudal rentiers. The feudal label stems from unresolved weaknesses in Marxist political economy (specifically the Brenner–Wallerstein debate over exploitation vs. expropriation) rather than from an actual transformation of the mode of production.

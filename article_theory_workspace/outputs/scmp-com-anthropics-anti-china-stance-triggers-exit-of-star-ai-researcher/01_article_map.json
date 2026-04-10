@@ -1,0 +1,37 @@
+{
+  "article_kind": "news",
+  "summary": "A high-profile Chinese AI researcher, Yao Shunyu, left Anthropic due to the company's 'anti-China' rhetoric and its policy of barring Chinese subsidiaries worldwide from accessing its services. He joined Google DeepMind, and the article mentions a broader trend of Chinese researchers leaving US-based AI firms like OpenAI and Anthropic more than generally welcoming environments for researchers of Chinese origin.",
+  "main_claims": [
+    "Yao Shunyu left Anthropic because of the company's characterization of China as an 'adversarial nation'.",
+    "Anthropic has implemented a policy of barring Chinese subsidiaries of companies globally from accessing its services.",
+    "There is a uneasiness among Chinese AI researchers at US AI firms due to geopolitical tensions and company rhetoric.",
+    "Google DeepMind appears to be more open to international cooperation on AI safety compared to Anthropic and OpenAI.",
+    "A significant portion of top-tier AI researchers in US institutions are of Chinese origin."
+  ],
+  "evidence_or_facts": [
+    "Yao Shunyu (PhD from Stanford, undergrad from Tsinghua University) worked on Claude 3.7 Sonnet at Anthropic.",
+    "Anthropic barred subsidiaries of Chinese companies worldwide from accessing its services.",
+    "A 2022 MacroPolo study cited that 38% of top-tier AI researchers in US institutions came from China.",
+    ""
+  ],
+  "rhetorical_frames": [
+    "Geopolitical tension/adversarial relationship between US and AI firms",
+    ""
+  ],
+  "state_and_policy_content": [
+    "Anthropic's policy of barring Chinese subsidiaries from accessing its services.",
+    "Anthropic's rhetoric mirroring the Trump administration's 'adversary AI' framing.",
+    "Mention of the Trump administration's calling Chinese AI 'adversary AI'."
+  ],
+  "capital_accumulation_content": [
+    "Movement of high-skilled labor (star researchers) between rival AI companies (Anthropic, Google DeepMind, OpenAI, OpenAI to Tencent).",
+    "Competition for 'top-tier' talent acquisition as a strategic asset."
+  ],
+  "labor_content": [
+    "Individual researcher's motivation for departure (ideological/political alignment with employer)",
+    ""
+  ],
+  "what_is_missing_for_theory_evaluation": [
+    "Analysis of how these talent shifts affect the long-term competitive advantage or value extraction of the    // This is missing because the article is not a theoretical analysis of the teoria own company's capital accumulation. Constant capital vs variable capital in AI development.  C:// a specific mechanism of political economy theory (e"
+  ]
+}

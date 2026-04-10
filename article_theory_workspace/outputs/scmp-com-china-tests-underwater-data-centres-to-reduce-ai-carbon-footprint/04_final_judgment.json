@@ -1,0 +1,15 @@
+{
+  "overall_verdict": "irrelevant",
+  "confidence": 1.0,
+  "one_paragraph_verdict": "The article is a descriptive news report on a specific technological innovation—underwater data centers in China—focused on energy efficiency and environmental impact. It does not engage with the theoretical distinctions between capitalist profit and feudal rent, the mode of production, or the systemic logic of capital accumulation. While it mentions government subsidies and physical infrastructure, these are presented as factual details of a project's funding and engineering rather than as evidence of the state's constitutive role in the tech industry's systemic dominance or as a balance-sheet analysis of tangible versus intangible assets. The content is symmetrically compatible with any economic framework and fails all five relevance gates.",
+  "arguments_for_theory": [],
+  "arguments_against_theory": [],
+  "what_article_cannot_adjudicate": [
+    "Whether the investment in underwater data centers represents productive capital formation (C1) or infrastructure for rent extraction.",
+    "Whether the Chinese state's subsidies for this project constitute a constitutive role in building systemic tech dominance (C3).",
+    "The ratio of tangible to intangible assets on the balance sheets of the firms involved (C5).",
+    "Whether the profit rates of AI computing firms behave like competitive capitalist profits or monopoly rents (C4)."
+  ],
+  "state_capital_nexus_relevance": "The article mentions government subsidies and state-owned clients, but only at the level of project-specific funding, not as an analysis of the state's constitutive role in the industry's systemic logic.",
+  "recommended_use": "ignore"
+}

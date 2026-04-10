@@ -1,0 +1,46 @@
+{
+  "grade_inflation_detected": false,
+  "problems_with_initial_audit": [],
+  "missing_support_points": [],
+  "missing_challenge_points": [],
+  "corrected_verdict": "irrelevant",
+  "corrections_by_claim": [
+    {
+      "claim_id": "C1",
+      "corrected_support_strength": "none",
+      "corrected_challenge_strength": "none",
+      "note": "The article describes a product launch and benchmarks, which is a false positive match for C1. It does not analyze the nature of the R&D investment."
+    },
+    {
+      "claim_id": "C2",
+      "corrected_support_strength": "none",
+      "corrected_challenge_strength": "none",
+      "note": "No engagement with the revenue mechanism or data extraction."
+    },
+    {
+      "claim_id": "C3",
+      "corrected_support_strength": "none",
+      "corrected_challenge_strength": "none",
+      "note": "Mention of Chinese firms is topical but does not address the state's constitutive role."
+    },
+    {
+      "claim_id": "C4",
+      "corrected_support_strength": "none",
+      "corrected_challenge_strength": "none",
+      "note": "No discussion of profit rates or surplus appropriation."
+    },
+    {
+      "claim_id": "C5",
+      "corrected_support_strength": "none",
+      "corrected_challenge_strength": "none",
+      "note": "Mention of 'computational power' is a technical requirement, not a balance-sheet analysis of assets."
+    },
+    {
+      "claim_id": "C6",
+      "corrected_support_strength": "none",
+      "corrected_challenge_strength": "none",
+      "note": "No engagement with the theoretical framework of expropriation vs. exploitation."
+    }
+  ],
+  "confidence": 1.0
+}

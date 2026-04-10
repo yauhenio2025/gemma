@@ -1,0 +1,15 @@
+{
+  "overall_verdict": "irrelevant",
+  "confidence": 1.0,
+  "one_paragraph_verdict": "The article is a descriptive report on China's national strategic planning for semiconductors and AI within the framework of its 15th five-year plan. While it mentions state-led R&D investment and the goal of global competitiveness, it does not engage with the theoretical mechanisms of the techno-feudalism debate. It provides no analysis of rent versus profit, exploitation versus expropriation, or the specific claim that the state is 'constitutive' of tech dominance in a way that tests the theory's claims. The content is consistent with standard state-led industrial policy in a capitalist framework and lacks the analytical depth to either support or challenge the specific claims (C1-C6) of the provided theory map.",
+  "arguments_for_theory": [],
+  "arguments_against_theory": [],
+  "what_article_cannot_adjudicate": [
+    "Whether tech firm profit rates behave as equalized capitalist profits or persistent monopoly rents (C4)",
+    "The proportion of revenue derived from behavioral targeting versus indexing scale (C2)",
+    "The tangible versus intangible asset ratio of tech firms' balance sheets (C5)",
+    "Whether the state's role in China's tech sector is 'constitutive' of a new mode of production or simply a form of state-led capitalist industrial policy (C3/C6)"
+  ],
+  "state_capital_nexus_relevance": "The article describes a strong state-capital nexus in China, but it does so at the level of policy goals and national strategy, not as a theoretical engagement with the 'parcelized sovereignty' claim of techno-feudalism.",
+  "recommended_use": "ignore"
+}

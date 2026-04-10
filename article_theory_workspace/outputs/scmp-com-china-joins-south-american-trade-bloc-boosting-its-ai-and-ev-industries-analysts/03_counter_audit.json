@@ -1,0 +1,46 @@
+{
+  "grade_inflation_detected": false,
+  "problems_with_initial_audit": [],
+  "missing_support_points": [],
+  "missing_challenge_points": [],
+  "corrected_verdict": "irrelevant",
+  "corrections_by_claim": [
+    {
+      "claim_id": "C1",
+      "corrected_support_strength": "none",
+      "corrected_challenge_strength": "none",
+      "note": "Mention of AI/EV industries is purely as a demand-side driver for mineral acquisition, not an analysis of the production mode."
+    },
+    {
+      "claim_id": "C2",
+      "corrected_support_strength": "none",
+      "corrected_challenge_strength": "none",
+      "note": "No engagement with search or data mechanisms."
+    },
+    {
+      "claim_id": "C3",
+      "corrected_support_strength": "none",
+      "corrected_challenge_strength": "none",
+      "note": "Discusses state diplomacy and resource strategy, but not the state's constitutive role in the internal economic logic or market dominance of specific tech firms."
+    },
+    {
+      "claim_id": "C4",
+      "corrected_support_strength": "none",
+      "corrected_challenge_strength": "none",
+      "note": "No engagement with profit vs. rent."
+    },
+    {
+      "claim_id": "C5",
+      "corrected_support_strength": "none",
+      "corrected_challenge_strength": "none",
+      "note": "No balance sheet or asset analysis."
+    },
+    {
+      "claim_id": "C6",
+      "corrected_support_strength": "none",
+      "corrected_challenge_strength": "none",
+      "note": "No engagement with the theoretical debate on expropriation."
+    }
+  ],
+  "confidence": 1.0
+}

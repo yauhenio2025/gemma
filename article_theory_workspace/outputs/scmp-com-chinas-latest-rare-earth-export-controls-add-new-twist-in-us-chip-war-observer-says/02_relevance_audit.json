@@ -1,0 +1,70 @@
+{
+  "overall_initial_verdict": "irrelevant",
+  "overall_reason": "The article is a standard news report on geopolitical competition and trade policy (export controls on rare earths). It does not engage with the theoretical distinctions between rent and profit, exploitation and expropriation, or the specific Marxist categories of accumulation that the theory map requires. While it mentions the state's role in regulating exports, it does not analyze the state's constitutive role in building the industry's market position or the mode of surplus extraction.",
+  "claim_assessments": [
+    {
+      "claim_id": "C1",
+      "engagement_type": "none",
+      "support_strength": "none",
+      "challenge_strength": "none",
+      "support_points": [],
+      "challenge_points": [],
+      "why_limited": "The article mentions R&D and production capacity in the Chinese chip industry, but this is in the context of national self-reliance and geopolitical competition, not as evidence for whether these investments are 'productive' in a capitalist sense versus 'rent-seeking' or 'moat-building' as defined by the theory."
+    },
+    {
+      "claim_id": "C2",
+      "engagement_type": "none",
+      "support_strength": "none",
+      "challenge_strength": "none",
+      "support_points": [],
+      "challenge_points": [],
+      "why_limited": "No mention of Google, advertising revenue, or the mechanism of data extraction."
+    },
+    {
+      "claim_id": "C3",
+      "engagement_type": "none",
+      "support_strength": "none",
+      "challenge_strength": "none",
+      "support_points": [],
+      "challenge_points": [],
+      "why_limited": "While the article describes state-led export controls, this is the state acting as a regulator/geopolitical actor, not an analysis of how the state constitutively built the market dominance of specific firms through procurement or funding (as required by C3)."
+    },
+    {
+      "claim_id": "C4",
+      "engagement_type": "none",
+      "support_strength": "none",
+      "challenge_strength": "none",
+      "support_points": [],
+      "challenge_points": "[]",
+      "why_limited": "No engagement with profit rates, equalization of profit, or the distinction between profit and rent."
+    },
+    {
+      "claim_id": "C5",
+      "engagement_type": "none",
+      "support_strength": "none",
+      "challenge_strength": "none",
+      "support_points": [],
+      "challenge_points": [],
+      "why_limited": "No balance-sheet analysis or discussion of tangible vs. intangible assets."
+    },
+    {
+      "claim_id": "C6",
+      "engagement_type": "none",
+      "support_strength": "none",
+      "challenge_strength": "none",
+      "support_points": [],
+      "challenge_points": [],
+      "why_limited": "No engagement with the Brenner-Wallerstein debate or the theoretical framework of expropriation."
+    }
+  ],
+  "article_level_points_for_theory": [],
+  "article_level_points_against_theory": [],
+  "irrelevance_reasons": [
+    "Fails G1: Does not engage with rent vs. profit, expropriation vs. exploitation, or the state's constitutive role in building tech dominance.",
+    "Fails G2: Reports on outcomes (export controls, 'bottlenecks' resolved) rather than the mechanism of surplus generation.",
+    "Fails G3: Focuses on national strategic competition rather than the systemic logic of accumulation.",
+    "Fails G4: Uses terms like 'chip war' and 'technological dominance' as rhetorical frames for geopolitical rivalry, not as defined economic mechanisms.",
+    "Fails G5: The evidence is symmetrically compatible with any geopolitical or industrial policy framework and does not differentially test the techno-feudalism critique."
+  ],
+  "confidence": 1.0
+}

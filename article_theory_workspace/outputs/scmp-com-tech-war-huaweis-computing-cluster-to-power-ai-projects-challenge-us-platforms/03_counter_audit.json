@@ -1,0 +1,22 @@
+{
+  "grade_inflation_detected": false,
+  "problems_with_initial_audit": [],
+  "missing_support_points": [],
+  "missing_challenge_points": [],
+  "corrected_verdict": "irrelevant",
+  "corrections_by_claim": [
+    {
+      "claim_id": "C1",
+      "corrected_support_strength": "none",
+      "corrected_challenge_strength": "none",
+      "note": "The article describes hardware launches, which is consistent with capital investment, but it does not analyze the nature of that investment (productive vs. moat-building) or its economic effect, failing the mechanism gate."
+    },
+    {
+      "claim_id": "C3",
+      "corrected_support_strength": "none",
+      "corrected_challenge_strength": "none",
+      "note": "Mention of the US trade blacklist and 'domestic ecosystem' is topical overlap regarding the state, but it does not provide evidence of the state's constitutive role in Huawei's accumulation logic or the fusion of state and capital."
+    }
+  ],
+  "confidence": 1.0
+}

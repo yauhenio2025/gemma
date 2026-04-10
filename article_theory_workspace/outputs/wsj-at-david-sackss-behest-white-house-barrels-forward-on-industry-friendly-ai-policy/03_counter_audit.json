@@ -1,0 +1,46 @@
+{
+  "grade_inflation_detected": false,
+  "problems_with_initial_audit": [],
+  "missing_support_points": [],
+  "missing_challenge_points": [],
+  "corrected_verdict": "irrelevant",
+  "corrections_by_claim": [
+    {
+      "claim_id": "C1",
+      "corrected_support_strength": "none",
+      "corrected_challenge_strength": "none",
+      "note": "The mention of data center construction is a political talking point for GDP growth, not an analysis of productive investment vs. rent-seeking."
+    },
+    {
+      "claim_id": "C2",
+      "corrected_support_strength": "none",
+      "corrected_challenge_strength": "none",
+      "note": "No engagement with the mechanism of search/AI profitability."
+    },
+    {
+      "claim_id": "C3",
+      "corrected_strength": "none",
+      "corrected_challenge_strength": "none",
+      "note": "The article describes current policy preferences and geopolitical competition, but does not analyze the state's constitutive role in the industry's structural power."
+    },
+    {
+      "claim_id": "C4",
+      "corrected_support_strength": "none",
+      "corrected_challenge_strength": "none",
+      "note": "Reports on layoffs as a political liability, not as a theoretical question of profit vs. rent in automated firms."
+    },
+    {
+      "claim_id": "C5",
+      "corrected_support_strength": "none",
+      "corrected_challenge_strength": "none",
+      "note": "Mention of data centers is not linked to balance-sheet analysis."
+    },
+    {
+      "claim_id": "C6",
+      "corrected_support_strength": "none",
+      "corrected_challenge_strength": "none",
+      "note": "No engagement with the theoretical framework of expropriation vs. exploitation."
+    }
+  ],
+  "confidence": 1.0
+}

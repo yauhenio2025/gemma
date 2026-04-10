@@ -1,0 +1,33 @@
+{
+  "article_kind": "news",
+  "summary": "Ant Group has released Ling-1T, an open-source, trillion-parameter large language model (LLM) designed to outperform rivals like DeepSeek, OpenAI, and Moonshot AI in mathematics, coding, and logical reasoning. The article describes the company's broader AI portfolio (Ling, Ring, and Ming series) and the context of intense competition among Chinese AI firms (DeepSeek, Alibaba) and global players like OpenAI and Google.",
+  "main_claims": [
+    "Ant Group's Ling-1T model outperforms rivals in code generation, software development, and competition-level mathematics.",
+    "Ling-1T is an open-source model with 1 trillion parameters.",
+    "The AI sector is experiencing intensifying competition between Chinese firms and global competitors.",
+    "DeepSeek's V3.2-Exp model has reduced API costs by over 50%."
+  ],
+  "evidence_or_facts": [
+    "Ling-1T scored higher than DeepSeek-V3.1-Terminus, Moonshot AI’s Kimi-K2-0905, and OpenAI’s GPT-5-main on LiveCodeBench and AIME benchmarks.",
+    "Ling-1T achieved 70.42% accuracy on AIME with an average cost of over 4,000 output tokens per problem.",
+    "Alibaba's Qwen-3-Max-Preview has more than 1 trillion parameters.",
+    "OpenAI's GPT-4.5 is estimated to have 5 to 7 trillion parameters.",
+    "DeepSeek's V3.2-Exp reduced API costs by 50% compared to previous versions."
+  ],
+  "rhetorical_frames": [
+    "Competitive race/escalation ('escalating the intense competition', 'AI model race')",
+    "Technical superiority/benchmarking ('outperforms', 'superior complex reasoning ability')",
+    "Democratization of AI ('open-source', 'practical, inclusive AGI services that benefit everyone')"
+  ],
+  "state_and_policy_content": [
+    "None mentioned explicitly."
+  ],
+  "capital_accumulation_content": [
+    "Mention of API cost reductions by DeepSeek as a competitive advantage.",
+    "Mention of Ant Group as an affiliate of Alibaba Group Holding."
+  ],
+  "labor_content": [
+    "None mentioned."
+  ],
+  "labor_content_missing": "The article does not discuss the impact of these models on employment, the displacement of programmers or mathematicians, or the labor process of training the LLMs."
+}

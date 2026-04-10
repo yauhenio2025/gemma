@@ -1,0 +1,32 @@
+{
+  "article_kind": "news",
+  "summary": "Tencent's Hunyuan Image 3.0, an open-source image-generation AI model, has reached the top of the LMArena leaderboard, surpassing Google's Nano Banana (Gemini 2.5 Flash Image). The article details the model's 80 billion parameters, its pricing on Fal.ai, and thes training data set size (5 billion image-text pairs and 6 trillion tokens).",
+  "main_claims": [
+    "Hunyuan Image 3.0 is currently the leading image-generation model according to LMArena user preferences.",
+    "Hunyuan Image 3.0 is the largest open-source image-generation model to date.",
+    "The model is designed to reduce workflow time for illustrators, designers, and creators."
+  ],
+  "evidence_or_facts": [
+    "LMArena is a public leaderboard based on user voting (blind tests).",
+    "Hunyuan Image 3.0 has 80 billion parameters.",
+    "Hunyuan Image 3.0 costs US$0.10 per megapixel on Fal.ai, while Gemini 2.5 Flash Image costs US$0.039 per image and Seedream 4.0 costs US$0.03 per image.",
+    "Tencent stated the model was trained on 5 billion image-text pairs, video frames, and 6 trillion tokens of text.",
+    "The model is open-sourced on GitHub and Hugging Face."
+  ],
+  "rhetorical_frames": [
+    "Competitive ranking/leaderboard performance (Tencent vs. Google)",
+    "Technical specifications as a proxy for power/intelligence",
+    "Productivity gains for creative professionals"
+  ],
+  "state_and_policy_content": [],
+  "capital_accumulation_content": [
+    "Pricing of AI model access via Fal.ai (per megapixel vs per image)",
+    "Open-sourcing of the model to developer platforms"
+  ],
+  "labor_content": [
+    "Mention of the model's ability to 'slash your workflow from hours to minutes' for illustrators, designers, and creators."
+  ],
+  "what_is_missing_for_theory_evaluation": [
+    "Information on the cost of training (compute costs), the data acquisition methods, the data labeling labor, "
+  ]
+}
