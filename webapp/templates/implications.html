@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Implications{% endblock %}
+{% block content %}
+<h1>Implications — Evidence Accumulation by Claim</h1>
+<p style="color:var(--muted);margin-bottom:16px;">All arguments from relevant and marginal documents, grouped by theory claim.</p>
+
+{% for claim in claims %}
+<div class="card claim-card" style="margin-bottom:16px;">
+    <div style="display:flex;gap:12px;align-items:baseline;">
+        <span class="claim-id"><a href="/claim/{{ claim.claim_id }}">{{ claim.claim_id }}</a></span>
+        <span style="font-weight:600;">{{ claim.claim_text | truncate(120) }}</span>
+    </div>
+    <div class="meta-row" style="margin:8px 0;">
+        <span class="badge badge-for">{{ claim.for_count }} for</span>
+        <span class="badge badge-against">{{ claim.against_count }} against</span>
+    </div>
+
+    {% if claim.arguments %}
+    {% set for_args = claim.arguments | selectattr('direction', 'equalto', 'for') | list %}
+    {% set against_args = claim.arguments | selectattr('direction', 'equalto', 'against') | list %}
+
+    {% if for_args %}
+    <h4>Supporting Evidence</h4>
+    {% for arg in for_args %}
+    <div class="arg-block arg-for" style="padding:6px 10px;">
+        <span class="badge badge-{{ arg.strength }}">{{ arg.strength }}</span>
+        <a href="/doc/{{ arg.slug }}" style="font-size:12px;">{{ arg.slug | truncate(45) }}</a>
+        <span class="badge badge-{{ arg.final_verdict }}" style="font-size:10px;">{{ arg.final_verdict }}</span>
+        <span style="font-size:11px;color:var(--muted);">{{ arg.profile }}</span>
+        <p style="font-size:13px;margin-top:3px;">{{ arg.argument }}</p>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    {% if against_args %}
+    <h4>Challenging Evidence</h4>
+    {% for arg in against_args %}
+    <div class="arg-block arg-against" style="padding:6px 10px;">
+        <span class="badge badge-{{ arg.strength }}">{{ arg.strength }}</span>
+        <a href="/doc/{{ arg.slug }}" style="font-size:12px;">{{ arg.slug | truncate(45) }}</a>
+        <span class="badge badge-{{ arg.final_verdict }}" style="font-size:10px;">{{ arg.final_verdict }}</span>
+        <span style="font-size:11px;color:var(--muted);">{{ arg.profile }}</span>
+        <p style="font-size:13px;margin-top:3px;">{{ arg.argument }}</p>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    {% else %}
+    <p style="color:var(--muted);font-size:13px;">No relevant/marginal evidence linked to this claim.</p>
+    {% endif %}
+</div>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,12 @@
+#!/bin/bash
+# Gemma Research Browser — start script
+# Ingests data and starts the webapp on port 8000
+
+set -e
+
+echo "Ingesting analysis artifacts..."
+uv run python -m webapp.ingest
+
+echo ""
+echo "Starting Gemma Research Browser at http://localhost:8000"
+uv run python -m webapp.app

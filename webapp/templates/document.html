@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+{% block title %}{{ doc.slug }}{% endblock %}
+{% block content %}
+<h1 style="font-size:18px;">
+    <a href="/corpus" style="color:var(--muted);">&larr; Corpus</a> &nbsp;
+    {{ doc.slug }}
+</h1>
+
+<!-- Metadata bar -->
+<div class="meta-row">
+    <span><strong>Profile:</strong> {{ doc.profile }}</span>
+    <span><strong>Verdict:</strong> <span class="badge badge-{{ doc.final_verdict }}">{{ doc.final_verdict }}</span></span>
+    <span><strong>Confidence:</strong> {{ '%.2f' | format(doc.final_confidence) if doc.final_confidence is not none else '—' }}</span>
+    <span><strong>Use:</strong> {{ doc.recommended_use | replace('_', ' ') if doc.recommended_use else '—' }}</span>
+    <span><strong>Model:</strong> {{ doc.model or '—' }}</span>
+    {% if doc.has_reconcile %}<span class="badge badge-moderate">Reconciled ({{ doc.reconcile_rounds }} rounds)</span>{% endif %}
+</div>
+
+<!-- Verdict summary -->
+{% if doc.one_paragraph_verdict %}
+<div class="card" style="margin-top:12px;">
+    <h3>Verdict Summary</h3>
+    <p style="line-height:1.7;">{{ doc.one_paragraph_verdict }}</p>
+</div>
+{% endif %}
+
+<!-- Arguments -->
+<div class="grid-2" style="margin-top:12px;">
+    <div>
+        <h3>Arguments For Theory ({{ args_for | length }})</h3>
+        {% for arg in args_for %}
+        <div class="arg-block arg-for">
+            <div>
+                <span class="badge badge-{{ arg.strength }}">{{ arg.strength }}</span>
+                {% for cid in arg.claim_ids %}<a href="/claim/{{ cid }}" class="badge badge-for">{{ cid }}</a> {% endfor %}
+                <span class="arg-meta">{{ arg.source }}</span>
+            </div>
+            <p style="margin-top:4px;">{{ arg.argument }}</p>
+        </div>
+        {% endfor %}
+        {% if not args_for %}<p style="color:var(--muted);font-size:13px;">None</p>{% endif %}
+    </div>
+    <div>
+        <h3>Arguments Against Theory ({{ args_against | length }})</h3>
+        {% for arg in args_against %}
+        <div class="arg-block arg-against">
+            <div>
+                <span class="badge badge-{{ arg.strength }}">{{ arg.strength }}</span>
+                {% for cid in arg.claim_ids %}<a href="/claim/{{ cid }}" class="badge badge-against">{{ cid }}</a> {% endfor %}
+                <span class="arg-meta">{{ arg.source }}</span>
+            </div>
+            <p style="margin-top:4px;">{{ arg.argument }}</p>
+        </div>
+        {% endfor %}
+        {% if not args_against %}<p style="color:var(--muted);font-size:13px;">None</p>{% endif %}
+    </div>
+</div>
+
+<!-- Contextual relevance & cannot adjudicate -->
+<div class="grid-2" style="margin-top:12px;">
+    <div class="card">
+        <h3>Contextual Relevance</h3>
+        <ul class="bullet-list">
+        {% for item in doc.contextual_relevance | fromjson %}
+            <li>{{ item }}</li>
+        {% endfor %}
+        </ul>
+        {% if not (doc.contextual_relevance | fromjson) %}<p style="color:var(--muted);font-size:13px;">None</p>{% endif %}
+    </div>
+    <div class="card">
+        <h3>Cannot Adjudicate</h3>
+        <ul class="bullet-list">
+        {% for item in doc.cannot_adjudicate | fromjson %}
+            <li>{{ item }}</li>
+        {% endfor %}
+        </ul>
+        {% if not (doc.cannot_adjudicate | fromjson) %}<p style="color:var(--muted);font-size:13px;">None</p>{% endif %}
+    </div>
+</div>
+
+{% if doc.state_capital_nexus %}
+<div class="card">
+    <h3>State-Capital Nexus Relevance</h3>
+    <p>{{ doc.state_capital_nexus }}</p>
+</div>
+{% endif %}
+
+<!-- Claim Assessments -->
+{% if claim_assessments %}
+<h3 style="margin-top:16px;">Claim Assessments</h3>
+<table>
+    <thead>
+        <tr><th>Claim</th><th>Stage</th><th>Engagement</th><th>Support</th><th>Challenge</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+    {% for ca in claim_assessments %}
+    <tr>
+        <td><a href="/claim/{{ ca.claim_id }}">{{ ca.claim_id }}</a></td>
+        <td>{{ ca.stage }}</td>
+        <td>{{ ca.engagement_type or '—' }}</td>
+        <td>
+            {% if ca.stage == 'counter' %}
+                {{ ca.corrected_support_strength or '—' }}
+            {% else %}
+                <span class="badge badge-{{ ca.support_strength or 'none' }}">{{ ca.support_strength or 'none' }}</span>
+            {% endif %}
+        </td>
+        <td>
+            {% if ca.stage == 'counter' %}
+                {{ ca.corrected_challenge_strength or '—' }}
+            {% else %}
+                <span class="badge badge-{{ ca.challenge_strength or 'none' }}">{{ ca.challenge_strength or 'none' }}</span>
+            {% endif %}
+        </td>
+        <td style="font-size:12px;">{{ ca.why_limited or ca.note or '—' }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+
+<!-- Analysis step tabs -->
+<div class="tab-group" style="margin-top:24px;">
+    <h3>Raw Analysis Steps</h3>
+    <div class="tabs">
+        {% for step in steps %}
+        <button class="tab {{ 'active' if loop.first }}" data-tab="step-{{ loop.index }}">{{ step.step_name }}</button>
+        {% endfor %}
+    </div>
+    {% for step in steps %}
+    <div id="step-{{ loop.index }}" class="tab-content {{ 'active' if loop.first }}">
+        <div style="font-size:11px;color:var(--muted);margin-bottom:4px;">{{ step.raw_path }}</div>
+        <div class="json-block">{{ step.raw_json | tojson_pretty }}</div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Source info -->
+<div class="card" style="margin-top:16px;">
+    <h3>Source Metadata</h3>
+    <div class="meta-row">
+        <span><strong>Article path:</strong> {{ doc.article_path or '—' }}</span>
+    </div>
+    <div class="meta-row">
+        <span><strong>Report path:</strong> {{ doc.report_path or '—' }}</span>
+    </div>
+    <div class="meta-row">
+        <span><strong>Output dir:</strong> {{ doc.output_dir or '—' }}</span>
+    </div>
+    {% if doc.article_kind %}
+    <div class="meta-row"><span><strong>Kind:</strong> {{ doc.article_kind }}</span></div>
+    {% endif %}
+    {% if doc.summary %}
+    <h4>Summary</h4>
+    <p style="font-size:13px;">{{ doc.summary }}</p>
+    {% endif %}
+</div>
+{% endblock %}

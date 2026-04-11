@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %}Corpus Browser{% endblock %}
+{% block content %}
+<h1>Corpus <span style="font-size:14px;color:var(--muted);">({{ docs | length }} documents)</span></h1>
+
+<form class="filters" method="get" action="/corpus">
+    <select name="profile">
+        <option value="">All profiles</option>
+        <option value="journalistic" {{ 'selected' if filters.profile == 'journalistic' }}>journalistic</option>
+        <option value="academic" {{ 'selected' if filters.profile == 'academic' }}>academic</option>
+    </select>
+    <select name="verdict">
+        <option value="">All verdicts</option>
+        {% for v in ['relevant', 'marginal', 'contextual', 'irrelevant'] %}
+        <option value="{{ v }}" {{ 'selected' if filters.verdict == v }}>{{ v }}</option>
+        {% endfor %}
+    </select>
+    <select name="recommended_use">
+        <option value="">All uses</option>
+        {% for u in ['use_as_substantive_evidence', 'use_as_minor_update', 'mention_in_passing', 'ignore'] %}
+        <option value="{{ u }}" {{ 'selected' if filters.recommended_use == u }}>{{ u }}</option>
+        {% endfor %}
+    </select>
+    <select name="claim_id">
+        <option value="">All claims</option>
+        {% for cid in claim_ids %}
+        <option value="{{ cid }}" {{ 'selected' if filters.claim_id == cid }}>{{ cid }}</option>
+        {% endfor %}
+    </select>
+    <select name="has_against">
+        <option value="">Any</option>
+        <option value="1" {{ 'selected' if filters.has_against == '1' }}>Has arguments against</option>
+    </select>
+    <select name="has_reconcile">
+        <option value="">Any</option>
+        <option value="1" {{ 'selected' if filters.has_reconcile == '1' }}>Has reconciliation</option>
+    </select>
+    <input type="text" name="q" placeholder="Search slug, summary, verdict..." value="{{ filters.q or '' }}">
+    <button type="submit">Filter</button>
+    <a href="/corpus" class="reset">Reset</a>
+</form>
+
+<div class="stats-bar" style="font-size:12px;">
+    {% for row in counts.by_verdict %}
+    <span><span class="badge badge-{{ row.final_verdict }}">{{ row.final_verdict }}</span> {{ row.cnt }}</span>
+    {% endfor %}
+    &nbsp;|&nbsp;
+    {% for row in counts.by_profile %}
+    <span>{{ row.profile }}: {{ row.cnt }}</span>
+    {% endfor %}
+</div>
+
+<table>
+    <thead>
+        <tr>
+            {% macro sort_link(col, label) %}
+            {% set next_order = 'desc' if filters.sort == col and filters.order == 'asc' else 'asc' %}
+            <th><a href="?sort={{ col }}&order={{ next_order }}{% if filters.profile %}&profile={{ filters.profile }}{% endif %}{% if filters.verdict %}&verdict={{ filters.verdict }}{% endif %}{% if filters.recommended_use %}&recommended_use={{ filters.recommended_use }}{% endif %}{% if filters.claim_id %}&claim_id={{ filters.claim_id }}{% endif %}{% if filters.has_against %}&has_against={{ filters.has_against }}{% endif %}{% if filters.has_reconcile %}&has_reconcile={{ filters.has_reconcile }}{% endif %}{% if filters.q %}&q={{ filters.q }}{% endif %}">{{ label }}{% if filters.sort == col %} {{ '▲' if filters.order == 'asc' else '▼' }}{% endif %}</a></th>
+            {% endmacro %}
+            {{ sort_link('slug', 'Document') }}
+            {{ sort_link('profile', 'Profile') }}
+            {{ sort_link('final_verdict', 'Verdict') }}
+            {{ sort_link('final_confidence', 'Conf.') }}
+            {{ sort_link('recommended_use', 'Use') }}
+            <th>Summary</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for doc in docs %}
+    <tr>
+        <td><a href="/doc/{{ doc.slug }}">{{ doc.slug | truncate(50) }}</a></td>
+        <td><span style="font-size:11px;">{{ doc.profile }}</span></td>
+        <td><span class="badge badge-{{ doc.final_verdict }}">{{ doc.final_verdict }}</span></td>
+        <td>{{ '%.1f' | format(doc.final_confidence) if doc.final_confidence is not none else '—' }}</td>
+        <td style="font-size:11px;">{{ doc.recommended_use | replace('_', ' ') if doc.recommended_use else '—' }}</td>
+        <td style="font-size:12px;max-width:400px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ doc.summary | truncate(100) if doc.summary else '—' }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

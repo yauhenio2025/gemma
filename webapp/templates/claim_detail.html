@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block title %}{{ claim.claim_id }} — {{ claim.claim_text | truncate(60) }}{% endblock %}
+{% block content %}
+<h1>
+    <a href="/claims" style="color:var(--muted);">&larr; Claims</a> &nbsp;
+    <span class="claim-id">{{ claim.claim_id }}</span>
+</h1>
+<p style="font-size:15px;line-height:1.7;margin:8px 0 16px;">{{ claim.claim_text }}</p>
+
+{% if claim.why_it_matters %}
+<div class="card">
+    <h4>Why It Matters</h4>
+    <p>{{ claim.why_it_matters }}</p>
+</div>
+{% endif %}
+
+<div class="grid-2">
+    <div class="card">
+        <h4>Support Requirements</h4>
+        <ul class="bullet-list">
+        {% for r in claim.support_requirements | fromjson %}
+            <li>{{ r }}</li>
+        {% endfor %}
+        </ul>
+    </div>
+    <div class="card">
+        <h4>Challenge Requirements</h4>
+        <ul class="bullet-list">
+        {% for r in claim.challenge_requirements | fromjson %}
+            <li>{{ r }}</li>
+        {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<!-- Supporting documents -->
+<h2>Supporting Documents ({{ support_docs | length }})</h2>
+{% for doc in support_docs %}
+<div class="arg-block arg-for">
+    <div>
+        <a href="/doc/{{ doc.slug }}"><strong>{{ doc.slug | truncate(60) }}</strong></a>
+        <span class="badge badge-{{ doc.final_verdict }}">{{ doc.final_verdict }}</span>
+        <span class="badge badge-{{ doc.strength }}">{{ doc.strength }}</span>
+        <span style="font-size:11px;color:var(--muted);">{{ doc.profile }}</span>
+    </div>
+    <p style="font-size:13px;margin-top:4px;">{{ doc.argument }}</p>
+</div>
+{% endfor %}
+{% if not support_docs %}<p style="color:var(--muted);">No supporting documents.</p>{% endif %}
+
+<!-- Challenging documents -->
+<h2>Challenging Documents ({{ challenge_docs | length }})</h2>
+{% for doc in challenge_docs %}
+<div class="arg-block arg-against">
+    <div>
+        <a href="/doc/{{ doc.slug }}"><strong>{{ doc.slug | truncate(60) }}</strong></a>
+        <span class="badge badge-{{ doc.final_verdict }}">{{ doc.final_verdict }}</span>
+        <span class="badge badge-{{ doc.strength }}">{{ doc.strength }}</span>
+        <span style="font-size:11px;color:var(--muted);">{{ doc.profile }}</span>
+    </div>
+    <p style="font-size:13px;margin-top:4px;">{{ doc.argument }}</p>
+</div>
+{% endfor %}
+{% if not challenge_docs %}<p style="color:var(--muted);">No challenging documents.</p>{% endif %}
+
+<!-- Contextual engagement -->
+<h2>Indirect/Contextual Engagement ({{ context_docs | length }})</h2>
+{% for doc in context_docs %}
+<div class="card" style="padding:8px 12px;">
+    <div>
+        <a href="/doc/{{ doc.slug }}"><strong>{{ doc.slug | truncate(60) }}</strong></a>
+        <span class="badge badge-{{ doc.final_verdict }}">{{ doc.final_verdict }}</span>
+        <span style="font-size:11px;color:var(--muted);">engagement: {{ doc.engagement_type }}</span>
+    </div>
+    {% if doc.why_limited %}<p style="font-size:12px;color:var(--muted);margin-top:2px;">{{ doc.why_limited }}</p>{% endif %}
+</div>
+{% endfor %}
+{% if not context_docs %}<p style="color:var(--muted);">None.</p>{% endif %}
+{% endblock %}

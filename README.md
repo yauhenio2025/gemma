@@ -62,6 +62,51 @@ The runner now retries malformed JSON responses and writes either:
 
 before exiting nonzero if any comparison text still fails.
 
+## Research Browser
+
+A local web app for browsing theory-analysis artifacts — inspect verdicts, arguments, claim linkages, and the full reasoning chain for each analyzed document.
+
+### Quick start
+
+```bash
+./start
+```
+
+This ingests all JSON artifacts into SQLite and starts the webapp at **http://localhost:8000**.
+
+### Manual steps
+
+```bash
+# 1. Ingest analysis artifacts into SQLite
+uv run python -m webapp.ingest
+
+# 2. Start the webapp
+uv run python -m webapp.app
+```
+
+### Pages
+
+| Page | URL | Description |
+|------|-----|-------------|
+| Dashboard | `/` | Corpus stats, verdict distribution, quick links |
+| Theory | `/theory` | Thesis, core claims (C1-C6), themes, boundaries, rubric |
+| Corpus | `/corpus` | Filterable table — profile, verdict, use, claim, search |
+| Document | `/doc/{slug}` | Verdict, arguments for/against, claim assessments, raw JSON |
+| Claims | `/claims` | Claim explorer with support/challenge counts |
+| Claim detail | `/claim/{id}` | All linked documents grouped by support/challenge/context |
+| Implications | `/implications` | Evidence accumulation by claim from relevant/marginal docs |
+| Review | `/review` | Low-confidence, reconciled, and challenged items |
+
+### Re-ingest after new analysis runs
+
+After running new analyses, re-ingest to update the database:
+
+```bash
+uv run python -m webapp.ingest
+```
+
+The ingest command drops and recreates the database each time.
+
 ## Test
 
 ```bash

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Claim Explorer{% endblock %}
+{% block content %}
+<h1>Claim Explorer</h1>
+
+{% for claim in claims %}
+<div class="card claim-card">
+    <div style="display:flex;gap:12px;align-items:baseline;">
+        <span class="claim-id">{{ claim.claim_id }}</span>
+        <a href="/claim/{{ claim.claim_id }}" style="font-weight:600;">{{ claim.claim_text }}</a>
+    </div>
+    <div class="meta-row" style="margin-top:8px;">
+        <span class="badge badge-for">{{ claim.support_count }} supporting</span>
+        <span class="badge badge-against">{{ claim.challenge_count }} challenging</span>
+        <span style="font-size:12px;color:var(--muted);">{{ claim.assessed_count }} assessed with engagement</span>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

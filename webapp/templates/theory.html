@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block title %}Theory Structure{% endblock %}
+{% block content %}
+<h1>Theory Structure</h1>
+
+{% for profile, d in data.items() %}
+<div class="card" style="margin-bottom: 24px;">
+    <h2>{{ profile | capitalize }} Profile</h2>
+
+    <h3>Thesis</h3>
+    <p style="font-size: 14px; line-height: 1.7; margin: 8px 0 16px; padding: 12px; background: var(--accent-light); border-radius: 4px;">
+        {{ d.theory.thesis }}
+    </p>
+
+    <h3>Core Claims</h3>
+    {% for claim in d.claims %}
+    <div class="card claim-card">
+        <div style="display:flex;gap:12px;align-items:baseline;">
+            <span class="claim-id">{{ claim.claim_id }}</span>
+            <a href="/claim/{{ claim.claim_id }}">{{ claim.claim_text }}</a>
+        </div>
+        {% if claim.why_it_matters %}
+        <p style="font-size: 13px; color: var(--muted); margin: 6px 0;">{{ claim.why_it_matters }}</p>
+        {% endif %}
+        <div class="grid-2" style="margin-top: 8px;">
+            <div>
+                <h4>Support Requirements</h4>
+                <ul class="bullet-list">
+                {% for r in claim.support_requirements | fromjson %}
+                    <li>{{ r }}</li>
+                {% endfor %}
+                </ul>
+            </div>
+            <div>
+                <h4>Challenge Requirements</h4>
+                <ul class="bullet-list">
+                {% for r in claim.challenge_requirements | fromjson %}
+                    <li>{{ r }}</li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    <h3>Secondary Themes</h3>
+    {% for theme in d.themes %}
+    <div class="card">
+        <div style="display:flex;gap:12px;align-items:baseline;">
+            <span class="badge" style="background: var(--accent); color: #fff;">{{ theme.theme_id }}</span>
+            <strong>{{ theme.theme_text }}</strong>
+        </div>
+        {% if theme.why_articles_may_matter %}
+        <p style="font-size: 13px; color: var(--muted); margin: 4px 0;">{{ theme.why_articles_may_matter }}</p>
+        {% endif %}
+    </div>
+    {% endfor %}
+
+    <h3>Conceptual Boundaries</h3>
+    {% for b in d.boundaries %}
+    <div class="card">
+        <strong>{{ b.boundary }}</strong>
+        <p style="font-size: 13px; margin: 4px 0;">{{ b.explanation }}</p>
+    </div>
+    {% endfor %}
+
+    {% if d.tiers %}
+    <h3>Relevance Tiers</h3>
+    <table>
+        <thead><tr><th>Tier</th><th>Definition</th><th>Recommended Use</th></tr></thead>
+        <tbody>
+        {% for t in d.tiers %}
+        <tr>
+            <td><span class="badge badge-{{ t.label }}">{{ t.label }}</span></td>
+            <td style="font-size:12px;">{{ t.definition }}</td>
+            <td style="font-size:12px;">{{ t.recommended_use or '—' }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+
+    {% if d.hooks %}
+    <details style="margin-top:12px;">
+        <summary>Relevance Hooks ({{ d.hooks | length }})</summary>
+        <table>
+            <thead><tr><th>Hook</th><th>Counts As</th><th>Notes</th></tr></thead>
+            <tbody>
+            {% for h in d.hooks %}
+            <tr>
+                <td style="font-size:12px;">{{ h.hook }}</td>
+                <td><span class="badge">{{ h.counts_as }}</span></td>
+                <td style="font-size:12px;">{{ h.notes or '' }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </details>
+    {% endif %}
+</div>
+{% endfor %}
+{% endblock %}

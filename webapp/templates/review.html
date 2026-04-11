@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block title %}Review Queue{% endblock %}
+{% block content %}
+<h1>Review Queue</h1>
+
+<div class="tab-group">
+    <div class="tabs">
+        <button class="tab {{ 'active' if tab == 'low_confidence' }}" data-tab="tab-lc">Low Confidence ({{ low_confidence | length }})</button>
+        <button class="tab {{ 'active' if tab == 'reconciled' }}" data-tab="tab-rec">Reconciled ({{ reconciled | length }})</button>
+        <button class="tab {{ 'active' if tab == 'challenged' }}" data-tab="tab-ch">Challenged ({{ challenged | length }})</button>
+    </div>
+
+    <div id="tab-lc" class="tab-content {{ 'active' if tab == 'low_confidence' }}">
+        <p style="color:var(--muted);margin-bottom:8px;">Documents with final confidence &lt; 0.8</p>
+        {% if low_confidence %}
+        <table>
+            <thead><tr><th>Document</th><th>Profile</th><th>Verdict</th><th>Confidence</th><th>Use</th></tr></thead>
+            <tbody>
+            {% for doc in low_confidence %}
+            <tr>
+                <td><a href="/doc/{{ doc.slug }}">{{ doc.slug | truncate(55) }}</a></td>
+                <td>{{ doc.profile }}</td>
+                <td><span class="badge badge-{{ doc.final_verdict }}">{{ doc.final_verdict }}</span></td>
+                <td><strong>{{ '%.2f' | format(doc.final_confidence) if doc.final_confidence is not none else '—' }}</strong></td>
+                <td style="font-size:12px;">{{ doc.recommended_use | replace('_', ' ') if doc.recommended_use else '—' }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p style="color:var(--muted);">All documents have confidence &ge; 0.8.</p>
+        {% endif %}
+    </div>
+
+    <div id="tab-rec" class="tab-content {{ 'active' if tab == 'reconciled' }}">
+        <p style="color:var(--muted);margin-bottom:8px;">Documents that went through reconciliation rounds</p>
+        {% if reconciled %}
+        <table>
+            <thead><tr><th>Document</th><th>Profile</th><th>Verdict</th><th>Rounds</th><th>Final Conf.</th></tr></thead>
+            <tbody>
+            {% for doc in reconciled %}
+            <tr>
+                <td><a href="/doc/{{ doc.slug }}">{{ doc.slug | truncate(55) }}</a></td>
+                <td>{{ doc.profile }}</td>
+                <td><span class="badge badge-{{ doc.final_verdict }}">{{ doc.final_verdict }}</span></td>
+                <td>{{ doc.reconcile_rounds }}</td>
+                <td>{{ '%.2f' | format(doc.reconcile_confidence) if doc.reconcile_confidence is not none else '—' }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p style="color:var(--muted);">No reconciled documents.</p>
+        {% endif %}
+    </div>
+
+    <div id="tab-ch" class="tab-content {{ 'active' if tab == 'challenged' }}">
+        <p style="color:var(--muted);margin-bottom:8px;">Documents with any arguments against the theory</p>
+        {% if challenged %}
+        <table>
+            <thead><tr><th>Document</th><th>Profile</th><th>Verdict</th><th>Confidence</th><th>Use</th></tr></thead>
+            <tbody>
+            {% for doc in challenged %}
+            <tr>
+                <td><a href="/doc/{{ doc.slug }}">{{ doc.slug | truncate(55) }}</a></td>
+                <td>{{ doc.profile }}</td>
+                <td><span class="badge badge-{{ doc.final_verdict }}">{{ doc.final_verdict }}</span></td>
+                <td>{{ '%.2f' | format(doc.final_confidence) if doc.final_confidence is not none else '—' }}</td>
+                <td style="font-size:12px;">{{ doc.recommended_use | replace('_', ' ') if doc.recommended_use else '—' }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p style="color:var(--muted);">No documents with arguments against the theory.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

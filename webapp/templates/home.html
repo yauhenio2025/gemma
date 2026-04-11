@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}Gemma — Dashboard{% endblock %}
+{% block content %}
+<h1>Research Dashboard</h1>
+
+<div class="stats-bar">
+    <div class="stat">
+        <div class="stat-value">{{ stats.total }}</div>
+        <div class="stat-label">Documents</div>
+    </div>
+    <div class="stat">
+        <div class="stat-value">{{ stats.with_arguments_against }}</div>
+        <div class="stat-label">With challenges</div>
+    </div>
+    <div class="stat">
+        <div class="stat-value">{{ stats.with_reconcile }}</div>
+        <div class="stat-label">Reconciled</div>
+    </div>
+</div>
+
+<div class="grid-3">
+    <div class="card">
+        <h3>By Verdict</h3>
+        {% for row in stats.by_verdict %}
+        <div style="display:flex;justify-content:space-between;padding:3px 0;">
+            <span class="badge badge-{{ row.final_verdict }}">{{ row.final_verdict or 'unknown' }}</span>
+            <strong>{{ row.cnt }}</strong>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="card">
+        <h3>By Profile</h3>
+        {% for row in stats.by_profile %}
+        <div style="display:flex;justify-content:space-between;padding:3px 0;">
+            <span>{{ row.profile }}</span>
+            <strong>{{ row.cnt }}</strong>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="card">
+        <h3>By Recommended Use</h3>
+        {% for row in stats.by_recommended_use %}
+        <div style="display:flex;justify-content:space-between;padding:3px 0;">
+            <span style="font-size:12px;">{{ row.recommended_use or 'unknown' }}</span>
+            <strong>{{ row.cnt }}</strong>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="grid-2" style="margin-top: 16px;">
+    <div class="card">
+        <h3>Quick Links</h3>
+        <ul class="bullet-list">
+            <li><a href="/theory">Theory structure</a> — thesis, claims, themes, rubric</li>
+            <li><a href="/corpus">Full corpus</a> — browse all {{ stats.total }} documents</li>
+            <li><a href="/claims">Claim explorer</a> — evidence by claim</li>
+            <li><a href="/implications">Implications</a> — evidence accumulation</li>
+            <li><a href="/review">Review queue</a> — items needing attention</li>
+        </ul>
+    </div>
+    <div class="card">
+        <h3>Review Priorities</h3>
+        <ul class="bullet-list">
+            <li><a href="/review?tab=challenged">{{ stats.with_arguments_against }} documents</a> with arguments against the theory</li>
+            <li><a href="/review?tab=reconciled">{{ stats.with_reconcile }} documents</a> that went through reconciliation</li>
+            <li><a href="/corpus?verdict=relevant">Relevant documents</a> with strongest evidence</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

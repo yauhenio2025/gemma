@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Gemma Research Browser{% endblock %}</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <a href="/" class="brand">Gemma</a>
+            <a href="/theory">Theory</a>
+            <a href="/corpus">Corpus</a>
+            <a href="/claims">Claims</a>
+            <a href="/implications">Implications</a>
+            <a href="/review">Review</a>
+        </div>
+    </nav>
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+    <footer>
+        <div class="container">Gemma Research Browser &mdash; read-only artifact viewer</div>
+    </footer>
+    <script>
+    // Simple tab switching
+    document.addEventListener('click', function(e) {
+        if (!e.target.classList.contains('tab')) return;
+        const group = e.target.closest('.tab-group');
+        if (!group) return;
+        group.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        group.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        e.target.classList.add('active');
+        const target = document.getElementById(e.target.dataset.tab);
+        if (target) target.classList.add('active');
+    });
+    </script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>
