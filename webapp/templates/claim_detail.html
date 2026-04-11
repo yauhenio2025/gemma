@@ -63,6 +63,23 @@
 {% endfor %}
 {% if not challenge_docs %}<p style="color:var(--muted);">No challenging documents.</p>{% endif %}
 
+<h2>Implication Pass ({{ implication_docs | length }})</h2>
+{% for doc in implication_docs %}
+<div class="card" style="padding:8px 12px;">
+    <div>
+        <a href="/doc/{{ doc.slug }}"><strong>{{ doc.slug | truncate(60) }}</strong></a>
+        <span class="badge badge-{{ doc.final_verdict }}">{{ doc.final_verdict }}</span>
+        <span class="badge badge-moderate">{{ doc.effect }}</span>
+        <span style="font-size:11px;color:var(--muted);">{{ doc.profile }}</span>
+    </div>
+    {% if doc.why %}<p style="font-size:13px;margin-top:4px;">{{ doc.why }}</p>{% endif %}
+    {% if doc.proposed_revision %}
+    <p style="font-size:12px;color:var(--muted);margin-top:4px;">Revision: {{ doc.proposed_revision }}</p>
+    {% endif %}
+</div>
+{% endfor %}
+{% if not implication_docs %}<p style="color:var(--muted);">No explicit implication-pass entries for this claim.</p>{% endif %}
+
 <!-- Contextual engagement -->
 <h2>Indirect/Contextual Engagement ({{ context_docs | length }})</h2>
 {% for doc in context_docs %}

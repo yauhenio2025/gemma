@@ -36,6 +36,31 @@ The paper is marginally relevant because it provides substantive labor-process e
 - The theoretical validity of the techno-feudalism analogy based on the Brenner-Wallerstein debate (C2).
 - Whether the digital economy represents a systemic transition to a new mode of production or an expansion of capitalism (C5).
 
+## Theory Implications
+
+- Overall implication: confirms
+- Revision priority: low
+- Confidence: 0.82
+
+The paper primarily reinforces C1 and C3 through labor-process evidence from digital platforms (Amazon Mechanical Turk, food delivery apps). Its concept of 'qualitative efficiency'—firms investing in algorithmic control to reproduce class power over workers—provides a labor-process-theory mechanism supporting the claim that tech firms' capital expenditure reflects active capitalist production, not passive rentierism. By categorizing platform activity as 'digital piecework' under 'algorithmic supervision,' it corroborates the critique of user-ism by reframing platform interactions as managed labor rather than data extraction. However, the paper does not engage with the rent-profit distinction, the techno-feudalism thesis, or the Brenner-Wallerstein genealogy, limiting its impact on the theory map to empirical illustration of existing claims.
+
+### Claim-Level Implications
+
+- C1: confirms — The paper's analysis of Amazon Mechanical Turk and food delivery platforms as sites of 'digital piecework' and 'algorithmic supervision' demonstrates that platforms actively organize labor processes to extract surplus—hallmarks of capitalist production. The concept of 'qualitative efficiency' explains high R&D and infrastructure spending as investment in worker control mechanisms, not innovation for its own sake, reinforcing that such expenditure is incompatible with a lazy-rentier characterization.
+  Evidence: Amazon Turkers described as performing 'digital piecework' under algorithmic supervision, paralleling Burawoy's industrial piecework analysis, Food delivery workers in Bengaluru subject to algorithmic management that transforms work into 'a game of chance', 'Capitalist efficiency' defined as production processes that best reproduce capitalist control and minimize proletarian resistance, even when not strictly cost-minimizing
+  Proposed revision: No revision needed. The paper provides additional empirical grounding for the existing claim that tech firms organize capitalist production processes, but does not alter the claim's scope or logic.
+- C3: confirms — By explicitly categorizing platform activity as labor (digital piecework, algorithmically supervised work) rather than user interaction or data generation, the paper directly supports the critique that 'user-ism' misidentifies the locus of value creation. The comparison between industrial piecework (Burawoy) and digital piecework reframes platform activity within the labor-process tradition, contra the Zuboff/surveillance-capitalism framing.
+  Evidence: Explicit comparison between industrial piecework (Burawoy's manufacturing consent) and digital piecework (Amazon Mechanical Turk), Worker resistance on platforms (Turkopticon, Namma Yatri cooperative) analyzed as labor resistance, not consumer/user activism, Algorithmic supervision analyzed as a technology of labor discipline, not primarily a technology of data extraction
+  Proposed revision: No revision needed. The paper confirms the existing critique without adding new theoretical dimensions.
+
+### New Open Questions
+
+- Could the 'qualitative efficiency' framework help empirically distinguish between 'forces of production' and 'forces of predation' in tech firm R&D, by asking whether specific investments primarily enhance output or primarily enhance worker control?
+
+### Recommended Follow-Up
+
+- Studies that quantitatively decompose tech firm capital expenditure into control-oriented vs. output-oriented investment, which would operationalize the 'qualitative efficiency' distinction for the rent-vs-profit debate
+
 ## Notes
 
 - State-capital nexus relevance: The paper illustrates the state's role in facilitating capitalist accumulation by denying support to pro-worker alternatives (Youngstown case), but it does not specifically analyze the US national security state's constitutive role in Silicon Valley's dominance.

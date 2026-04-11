@@ -2,7 +2,7 @@
 {% block title %}Implications{% endblock %}
 {% block content %}
 <h1>Implications — Evidence Accumulation by Claim</h1>
-<p style="color:var(--muted);margin-bottom:16px;">All arguments from relevant and marginal documents, grouped by theory claim.</p>
+<p style="color:var(--muted);margin-bottom:16px;">Relevant and marginal documents, grouped by theory claim, with explicit revision and extension signals when a 05 implications pass exists.</p>
 
 {% for claim in claims %}
 <div class="card claim-card" style="margin-bottom:16px;">
@@ -13,7 +13,24 @@
     <div class="meta-row" style="margin:8px 0;">
         <span class="badge badge-for">{{ claim.for_count }} for</span>
         <span class="badge badge-against">{{ claim.against_count }} against</span>
+        <span class="badge badge-moderate">{{ claim.implication_count }} implication rows</span>
     </div>
+
+    {% if claim.implication_rows %}
+    <h4>Revision / Extension Signals</h4>
+    {% for item in claim.implication_rows %}
+    <div class="card" style="padding:8px 12px;margin-bottom:8px;">
+        <div>
+            <span class="badge badge-moderate">{{ item.effect }}</span>
+            <a href="/doc/{{ item.slug }}" style="font-size:12px;">{{ item.slug | truncate(45) }}</a>
+            <span class="badge badge-{{ item.final_verdict }}" style="font-size:10px;">{{ item.final_verdict }}</span>
+            <span style="font-size:11px;color:var(--muted);">{{ item.profile }} · priority {{ item.implication_revision_priority or 'n/a' }}</span>
+        </div>
+        {% if item.why %}<p style="font-size:13px;margin-top:4px;">{{ item.why }}</p>{% endif %}
+        {% if item.proposed_revision %}<p style="font-size:12px;color:var(--muted);margin-top:4px;">Proposed revision: {{ item.proposed_revision }}</p>{% endif %}
+    </div>
+    {% endfor %}
+    {% endif %}
 
     {% if claim.arguments %}
     {% set for_args = claim.arguments | selectattr('direction', 'equalto', 'for') | list %}

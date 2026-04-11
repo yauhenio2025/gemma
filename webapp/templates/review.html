@@ -8,6 +8,7 @@
         <button class="tab {{ 'active' if tab == 'low_confidence' }}" data-tab="tab-lc">Low Confidence ({{ low_confidence | length }})</button>
         <button class="tab {{ 'active' if tab == 'reconciled' }}" data-tab="tab-rec">Reconciled ({{ reconciled | length }})</button>
         <button class="tab {{ 'active' if tab == 'challenged' }}" data-tab="tab-ch">Challenged ({{ challenged | length }})</button>
+        <button class="tab {{ 'active' if tab == 'revision_priority' }}" data-tab="tab-rp">Revision Priority ({{ revision_priority | length }})</button>
     </div>
 
     <div id="tab-lc" class="tab-content {{ 'active' if tab == 'low_confidence' }}">
@@ -73,6 +74,28 @@
         </table>
         {% else %}
         <p style="color:var(--muted);">No documents with arguments against the theory.</p>
+        {% endif %}
+    </div>
+
+    <div id="tab-rp" class="tab-content {{ 'active' if tab == 'revision_priority' }}">
+        <p style="color:var(--muted);margin-bottom:8px;">Documents whose implication pass suggests medium/high revision priority.</p>
+        {% if revision_priority %}
+        <table>
+            <thead><tr><th>Document</th><th>Profile</th><th>Verdict</th><th>Implication</th><th>Priority</th></tr></thead>
+            <tbody>
+            {% for doc in revision_priority %}
+            <tr>
+                <td><a href="/doc/{{ doc.slug }}">{{ doc.slug | truncate(55) }}</a></td>
+                <td>{{ doc.profile }}</td>
+                <td><span class="badge badge-{{ doc.final_verdict }}">{{ doc.final_verdict }}</span></td>
+                <td>{{ doc.implication_overall or '—' }}</td>
+                <td><strong>{{ doc.implication_revision_priority or '—' }}</strong></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p style="color:var(--muted);">No medium/high revision-priority documents yet.</p>
         {% endif %}
     </div>
 </div>

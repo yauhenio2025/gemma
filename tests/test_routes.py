@@ -62,12 +62,25 @@ def test_corpus_search(client):
     assert "palantir" in resp.text.lower()
 
 
+def test_corpus_filter_has_implications(client):
+    resp = client.get("/corpus?has_implications=1")
+    assert resp.status_code == 200
+    assert "amazon-paradox" in resp.text.lower()
+
+
 def test_document_detail(client):
     resp = client.get("/doc/scmp-com-palantir-books-its-first-us1-billion-in-quarterly-sales-and-dodges-doge-axe")
     assert resp.status_code == 200
     assert "Verdict Summary" in resp.text
     assert "marginal" in resp.text
     assert "C3" in resp.text
+
+
+def test_document_detail_with_theory_implications(client):
+    resp = client.get("/doc/maher-aquanno-2026-monopoly-or-competition-unraveling-the-amazon-paradox")
+    assert resp.status_code == 200
+    assert "Theory Implications" in resp.text
+    assert "Revision priority" in resp.text
 
 
 def test_document_not_found(client):

@@ -117,6 +117,16 @@ CREATE TABLE IF NOT EXISTS document (
     state_capital_nexus  TEXT,
     recommended_use      TEXT,
 
+    -- from 05_theory_implications.json
+    has_theory_implications INTEGER DEFAULT 0,
+    implication_overall    TEXT,
+    implication_summary    TEXT,
+    implication_new_subclaims TEXT,      -- JSON array
+    implication_new_open_questions TEXT, -- JSON array
+    implication_revision_priority TEXT,
+    implication_follow_up  TEXT,         -- JSON array
+    implication_confidence REAL,
+
     -- reconciliation metadata
     has_reconcile       INTEGER DEFAULT 0,
     reconcile_rounds    INTEGER DEFAULT 0,
@@ -155,6 +165,19 @@ CREATE TABLE IF NOT EXISTS argument (
 );
 CREATE INDEX IF NOT EXISTS idx_arg_doc ON argument(document_id);
 CREATE INDEX IF NOT EXISTS idx_arg_dir ON argument(direction);
+
+-- Theory implication claim-level rows from 05
+CREATE TABLE IF NOT EXISTS theory_implication_claim (
+    id          INTEGER PRIMARY KEY,
+    document_id INTEGER NOT NULL REFERENCES document(id),
+    claim_id    TEXT NOT NULL,
+    effect      TEXT NOT NULL,
+    why         TEXT,
+    evidence_from_document TEXT,         -- JSON array
+    proposed_revision TEXT
+);
+CREATE INDEX IF NOT EXISTS idx_tic_doc ON theory_implication_claim(document_id);
+CREATE INDEX IF NOT EXISTS idx_tic_claim ON theory_implication_claim(claim_id);
 
 -- Claim links from arguments
 CREATE TABLE IF NOT EXISTS argument_claim_link (

@@ -47,6 +47,12 @@ Run only the academic-paper stage using academic theory preprocessing:
 ./run_academic.sh --stage articles
 ```
 
+Run only the new theory-implications pass against already analyzed academic papers:
+
+```bash
+./run_academic.sh --stage implications --implication-min-verdict marginal
+```
+
 Run the calibrated second pass over the articles:
 
 ```bash
@@ -75,6 +81,7 @@ What the pipeline does:
 5. Run a counter-audit to detect grade inflation or missed points.
 6. Produce a final judgment.
 7. Run extra reconcile passes when the earlier passes disagree or confidence stays low.
+8. Optionally run a theory-implications pass on relevant/marginal items to extract confirmations, qualifications, extensions, revision pressure, and follow-up questions.
 
 The academic profile differs in two ways:
 

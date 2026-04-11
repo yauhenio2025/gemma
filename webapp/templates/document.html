@@ -85,6 +85,64 @@
 </div>
 {% endif %}
 
+{% if doc.has_theory_implications %}
+<div class="card" style="margin-top:12px;">
+    <h3>Theory Implications</h3>
+    <div class="meta-row">
+        <span><strong>Overall:</strong> {{ doc.implication_overall or '—' }}</span>
+        <span><strong>Revision priority:</strong> {{ doc.implication_revision_priority or '—' }}</span>
+        <span><strong>Confidence:</strong> {{ '%.2f' | format(doc.implication_confidence) if doc.implication_confidence is not none else '—' }}</span>
+    </div>
+    {% if doc.implication_summary %}
+    <p style="margin-top:8px;line-height:1.7;">{{ doc.implication_summary }}</p>
+    {% endif %}
+    {% if implication_claims %}
+    <h4>Claim-Level Implications</h4>
+    {% for item in implication_claims %}
+    <div class="card" style="padding:8px 12px;margin-bottom:8px;">
+        <div class="meta-row">
+            <a href="/claim/{{ item.claim_id }}" class="badge badge-moderate">{{ item.claim_id }}</a>
+            <span class="badge badge-{{ doc.final_verdict }}">{{ item.effect }}</span>
+        </div>
+        {% if item.why %}<p style="margin-top:6px;">{{ item.why }}</p>{% endif %}
+        {% set evidence = item.evidence_from_document | fromjson %}
+        {% if evidence %}
+        <div style="font-size:12px;color:var(--muted);margin-top:6px;">Evidence</div>
+        <ul class="bullet-list">
+            {% for row in evidence %}<li>{{ row }}</li>{% endfor %}
+        </ul>
+        {% endif %}
+        {% if item.proposed_revision %}
+        <div style="font-size:12px;color:var(--muted);margin-top:6px;">Proposed revision</div>
+        <p>{{ item.proposed_revision }}</p>
+        {% endif %}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% set new_subclaims = doc.implication_new_subclaims | fromjson %}
+    {% if new_subclaims %}
+    <h4>New Subclaims</h4>
+    <ul class="bullet-list">
+        {% for item in new_subclaims %}<li>{{ item }}</li>{% endfor %}
+    </ul>
+    {% endif %}
+    {% set open_questions = doc.implication_new_open_questions | fromjson %}
+    {% if open_questions %}
+    <h4>New Open Questions</h4>
+    <ul class="bullet-list">
+        {% for item in open_questions %}<li>{{ item }}</li>{% endfor %}
+    </ul>
+    {% endif %}
+    {% set follow_up = doc.implication_follow_up | fromjson %}
+    {% if follow_up %}
+    <h4>Recommended Follow-Up</h4>
+    <ul class="bullet-list">
+        {% for item in follow_up %}<li>{{ item }}</li>{% endfor %}
+    </ul>
+    {% endif %}
+</div>
+{% endif %}
+
 <!-- Claim Assessments -->
 {% if claim_assessments %}
 <h3 style="margin-top:16px;">Claim Assessments</h3>

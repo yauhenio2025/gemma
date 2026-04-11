@@ -122,6 +122,7 @@ def ingest_document(conn: sqlite3.Connection, profile: str, slug: str,
     relevance_audit = _json(doc_dir / "02_relevance_audit.json")
     counter_audit = _json(doc_dir / "03_counter_audit.json")
     final_judgment = _json(doc_dir / "04_final_judgment.json")
+    theory_implications = _json(doc_dir / "05_theory_implications.json")
 
     # Find reconcile rounds
     reconcile_paths = sorted(doc_dir.glob("04b_reconcile_round_*.json"))
@@ -132,6 +133,7 @@ def ingest_document(conn: sqlite3.Connection, profile: str, slug: str,
     ra = relevance_audit or {}
     ca = counter_audit or {}
     fj = final_judgment or {}
+    ti = theory_implications or {}
 
     last_reconcile_confidence = None
     if reconcile_data:
@@ -140,8 +142,56 @@ def ingest_document(conn: sqlite3.Connection, profile: str, slug: str,
 
     # Upsert document
     conn.execute("DELETE FROM document WHERE slug = ?", (slug,))
+    document_values = (
+        profile, slug,
+        index_entry.get("article_path"), index_entry.get("report_path"),
+        str(doc_dir), model,
+        index_entry.get("verdict"), index_entry.get("confidence"),
+        index_entry.get("recommended_use"),
+        # article map
+        am.get("article_kind"), am.get("summary"),
+        _j(am.get("main_claims")), _j(am.get("evidence_or_facts")),
+        _j(am.get("possible_theory_hooks")),
+        am.get("research_question"), _j(am.get("method_or_approach")),
+        _j(am.get("empirical_scope_or_case")), _j(am.get("theoretical_frameworks")),
+        # relevance audit
+        ra.get("overall_initial_verdict"), ra.get("overall_reason"),
+        ra.get("confidence"),
+        _j(ra.get("contextual_relevance_points")),
+        _j(ra.get("illustrative_relevance_points")),
+        _j(ra.get("article_level_points_for_theory")),
+        _j(ra.get("article_level_points_against_theory")),
+        _j(ra.get("irrelevance_reasons")),
+        # counter audit
+        1 if ca.get("grade_inflation_detected") else 0,
+        1 if ca.get("false_negative_detected") else 0,
+        _j(ca.get("problems_with_initial_audit")),
+        _j(ca.get("missing_support_points")),
+        _j(ca.get("missing_challenge_points")),
+        ca.get("corrected_verdict"), ca.get("confidence"),
+        # final judgment
+        fj.get("overall_verdict"), fj.get("confidence"),
+        fj.get("relevance_mode"), fj.get("one_paragraph_verdict"),
+        _j(fj.get("contextual_relevance")),
+        _j(fj.get("what_article_cannot_adjudicate")),
+        fj.get("state_capital_nexus_relevance"), fj.get("recommended_use"),
+        # implications
+        1 if theory_implications else 0,
+        ti.get("overall_implication"),
+        ti.get("summary"),
+        _j(ti.get("new_subclaims")),
+        _j(ti.get("new_open_questions")),
+        ti.get("revision_priority"),
+        _j(ti.get("recommended_follow_up")),
+        ti.get("confidence"),
+        # reconcile
+        1 if reconcile_data else 0,
+        len(reconcile_data),
+        last_reconcile_confidence,
+    )
+    placeholders = ", ".join(["?"] * len(document_values))
     cur = conn.execute(
-        """INSERT INTO document (
+        f"""INSERT INTO document (
             profile, slug, article_path, report_path, output_dir, model,
             index_verdict, index_confidence, index_recommended_use,
             article_kind, summary, main_claims, evidence_or_facts,
@@ -157,63 +207,12 @@ def ingest_document(conn: sqlite3.Connection, profile: str, slug: str,
             final_verdict, final_confidence, relevance_mode,
             one_paragraph_verdict, contextual_relevance, cannot_adjudicate,
             state_capital_nexus, recommended_use,
+            has_theory_implications, implication_overall, implication_summary,
+            implication_new_subclaims, implication_new_open_questions,
+            implication_revision_priority, implication_follow_up, implication_confidence,
             has_reconcile, reconcile_rounds, reconcile_confidence
-        ) VALUES (
-            ?, ?, ?, ?, ?, ?,
-            ?, ?, ?,
-            ?, ?, ?, ?,
-            ?, ?, ?,
-            ?, ?,
-            ?, ?, ?,
-            ?, ?,
-            ?, ?,
-            ?,
-            ?, ?,
-            ?, ?, ?,
-            ?, ?,
-            ?, ?, ?,
-            ?, ?, ?,
-            ?, ?,
-            ?, ?, ?
-        )""",
-        (
-            profile, slug,
-            index_entry.get("article_path"), index_entry.get("report_path"),
-            str(doc_dir), model,
-            index_entry.get("verdict"), index_entry.get("confidence"),
-            index_entry.get("recommended_use"),
-            # article map
-            am.get("article_kind"), am.get("summary"),
-            _j(am.get("main_claims")), _j(am.get("evidence_or_facts")),
-            _j(am.get("possible_theory_hooks")),
-            am.get("research_question"), _j(am.get("method_or_approach")),
-            _j(am.get("empirical_scope_or_case")), _j(am.get("theoretical_frameworks")),
-            # relevance audit
-            ra.get("overall_initial_verdict"), ra.get("overall_reason"),
-            ra.get("confidence"),
-            _j(ra.get("contextual_relevance_points")),
-            _j(ra.get("illustrative_relevance_points")),
-            _j(ra.get("article_level_points_for_theory")),
-            _j(ra.get("article_level_points_against_theory")),
-            _j(ra.get("irrelevance_reasons")),
-            # counter audit
-            1 if ca.get("grade_inflation_detected") else 0,
-            1 if ca.get("false_negative_detected") else 0,
-            _j(ca.get("problems_with_initial_audit")),
-            _j(ca.get("missing_support_points")),
-            _j(ca.get("missing_challenge_points")),
-            ca.get("corrected_verdict"), ca.get("confidence"),
-            # final judgment
-            fj.get("overall_verdict"), fj.get("confidence"),
-            fj.get("relevance_mode"), fj.get("one_paragraph_verdict"),
-            _j(fj.get("contextual_relevance")),
-            _j(fj.get("what_article_cannot_adjudicate")),
-            fj.get("state_capital_nexus_relevance"), fj.get("recommended_use"),
-            # reconcile
-            1 if reconcile_data else 0,
-            len(reconcile_data),
-            last_reconcile_confidence,
-        ),
+        ) VALUES ({placeholders})""",
+        document_values,
     )
     doc_id = cur.lastrowid
 
@@ -269,6 +268,21 @@ def ingest_document(conn: sqlite3.Connection, profile: str, slug: str,
     _insert_args(fj.get("arguments_for_theory"), "for", "final")
     _insert_args(fj.get("arguments_against_theory"), "against", "final")
 
+    for implication in ti.get("claim_level_implications", []):
+        conn.execute(
+            """INSERT INTO theory_implication_claim (
+                document_id, claim_id, effect, why, evidence_from_document, proposed_revision
+            ) VALUES (?, ?, ?, ?, ?, ?)""",
+            (
+                doc_id,
+                implication.get("claim_id"),
+                implication.get("effect"),
+                implication.get("why"),
+                _j(implication.get("evidence_from_document")),
+                implication.get("proposed_revision"),
+            ),
+        )
+
     # Reconcile rounds
     for i, (rp, rd) in enumerate(reconcile_data, 1):
         conn.execute(
@@ -290,6 +304,7 @@ def ingest_document(conn: sqlite3.Connection, profile: str, slug: str,
         ("02_relevance_audit", doc_dir / "02_relevance_audit.json", relevance_audit),
         ("03_counter_audit", doc_dir / "03_counter_audit.json", counter_audit),
         ("04_final_judgment", doc_dir / "04_final_judgment.json", final_judgment),
+        ("05_theory_implications", doc_dir / "05_theory_implications.json", theory_implications),
     ]
     for step_name, step_path, step_data in steps:
         if step_data:

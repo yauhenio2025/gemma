@@ -21,6 +21,7 @@ from bs4 import BeautifulSoup
 
 SUPPORTED_EXTENSIONS = {".docx", ".htm", ".html", ".md", ".pdf", ".txt"}
 STRENGTH_ORDER = {"none": 0, "weak": 1, "moderate": 2, "strong": 3}
+IMPLICATION_VERDICTS = {"none", "relevant", "marginal", "contextual", "irrelevant"}
 SUSPECT_NOISE_PATTERNS = (
     "oflipstick",
     "andEastermost",
@@ -285,6 +286,7 @@ class TheoryArticleRunner:
         overwrite: bool = False,
         max_theory_chars: int = 180_000,
         max_article_chars: int | None = None,
+        implication_min_verdict: str = "none",
         min_confidence: float = 0.7,
         max_reconcile_rounds: int = 2,
         max_step_retries: int = 2,
@@ -300,6 +302,9 @@ class TheoryArticleRunner:
         self.overwrite = overwrite
         self.max_theory_chars = max_theory_chars
         self.max_article_chars = max_article_chars or self.profile.default_max_comparison_chars
+        if implication_min_verdict not in IMPLICATION_VERDICTS:
+            raise ValueError(f"Unknown implication_min_verdict: {implication_min_verdict}")
+        self.implication_min_verdict = implication_min_verdict
         self.min_confidence = min_confidence
         self.max_reconcile_rounds = max_reconcile_rounds
         self.max_step_retries = max_step_retries
@@ -336,7 +341,7 @@ class TheoryArticleRunner:
                 self._build_theory_rubric,
                 theory_map,
             )
-        elif stage == "articles":
+        elif stage in {"articles", "implications"}:
             theory_map = self._load_required(theory_map_path, "preprocessed theory map")
             theory_rubric = self._load_required(theory_rubric_path, "preprocessed theory rubric")
         else:
@@ -365,16 +370,20 @@ class TheoryArticleRunner:
         max_workers = int(os.environ.get("GEMMA_PARALLEL", "3"))
         analyses: list[dict[str, Any]] = []
         failures: list[dict[str, str]] = []
+        worker = (
+            lambda article: self._refresh_implications(article, theory_map, theory_rubric)
+            if stage == "implications"
+            else self._analyze_article(article, theory_map, theory_rubric)
+        )
         if max_workers > 1:
             with ThreadPoolExecutor(max_workers=max_workers) as pool:
-                futures = {
-                    pool.submit(self._analyze_article, article, theory_map, theory_rubric): article
-                    for article in other_documents
-                }
+                futures = {pool.submit(worker, article): article for article in other_documents}
                 for future in as_completed(futures):
                     article = futures[future]
                     try:
-                        analyses.append(future.result())
+                        result = future.result()
+                        if result is not None:
+                            analyses.append(result)
                     except Exception as exc:
                         failures.append(
                             {
@@ -387,7 +396,9 @@ class TheoryArticleRunner:
         else:
             for article in other_documents:
                 try:
-                    analyses.append(self._analyze_article(article, theory_map, theory_rubric))
+                    result = worker(article)
+                    if result is not None:
+                        analyses.append(result)
                 except Exception as exc:
                     failures.append(
                         {
@@ -397,6 +408,20 @@ class TheoryArticleRunner:
                         }
                     )
                     print(f"FAILED: {article.slug}: {exc}")
+
+        if stage == "implications":
+            if failures and not self.allow_failures:
+                raise RuntimeError(
+                    f"{len(failures)} implication refresh(es) failed. See logs for details."
+                )
+            return {
+                "workspace": str(self.workspace),
+                "model": self.client.model,
+                "stage": stage,
+                "theory_files": [str(doc.path) for doc in theory_documents],
+                "implication_count": len(analyses),
+                "failed_article_count": len(failures),
+            }
 
         index = self._write_index(theory_documents, analyses, failures)
         if failures and not self.allow_failures:
@@ -430,6 +455,14 @@ class TheoryArticleRunner:
                 "intervention. Do not invent details beyond that map."
             )
         return f"{self._document_label().title()} text:\n{article.text}"
+
+    def _implications_enabled(self) -> bool:
+        return self.implication_min_verdict != "none"
+
+    def _should_generate_implications(self, verdict: str | None) -> bool:
+        if not self._implications_enabled() or not verdict:
+            return False
+        return verdict_rank(verdict) <= verdict_rank(self.implication_min_verdict)
 
     def _build_theory_map(self, theory_documents: list[Document]) -> dict[str, Any]:
         theory_corpus = render_document_bundle(theory_documents, "NLR theory corpus")
@@ -701,12 +734,33 @@ class TheoryArticleRunner:
                 reconcile_rounds,
             )
 
+        implication_path = article_dir / "05_theory_implications.json"
+        theory_implications = self._load_or_run(
+            implication_path,
+            self._build_theory_implications,
+            article,
+            theory_map,
+            theory_rubric,
+            article_map,
+            relevance_audit,
+            counter_audit,
+            final_result,
+        ) if self._should_generate_implications(
+            final_result.get("overall_verdict") or final_result.get("reconciled_verdict")
+        ) else self._maybe_load_implications(implication_path)
+        if not self._should_generate_implications(
+            final_result.get("overall_verdict") or final_result.get("reconciled_verdict")
+        ) and implication_path.exists():
+            implication_path.unlink()
+            theory_implications = None
+
         report_path = article_dir / "report.md"
         report_path.write_text(
             render_report(
                 article=article,
                 article_map=article_map,
                 theory_map=theory_map,
+                theory_implications=theory_implications,
                 final_result=final_result,
                 initial_audit=relevance_audit,
                 counter_audit=counter_audit,
@@ -723,6 +777,80 @@ class TheoryArticleRunner:
             "confidence": final_result.get("confidence")
             or final_result.get("reconciled_confidence")
             or 0.0,
+            "recommended_use": final_result.get("recommended_use", "unknown"),
+        }
+
+    def _refresh_implications(
+        self,
+        article: Document,
+        theory_map: dict[str, Any],
+        theory_rubric: dict[str, Any],
+    ) -> dict[str, Any] | None:
+        article_dir = self.outputs_dir / article.slug
+        if not article_dir.exists():
+            return None
+        article_map = self._load_required(article_dir / "01_article_map.json", f"article map for {article.slug}")
+        relevance_audit = self._load_required(
+            article_dir / "02_relevance_audit.json",
+            f"relevance audit for {article.slug}",
+        )
+        counter_audit = self._load_required(
+            article_dir / "03_counter_audit.json",
+            f"counter audit for {article.slug}",
+        )
+        final_result = self._load_existing_final_result(article_dir, article.slug)
+        implication_path = article_dir / "05_theory_implications.json"
+        verdict = final_result.get("overall_verdict") or final_result.get("reconciled_verdict")
+        if not self._should_generate_implications(verdict):
+            if implication_path.exists():
+                implication_path.unlink()
+            report_path = article_dir / "report.md"
+            report_path.write_text(
+                render_report(
+                    article=article,
+                    article_map=article_map,
+                    theory_map=theory_map,
+                    theory_implications=None,
+                    final_result=final_result,
+                    initial_audit=relevance_audit,
+                    counter_audit=counter_audit,
+                    document_label=self._document_label(),
+                ),
+                encoding="utf-8",
+            )
+            return None
+
+        theory_implications = self._load_or_run(
+            implication_path,
+            self._build_theory_implications,
+            article,
+            theory_map,
+            theory_rubric,
+            article_map,
+            relevance_audit,
+            counter_audit,
+            final_result,
+        )
+        report_path = article_dir / "report.md"
+        report_path.write_text(
+            render_report(
+                article=article,
+                article_map=article_map,
+                theory_map=theory_map,
+                theory_implications=theory_implications,
+                final_result=final_result,
+                initial_audit=relevance_audit,
+                counter_audit=counter_audit,
+                document_label=self._document_label(),
+            ),
+            encoding="utf-8",
+        )
+        return {
+            "article_path": str(article.path),
+            "article_slug": article.slug,
+            "report_path": str(report_path),
+            "verdict": verdict or "unknown",
+            "confidence": theory_implications.get("confidence", 0.0),
             "recommended_use": final_result.get("recommended_use", "unknown"),
         }
 
@@ -1257,6 +1385,81 @@ class TheoryArticleRunner:
             ).strip()
         return self.client.chat_json([{"role": "user", "content": prompt}])
 
+    def _build_theory_implications(
+        self,
+        article: Document,
+        theory_map: dict[str, Any],
+        theory_rubric: dict[str, Any],
+        article_map: dict[str, Any],
+        relevance_audit: dict[str, Any],
+        counter_audit: dict[str, Any],
+        final_result: dict[str, Any],
+    ) -> dict[str, Any]:
+        label = self._document_label()
+        prompt = textwrap.dedent(
+            f"""
+            You are writing a theory-revision memo for a {label} that has already been judged at least
+            {self.implication_min_verdict} in relevance.
+
+            Your job is not to restate the verdict. Your job is to say what this {label} does to the
+            theory map.
+
+            Constraints:
+            - Be conservative. Do not propose revisions unless the evidence or argument in the {label}
+              justifies them.
+            - Distinguish:
+              - confirms: supports an existing claim as stated
+              - qualifies: narrows or conditions an existing claim
+              - extends: adds a new sub-claim, mechanism, or empirical scope
+              - pressures: creates real tension or revision pressure
+              - mixed: does more than one of the above
+            - If the {label} mainly reinforces one existing claim without changing the map, say so.
+            - Proposed revisions should be specific enough to edit the theory map, not vague commentary.
+            - Use claim ids whenever possible.
+
+            Return JSON with exactly these keys:
+            {{
+              "overall_implication": "confirms|qualifies|extends|pressures|mixed",
+              "summary": "string",
+              "claim_level_implications": [
+                {{
+                  "claim_id": "C1",
+                  "effect": "confirms|qualifies|extends|pressures",
+                  "why": "string",
+                  "evidence_from_document": ["string"],
+                  "proposed_revision": "string"
+                }}
+              ],
+              "new_subclaims": ["string"],
+              "new_open_questions": ["string"],
+              "revision_priority": "low|medium|high",
+              "recommended_follow_up": ["string"],
+              "confidence": 0.0
+            }}
+
+            Theory map:
+            {json.dumps(theory_map, ensure_ascii=False, indent=2)}
+
+            Rubric:
+            {json.dumps(theory_rubric, ensure_ascii=False, indent=2)}
+
+            {label.title()} map:
+            {json.dumps(article_map, ensure_ascii=False, indent=2)}
+
+            Initial audit:
+            {json.dumps(relevance_audit, ensure_ascii=False, indent=2)}
+
+            Counter-audit:
+            {json.dumps(counter_audit, ensure_ascii=False, indent=2)}
+
+            Final judgment:
+            {json.dumps(final_result, ensure_ascii=False, indent=2)}
+
+            {self._later_pass_context(article, article_map)}
+            """
+        ).strip()
+        return self.client.chat_json([{"role": "user", "content": prompt}])
+
     def _load_or_run(self, path: Path, builder: Any, *args: Any) -> dict[str, Any]:
         if path.exists() and not self.overwrite:
             payload = sanitize_payload(json.loads(path.read_text(encoding="utf-8")))
@@ -1294,6 +1497,22 @@ class TheoryArticleRunner:
                 f"Missing {label} at {path}. Run `--stage theory` first and commit the generated output."
             )
         return json.loads(path.read_text(encoding="utf-8"))
+
+    def _load_existing_final_result(self, article_dir: Path, slug: str) -> dict[str, Any]:
+        reconcile_paths = sorted(article_dir.glob("04b_reconcile_round_*.json"))
+        if reconcile_paths:
+            return self._load_required(
+                reconcile_paths[-1],
+                f"latest reconcile result for {slug}",
+            )
+        return self._load_required(article_dir / "04_final_judgment.json", f"final judgment for {slug}")
+
+    def _maybe_load_implications(self, path: Path) -> dict[str, Any] | None:
+        if not path.exists():
+            return None
+        payload = sanitize_payload(json.loads(path.read_text(encoding="utf-8")))
+        validate_payload_for_path(path, payload, self.analysis_profile)
+        return payload
 
     def _write_theory_index(
         self,
@@ -1378,7 +1597,7 @@ def main() -> int:
         description="Run a multi-pass theory-vs-article analysis pipeline."
     )
     parser.add_argument("--workspace", type=Path, default=DEFAULT_WORKSPACE)
-    parser.add_argument("--stage", choices=("all", "theory", "articles"), default="all")
+    parser.add_argument("--stage", choices=("all", "theory", "articles", "implications"), default="all")
     parser.add_argument("--profile", choices=tuple(PROFILE_CONFIGS), default="journalistic")
     parser.add_argument("--provider", choices=("ollama", "anthropic"), default="ollama")
     parser.add_argument("--model")
@@ -1394,6 +1613,12 @@ def main() -> int:
     parser.add_argument("--comparison-subdir")
     parser.add_argument("--cache-subdir")
     parser.add_argument("--outputs-subdir")
+    parser.add_argument(
+        "--implication-min-verdict",
+        choices=tuple(sorted(IMPLICATION_VERDICTS)),
+        default="none",
+        help="Generate 05_theory_implications.json for documents at or above this verdict threshold.",
+    )
     parser.add_argument("--min-confidence", type=float, default=0.7)
     parser.add_argument("--max-reconcile-rounds", type=int, default=2)
     parser.add_argument("--num-ctx", type=int, default=131072)
@@ -1433,6 +1658,7 @@ def main() -> int:
         overwrite=args.overwrite,
         max_theory_chars=args.max_theory_chars,
         max_article_chars=max_article_chars,
+        implication_min_verdict=args.implication_min_verdict,
         min_confidence=args.min_confidence,
         max_reconcile_rounds=args.max_reconcile_rounds,
         max_step_retries=args.step_retries,
@@ -1760,6 +1986,17 @@ def required_keys_for_output(filename: str, analysis_profile: str = "journalisti
             "state_capital_nexus_relevance",
             "recommended_use",
         }
+    if filename == "05_theory_implications.json":
+        return {
+            "overall_implication",
+            "summary",
+            "claim_level_implications",
+            "new_subclaims",
+            "new_open_questions",
+            "revision_priority",
+            "recommended_follow_up",
+            "confidence",
+        }
     return set()
 
 
@@ -1811,6 +2048,7 @@ def render_report(
     article: Document,
     article_map: dict[str, Any],
     theory_map: dict[str, Any],
+    theory_implications: dict[str, Any] | None,
     final_result: dict[str, Any],
     initial_audit: dict[str, Any],
     counter_audit: dict[str, Any],
@@ -1904,6 +2142,45 @@ def render_report(
         lines.extend(f"- {item}" for item in cannot)
     else:
         lines.append("- Not specified.")
+
+    if theory_implications:
+        lines.extend(["", "## Theory Implications", ""])
+        lines.append(
+            f"- Overall implication: {theory_implications.get('overall_implication', 'Not specified.')}"
+        )
+        lines.append(
+            f"- Revision priority: {theory_implications.get('revision_priority', 'Not specified.')}"
+        )
+        lines.append(
+            f"- Confidence: {theory_implications.get('confidence', 'Not specified.')}"
+        )
+        lines.extend(["", theory_implications.get("summary", ""), ""])
+        claim_level = theory_implications.get("claim_level_implications", [])
+        if claim_level:
+            lines.append("### Claim-Level Implications")
+            lines.append("")
+            for item in claim_level:
+                lines.append(
+                    f"- {item.get('claim_id', 'n/a')}: {item.get('effect', 'unknown')} — {item.get('why', '').strip()}"
+                )
+                evidence = ", ".join(item.get("evidence_from_document", []))
+                if evidence:
+                    lines.append(f"  Evidence: {evidence}")
+                proposed = item.get("proposed_revision", "").strip()
+                if proposed:
+                    lines.append(f"  Proposed revision: {proposed}")
+        new_subclaims = theory_implications.get("new_subclaims", [])
+        if new_subclaims:
+            lines.extend(["", "### New Subclaims", ""])
+            lines.extend(f"- {item}" for item in new_subclaims)
+        open_questions = theory_implications.get("new_open_questions", [])
+        if open_questions:
+            lines.extend(["", "### New Open Questions", ""])
+            lines.extend(f"- {item}" for item in open_questions)
+        follow_up = theory_implications.get("recommended_follow_up", [])
+        if follow_up:
+            lines.extend(["", "### Recommended Follow-Up", ""])
+            lines.extend(f"- {item}" for item in follow_up)
 
     lines.extend(
         [

@@ -49,6 +49,12 @@ Run only academic-paper analysis against the academic theory preprocessing:
 uv run gemma-article-theory-analysis --profile academic --stage articles
 ```
 
+Backfill the new theory-implications pass over already-analyzed documents without rerunning the earlier stages:
+
+```bash
+uv run gemma-article-theory-analysis --profile academic --stage implications --implication-min-verdict marginal
+```
+
 For the calibrated second run, overwrite the prior article outputs and fail loudly if any article cannot be parsed:
 
 ```bash
@@ -94,8 +100,8 @@ uv run python -m webapp.app
 | Document | `/doc/{slug}` | Verdict, arguments for/against, claim assessments, raw JSON |
 | Claims | `/claims` | Claim explorer with support/challenge counts |
 | Claim detail | `/claim/{id}` | All linked documents grouped by support/challenge/context |
-| Implications | `/implications` | Evidence accumulation by claim from relevant/marginal docs |
-| Review | `/review` | Low-confidence, reconciled, and challenged items |
+| Implications | `/implications` | Evidence accumulation plus revision/extension pressure by claim |
+| Review | `/review` | Low-confidence, reconciled, challenged, and revision-priority items |
 
 ### Re-ingest after new analysis runs
 
@@ -106,6 +112,13 @@ uv run python -m webapp.ingest
 ```
 
 The ingest command drops and recreates the database each time.
+
+If you run the new `implications` stage, re-ingest again so the browser picks up:
+
+- `overall_implication`
+- claim-level revision pressure
+- proposed theory revisions
+- new subclaims and open questions
 
 ## Test
 

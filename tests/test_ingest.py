@@ -128,3 +128,18 @@ def test_ingest_academic_profile(db):
     assert len(academic) == 3
     slugs = [r["slug"] for r in academic]
     assert "maher-aquanno-2026-monopoly-or-competition-unraveling-the-amazon-paradox" in slugs
+
+
+def test_ingest_theory_implications_exist(db):
+    count = db.execute(
+        "SELECT COUNT(*) FROM document WHERE has_theory_implications = 1"
+    ).fetchone()[0]
+    assert count >= 2
+
+    amazon = db.execute(
+        "SELECT * FROM document WHERE slug = ?",
+        ("maher-aquanno-2026-monopoly-or-competition-unraveling-the-amazon-paradox",),
+    ).fetchone()
+    assert amazon is not None
+    assert amazon["has_theory_implications"] == 1
+    assert amazon["implication_overall"] in {"confirms", "qualifies", "extends", "pressures", "mixed"}

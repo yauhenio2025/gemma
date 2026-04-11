@@ -35,6 +35,10 @@
         <option value="">Any</option>
         <option value="1" {{ 'selected' if filters.has_reconcile == '1' }}>Has reconciliation</option>
     </select>
+    <select name="has_implications">
+        <option value="">Any</option>
+        <option value="1" {{ 'selected' if filters.has_implications == '1' }}>Has theory implications</option>
+    </select>
     <input type="text" name="q" placeholder="Search slug, summary, verdict..." value="{{ filters.q or '' }}">
     <button type="submit">Filter</button>
     <a href="/corpus" class="reset">Reset</a>
@@ -48,6 +52,8 @@
     {% for row in counts.by_profile %}
     <span>{{ row.profile }}: {{ row.cnt }}</span>
     {% endfor %}
+    &nbsp;|&nbsp;
+    <span>with implications: {{ counts.with_implications }}</span>
 </div>
 
 <table>
@@ -55,13 +61,14 @@
         <tr>
             {% macro sort_link(col, label) %}
             {% set next_order = 'desc' if filters.sort == col and filters.order == 'asc' else 'asc' %}
-            <th><a href="?sort={{ col }}&order={{ next_order }}{% if filters.profile %}&profile={{ filters.profile }}{% endif %}{% if filters.verdict %}&verdict={{ filters.verdict }}{% endif %}{% if filters.recommended_use %}&recommended_use={{ filters.recommended_use }}{% endif %}{% if filters.claim_id %}&claim_id={{ filters.claim_id }}{% endif %}{% if filters.has_against %}&has_against={{ filters.has_against }}{% endif %}{% if filters.has_reconcile %}&has_reconcile={{ filters.has_reconcile }}{% endif %}{% if filters.q %}&q={{ filters.q }}{% endif %}">{{ label }}{% if filters.sort == col %} {{ '▲' if filters.order == 'asc' else '▼' }}{% endif %}</a></th>
+            <th><a href="?sort={{ col }}&order={{ next_order }}{% if filters.profile %}&profile={{ filters.profile }}{% endif %}{% if filters.verdict %}&verdict={{ filters.verdict }}{% endif %}{% if filters.recommended_use %}&recommended_use={{ filters.recommended_use }}{% endif %}{% if filters.claim_id %}&claim_id={{ filters.claim_id }}{% endif %}{% if filters.has_against %}&has_against={{ filters.has_against }}{% endif %}{% if filters.has_reconcile %}&has_reconcile={{ filters.has_reconcile }}{% endif %}{% if filters.has_implications %}&has_implications={{ filters.has_implications }}{% endif %}{% if filters.q %}&q={{ filters.q }}{% endif %}">{{ label }}{% if filters.sort == col %} {{ '▲' if filters.order == 'asc' else '▼' }}{% endif %}</a></th>
             {% endmacro %}
             {{ sort_link('slug', 'Document') }}
             {{ sort_link('profile', 'Profile') }}
             {{ sort_link('final_verdict', 'Verdict') }}
             {{ sort_link('final_confidence', 'Conf.') }}
             {{ sort_link('recommended_use', 'Use') }}
+            <th>Implication</th>
             <th>Summary</th>
         </tr>
     </thead>
@@ -73,6 +80,13 @@
         <td><span class="badge badge-{{ doc.final_verdict }}">{{ doc.final_verdict }}</span></td>
         <td>{{ '%.1f' | format(doc.final_confidence) if doc.final_confidence is not none else '—' }}</td>
         <td style="font-size:11px;">{{ doc.recommended_use | replace('_', ' ') if doc.recommended_use else '—' }}</td>
+        <td style="font-size:11px;">
+            {% if doc.has_theory_implications %}
+            <span class="badge badge-moderate">{{ doc.implication_overall or 'yes' }}</span>
+            {% else %}
+            —
+            {% endif %}
+        </td>
         <td style="font-size:12px;max-width:400px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ doc.summary | truncate(100) if doc.summary else '—' }}</td>
     </tr>
     {% endfor %}

@@ -16,6 +16,10 @@
         <div class="stat-value">{{ stats.with_reconcile }}</div>
         <div class="stat-label">Reconciled</div>
     </div>
+    <div class="stat">
+        <div class="stat-value">{{ stats.with_implications }}</div>
+        <div class="stat-label">With implications</div>
+    </div>
 </div>
 
 <div class="grid-3">
@@ -55,7 +59,7 @@
             <li><a href="/theory">Theory structure</a> — thesis, claims, themes, rubric</li>
             <li><a href="/corpus">Full corpus</a> — browse all {{ stats.total }} documents</li>
             <li><a href="/claims">Claim explorer</a> — evidence by claim</li>
-            <li><a href="/implications">Implications</a> — evidence accumulation</li>
+            <li><a href="/implications">Implications</a> — revisions, extensions, pressure by claim</li>
             <li><a href="/review">Review queue</a> — items needing attention</li>
         </ul>
     </div>
@@ -64,6 +68,7 @@
         <ul class="bullet-list">
             <li><a href="/review?tab=challenged">{{ stats.with_arguments_against }} documents</a> with arguments against the theory</li>
             <li><a href="/review?tab=reconciled">{{ stats.with_reconcile }} documents</a> that went through reconciliation</li>
+            <li><a href="/review?tab=revision_priority">{{ stats.high_revision_priority }} documents</a> with medium/high revision priority</li>
             <li><a href="/corpus?verdict=relevant">Relevant documents</a> with strongest evidence</li>
         </ul>
     </div>

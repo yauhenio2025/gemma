@@ -56,6 +56,12 @@ async def home(request: Request):
         "with_reconcile": db.execute(
             "SELECT COUNT(*) FROM document WHERE has_reconcile = 1"
         ).fetchone()[0],
+        "with_implications": db.execute(
+            "SELECT COUNT(*) FROM document WHERE has_theory_implications = 1"
+        ).fetchone()[0],
+        "high_revision_priority": db.execute(
+            "SELECT COUNT(*) FROM document WHERE implication_revision_priority = 'high'"
+        ).fetchone()[0],
     }
     db.close()
     return _render(request, "home.html", {"stats": stats})
@@ -103,6 +109,7 @@ async def corpus_page(
     claim_id: str | None = None,
     has_against: str | None = None,
     has_reconcile: str | None = None,
+    has_implications: str | None = None,
     q: str | None = None,
     sort: str = "slug",
     order: str = "asc",
@@ -124,6 +131,8 @@ async def corpus_page(
         where_clauses.append("d.id IN (SELECT DISTINCT document_id FROM argument WHERE direction='against')")
     if has_reconcile == "1":
         where_clauses.append("d.has_reconcile = 1")
+    if has_implications == "1":
+        where_clauses.append("d.has_theory_implications = 1")
     if claim_id:
         where_clauses.append(
             "d.id IN (SELECT DISTINCT a.document_id FROM argument a "
@@ -155,6 +164,9 @@ async def corpus_page(
         "by_profile": rows_to_dicts(db.execute(
             "SELECT profile, COUNT(*) as cnt FROM document GROUP BY profile"
         ).fetchall()),
+        "with_implications": db.execute(
+            "SELECT COUNT(*) FROM document WHERE has_theory_implications = 1"
+        ).fetchone()[0],
     }
 
     # Claim IDs for filter dropdown
@@ -170,6 +182,7 @@ async def corpus_page(
         "filters": {
             "profile": profile, "verdict": verdict, "recommended_use": recommended_use,
             "claim_id": claim_id, "has_against": has_against, "has_reconcile": has_reconcile,
+            "has_implications": has_implications,
             "q": q, "sort": sort, "order": order,
         },
     })
@@ -205,6 +218,9 @@ async def document_detail(request: Request, slug: str):
     claim_assessments = rows_to_dicts(db.execute(
         "SELECT * FROM claim_assessment WHERE document_id = ? ORDER BY claim_id, stage", (doc_id,)
     ).fetchall())
+    implication_claims = rows_to_dicts(db.execute(
+        "SELECT * FROM theory_implication_claim WHERE document_id = ? ORDER BY claim_id, id", (doc_id,)
+    ).fetchall())
 
     reconcile_rounds = rows_to_dicts(db.execute(
         "SELECT * FROM reconcile_round WHERE document_id = ? ORDER BY round_num", (doc_id,)
@@ -217,6 +233,7 @@ async def document_detail(request: Request, slug: str):
         "args_for": args_for,
         "args_against": args_against,
         "claim_assessments": claim_assessments,
+        "implication_claims": implication_claims,
         "reconcile_rounds": reconcile_rounds,
     })
 
@@ -294,12 +311,29 @@ async def claim_detail(request: Request, claim_id: str):
         """, (claim_id,)
     ).fetchall())
 
+    implication_docs = rows_to_dicts(db.execute(
+        """SELECT d.slug, d.summary, d.final_verdict, d.profile,
+            tic.effect, tic.why, tic.proposed_revision
+        FROM theory_implication_claim tic
+        JOIN document d ON d.id = tic.document_id
+        WHERE tic.claim_id = ?
+        ORDER BY CASE tic.effect
+            WHEN 'pressures' THEN 0
+            WHEN 'extends' THEN 1
+            WHEN 'qualifies' THEN 2
+            WHEN 'confirms' THEN 3
+            ELSE 4
+        END, d.slug
+        """, (claim_id,)
+    ).fetchall())
+
     db.close()
     return _render(request, "claim_detail.html", {
         "claim": claim,
         "support_docs": support_docs,
         "challenge_docs": challenge_docs,
         "context_docs": context_docs,
+        "implication_docs": implication_docs,
     })
 
 
@@ -329,6 +363,23 @@ async def implications_page(request: Request):
         # Summary counts
         c["for_count"] = sum(1 for a in c["arguments"] if a["direction"] == "for")
         c["against_count"] = sum(1 for a in c["arguments"] if a["direction"] == "against")
+        c["implication_rows"] = rows_to_dicts(db.execute(
+            """SELECT tic.effect, tic.why, tic.proposed_revision,
+                d.slug, d.final_verdict, d.recommended_use, d.profile,
+                d.implication_revision_priority
+            FROM theory_implication_claim tic
+            JOIN document d ON d.id = tic.document_id
+            WHERE tic.claim_id = ?
+            ORDER BY CASE tic.effect
+                WHEN 'pressures' THEN 0
+                WHEN 'extends' THEN 1
+                WHEN 'qualifies' THEN 2
+                WHEN 'confirms' THEN 3
+                ELSE 4
+            END, d.slug
+            """, (cid,)
+        ).fetchall())
+        c["implication_count"] = len(c["implication_rows"])
 
     db.close()
     return _render(request, "implications.html", {"claims": claims})
@@ -355,11 +406,17 @@ async def review_queue(request: Request, tab: str = "low_confidence"):
         ORDER BY d.slug"""
     ).fetchall())
 
+    revision_priority = rows_to_dicts(db.execute(
+        "SELECT * FROM document WHERE implication_revision_priority IN ('high', 'medium') "
+        "ORDER BY CASE implication_revision_priority WHEN 'high' THEN 0 ELSE 1 END, slug"
+    ).fetchall())
+
     db.close()
     return _render(request, "review.html", {
         "low_confidence": low_confidence,
         "reconciled": reconciled,
         "challenged": challenged,
+        "revision_priority": revision_priority,
         "tab": tab,
     })
 

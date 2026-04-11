@@ -683,3 +683,142 @@ def test_validate_payload_for_academic_article_map_requires_extra_keys(tmp_path:
 
     with pytest.raises(ValueError):
         validate_payload_for_path(path, payload, analysis_profile="academic")
+
+
+def test_implications_stage_generates_05_for_existing_outputs(tmp_path: Path) -> None:
+    workspace = tmp_path / "workspace"
+    (workspace / "nlr").mkdir(parents=True)
+    (workspace / "others").mkdir(parents=True)
+    theory_output = workspace / "outputs" / "_theory"
+    article_dir = workspace / "outputs" / "article"
+    theory_output.mkdir(parents=True)
+    article_dir.mkdir(parents=True)
+
+    (workspace / "nlr" / "morozov.txt").write_text("theory", encoding="utf-8")
+    (workspace / "others" / "article.txt").write_text("article body", encoding="utf-8")
+    (theory_output / "01_theory_map.json").write_text(
+        """{
+          "thesis": "Capitalism has not turned into techno-feudalism.",
+          "core_claims": [],
+          "secondary_themes": [],
+          "article_relevance_hooks": [],
+          "conceptual_boundaries": [],
+          "relevance_red_flags": [],
+          "open_questions": []
+        }""",
+        encoding="utf-8",
+    )
+    (theory_output / "02_theory_rubric.json").write_text(
+        """{
+          "relevance_tiers": [],
+          "relevance_questions": [],
+          "what_counts_as_real_evidence": [],
+          "what_counts_as_contextual_or_illustrative_relevance": [],
+          "what_does_not_count": [],
+          "support_strength_scale": [],
+          "challenge_strength_scale": [],
+          "anti_grade_inflation_rule": "Do not inflate context.",
+          "anti_false_negative_rule": "Do not erase context.",
+          "default_verdict_rule": "Default to irrelevant."
+        }""",
+        encoding="utf-8",
+    )
+    (article_dir / "01_article_map.json").write_text(
+        """{
+          "article_kind": "news",
+          "summary": "A relevant article.",
+          "main_claims": ["One main claim."],
+          "evidence_or_facts": ["One evidence point."],
+          "rhetorical_frames": [],
+          "state_and_policy_content": [],
+          "capital_accumulation_content": [],
+          "labor_content": [],
+          "infrastructure_and_supply_chain_content": [],
+          "geopolitical_competition_content": [],
+          "possible_theory_hooks": ["C1"],
+          "what_is_missing_for_theory_evaluation": []
+        }""",
+        encoding="utf-8",
+    )
+    (article_dir / "02_relevance_audit.json").write_text(
+        """{
+          "overall_initial_verdict": "relevant",
+          "overall_reason": "Directly relevant.",
+          "claim_assessments": [],
+          "contextual_relevance_points": [],
+          "illustrative_relevance_points": [],
+          "article_level_points_for_theory": ["Direct support."],
+          "article_level_points_against_theory": [],
+          "irrelevance_reasons": [],
+          "confidence": 0.9
+        }""",
+        encoding="utf-8",
+    )
+    (article_dir / "03_counter_audit.json").write_text(
+        """{
+          "grade_inflation_detected": false,
+          "false_negative_detected": false,
+          "problems_with_initial_audit": [],
+          "missing_support_points": [],
+          "missing_challenge_points": [],
+          "missing_contextual_or_illustrative_points": [],
+          "corrected_verdict": "relevant",
+          "corrections_by_claim": [],
+          "confidence": 0.9
+        }""",
+        encoding="utf-8",
+    )
+    (article_dir / "04_final_judgment.json").write_text(
+        """{
+          "overall_verdict": "relevant",
+          "confidence": 0.9,
+          "relevance_mode": "direct",
+          "one_paragraph_verdict": "Relevant and useful.",
+          "contextual_relevance": [],
+          "arguments_for_theory": [],
+          "arguments_against_theory": [],
+          "what_article_cannot_adjudicate": [],
+          "state_capital_nexus_relevance": "Low.",
+          "recommended_use": "use_as_substantive_evidence"
+        }""",
+        encoding="utf-8",
+    )
+    (article_dir / "report.md").write_text("old report", encoding="utf-8")
+
+    fake_client = FakeClient(
+        [
+            {
+                "overall_implication": "confirms",
+                "summary": "This confirms an existing claim.",
+                "claim_level_implications": [
+                    {
+                        "claim_id": "C1",
+                        "effect": "confirms",
+                        "why": "It supplies direct support.",
+                        "evidence_from_document": ["Support point."],
+                        "proposed_revision": "No revision needed; cite this as confirmation.",
+                    }
+                ],
+                "new_subclaims": [],
+                "new_open_questions": [],
+                "revision_priority": "low",
+                "recommended_follow_up": ["Add to confirming evidence list."],
+                "confidence": 0.88,
+            }
+        ]
+    )
+
+    runner = TheoryArticleRunner(
+        workspace=workspace,
+        client=fake_client,
+        implication_min_verdict="marginal",
+    )
+
+    result = runner.run(stage="implications")
+
+    assert result["stage"] == "implications"
+    assert result["implication_count"] == 1
+    implication_path = article_dir / "05_theory_implications.json"
+    assert implication_path.exists()
+    assert '"overall_implication": "confirms"' in implication_path.read_text(encoding="utf-8")
+    assert "Theory Implications" in (article_dir / "report.md").read_text(encoding="utf-8")
