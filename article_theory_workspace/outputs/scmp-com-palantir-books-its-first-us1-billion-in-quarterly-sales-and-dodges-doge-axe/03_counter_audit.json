@@ -1,19 +1,27 @@
 {
   "grade_inflation_detected": true,
+  "false_negative_detected": false,
   "problems_with_initial_audit": [
-    "The initial audit awarded 'weak' support for C3 despite explicitly stating that the article fails G2 and G5. According to the rubric, failing any relevance gate must result in a verdict of 'irrelevant'.",
-    "The audit treated 'topical proximity' (Palantir sells to the government) as 'indirect support', which the rubric explicitly defines as a false positive match for C3.",
-    "The audit failed to apply the 'default verdict rule', which requires a 'none' grade for support/challenge if the article does not pass all five gates."
+    "The initial audit promoted C3 engagement to 'direct' and 'moderate' support. Per the rubric, a story about one company's growth is almost never 'relevant' (direct), but 'marginal' (illustrative).",
+    "The audit claimed the growth-during-austerity pattern is a 'strong empirical signal' for the state's constitutive role, which overstates the evidence. It is a consistent anecdote, not a structural analysis of state-tech coordination.",
+    "The audit inflated the transition from loss to profit (C1) as evidence of 'productive investment,' when the article provides no data on capex or R&D spending—only the bottom line."
   ],
   "missing_support_points": [],
   "missing_challenge_points": [],
-  "corrected_verdict": "irrelevant",
+  "missing_contextual_or_illustrative_points": [],
+  "corrected_verdict": "marginal",
   "corrections_by_claim": [
     {
-      "claim_id": "C3",
+      "claim_id": "C1",
       "corrected_support_strength": "none",
       "corrected_challenge_strength": "none",
-      "note": "The article reports revenue growth from government sales, but provides no evidence regarding the constitutive role of the state in building Palantir's market position. This is a classic 'outcome-level' report (G2 failure) and is symmetrically compatible with both the techno-feudal and capitalist interpretations (G5 failure)."
+      "note": "Profitability alone does not prove productive investment (C1). Without capex/R&D figures, this is just a financial outcome, not a mechanism of production."
+    },
+    {
+      "claim_id": "C3",
+      "corrected_support_strength": "weak",
+      "corrected_challenge_strength": "none",
+      "note": "The fact that Palantir grows while other government spending is cut is a useful illustrative point for C3, but it is a single-firm anecdote. It is 'marginal' relevance, not 'direct' evidence."
     }
   ],
   "confidence": 1.0

@@ -1,69 +1,48 @@
 {
-  "overall_initial_verdict": "irrelevant",
-  "overall_reason": "The article is a standard report on China's national strategic planning for semiconductors and AI. While it mentions state-led investment and R&D, it does not engage with the theoretical distinctions between rent and profit, exploitation and expropriation, or the specific claim that the state is 'constitutive' of tech dominance in a way that tests the techno-feudalism thesis. It describes a state-led industrial policy, which is a common feature of many capitalist economies and does not provide the analytical depth required to distinguish between a capitalist mode of production and a feudal one.",
+  "overall_initial_verdict": "marginal",
+  "overall_reason": "The article provides illustrative evidence for the state's constitutive role in tech development (C3) and the nature of productive investment in the semiconductor/AI sector (C1). While it doesn't adjudicate the rent-vs-profit debate, it describes a state-led industrial policy aimed at creating productive capacity to overcome geopolitical constraints, which directly counters the 'parcelized sovereignty' narrative of techno-feudalism.",
   "claim_assessments": [
     {
       "claim_id": "C1",
-      "engagement_type": "none",
-      "support_strength": "none",
+      "engagement_type": "illustrative",
+      "support_strength": "weak",
       "challenge_strength": "none",
-      "support_points": [],
+      "support_points": [
+        "Reports a 48% surge in national R&D investment compared to 2020",
+        "Describes massive state-led efforts to build physical infrastructure (lithography machines, computing networks, chip fabrication)"
+      ],
       "challenge_points": [],
-      "why_limited": "The article mentions R&D investment increases, but does not analyze whether this spending is 'productive' in the Marxist sense or used for 'moat-building,' nor does it connect this to the rentier vs. producer debate."
-    },
-    {
-      "claim_id": "C2",
-      "engagement_type": "none",
-      "support_strength": "none",
-      "challenge_strength": "none",
-      "support_points": [],
-      "challenge_points": [],
-      "why_limited": "No mention of Google, search indexing, or the specific mechanism of ad-revenue generation."
+      "why_limited": "The data is national/aggregate rather than firm-specific, and it illustrates a pattern of investment rather than proving a structural capitalist logic over a rentier one."
     },
     {
       "claim_id": "C3",
-      "engagement_type": "indirect",
-      "support_strength": "none",
+      "engagement_type": "direct",
+      "support_strength": "moderate",
       "challenge_strength": "none",
-      "support_points": [],
+      "support_points": [
+        "The entire article is about the state's central role in drafting the 15th Five-Year Plan to direct the tech economy",
+        "Explicitly links tech development to geopolitical competition (US-led export curbs) and national security",
+        "Shows the state coordinating capital allocation and attempting to correct 'redundant internal competition' caused by previous policy incentives"
+      ],
       "challenge_points": [],
-      "why_limited": "While the article describes the Chinese state's central role in planning and funding the tech sector, it does not engage with the theoretical claim that state power is constitutive of tech dominance as a counter-argument to 'parcelized sovereignty' or the techno-feudal thesis. It is a description of industrial policy, not a theoretical engagement with the mode of production."
-    },
-    {
-      "claim_id": "C4",
-      "engagement_type": "none",
-      "support_strength": "none",
-      "challenge_strength": "none",
-      "support_points": [],
-      "challenge_points": [],
-      "why_limited": "The article does not discuss profit rates, equalization, or the nature of surplus value in automated firms."
-    },
-    {
-      "claim_id": "C5",
-      "engagement_type": "none",
-      "support_strength": "none",
-      "challenge_points": [],
-      "support_points": [],
-      "why_limited": "No balance-sheet analysis of tangible vs. intangible assets."
-    },
-    {
-      "claim_id": "C6",
-      "engagement_type": "none",
-      "support_strength": "none",
-      "challenge_strength": "none",
-      "support_points": [],
-      "challenge_points": [],
-      "why_limited": "No engagement with the Brenner-Wallerstein debate or the distinction between exploitation and expropriation."
+      "why_limited": "It focuses on the Chinese state, whereas the theory map primarily discusses the US state/Silicon Valley, but the mechanism of state-constitutive power is the same."
     }
   ],
-  "article_level_points_for_theory": [],
-  "article_level_points_against_theory": [],
-  "irrelevance_reasons": [
-    "Fails G1: Does not engage with rent vs. profit, expropriation vs. exploitation, or the constitutive state role in a theoretical context.",
-    "Fails G2: Provides outcome-level reporting (national goals, R&D spending) rather than mechanism-level analysis of surplus extraction.",
-    "Fails G3: Focuses on national strategic goals and individual policy targets rather than the systemic logic of accumulation.",
-    "Fails G4: Does not use theoretical labels like 'rentier' or 'feudalism' to describe an economic mechanism.",
-    "Fails G5: The evidence provided (state-led R&D) is symmetrically compatible with both a state-capitalist and a techno-feudal framework and thus has no discriminating power."
+  "contextual_relevance_points": [
+    "General discussion of the US-China 'chip war' and supply chain decoupling",
+    "Mention of the Global Innovation Index and patent application volumes"
   ],
+  "illustrative_relevance_points": [
+    "The use of RISC-V open-source architecture to break 'traditional architecture monopolies' illustrates the struggle over IP and intangible assets (T1)",
+    "The transition from 'import substitution' to 'pioneering new pathways' illustrates the state's role in shaping the productive frontier (C3)"
+  ],
+  "article_level_points_for_theory": [
+    "Demonstrates that high-tech dominance is a project of state sovereignty and industrial policy, not a private 'fiefdom' that has superseded the state",
+    "Provides evidence of massive, risk-heavy capital expenditure in hardware (semiconductors) as the foundation for AI, supporting the 'productive capitalist' view of tech"
+  ],
+  "article_level_points_against_theory": [
+    "The mention of 'redundant internal competition' induced by policy incentives could be used by a critic to argue that state-led tech investment is often inefficient or 'rent-seeking' in a political sense, though not necessarily 'feudal rent' in the Marxist sense."
+  ],
+  "irrelevance_reasons": [],
   "confidence": 1.0
 }

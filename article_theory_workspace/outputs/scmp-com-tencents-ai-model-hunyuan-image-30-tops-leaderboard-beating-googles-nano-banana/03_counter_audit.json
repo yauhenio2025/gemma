@@ -1,45 +1,41 @@
 {
-  "grade_inflation_detected": false,
-  "problems_with_initial_audit": [],
+  "grade_inflation_detected": true,
+  "false_negative_detected": false,
+  "problems_with_initial_audit": [
+    "The initial audit promoted the article to 'marginal' based on technical specifications (parameter count, token count) as a proxy for CAPEX. Per the 'anti-grade-inflation-rule', technical specs are not financial data. While they imply investment, they do not provide the 'spending figures' or 'systematic data' required for a 'relevant' or 'marginal' update to C1.",
+    "The audit claimed the article provides evidence of 'competitive, profit-seeking dynamics' (C2). However, a leaderboard ranking and a pricing difference (per megapixel vs per image) are surface-level competitive signals, not structured evidence of a profit-seeking mechanism versus a rent-seeking one.",
+    "The audit over-credited the 'labor displacement' mention. A marketing quote about 'slashing workflow' is a rhetorical claim by the company, not empirical evidence of labor displacement or a study of the exploitation/expropriation boundary (T3)."
+  ],
   "missing_support_points": [],
   "missing_challenge_points": [],
-  "corrected_verdict": "irrelevant",
+  "missing_contextual_or_illustrative_points": [
+    "The open-source nature of the model (GitHub/Hugging Face) is a contextual point regarding strategic positioning in the AI market, which relates to the 'commodity production' aspect of C1/C2 (making the model a public good to commoditize the layer above)."
+  ],
+  "corrected_verdict": "contextual",
   "corrections_by_claim": [
     {
       "claim_id": "C1",
       "corrected_support_strength": "none",
       "corrected_challenge_strength": "none",
-      "note": "The mention of parameters and training data size is a technical spec, not an economic analysis of productive investment vs. rent-seeking."
+      "note": "Parameter counts are not CAPEX. This is a technical spec, not an economic data point."
     },
     {
       "claim_id": "C2",
       "corrected_support_strength": "none",
       "corrected_challenge_strength": "none",
-      "note": "Mention of training data does not engage the mechanism of how value is extracted from that data."
+      "note": "Leaderboard rankings and API pricing are surface-level competition, not evidence of the rent-vs-profit mechanism."
     },
     {
       "claim_id": "C3",
       "corrected_support_strength": "none",
       "corrected_challenge_strength": "none",
-      "note": "No mention of the state's role in Tencent's development."
+      "note": "Correct as initially judged."
     },
     {
       "claim_id": "C4",
       "corrected_support_strength": "none",
       "corrected_challenge_strength": "none",
-      "note": "Pricing per megapixel is a market price, not a profit-rate analysis."
-    },
-    {
-      "claim_id": "C5",
-      "corrected_support_strength": "none",
-      "corrected_challenge_strength": "none",
-      "note": "No balance-sheet data provided."
-    },
-    {
-      "claim_id": "C6",
-      "corrected_support_strength": "none",
-      "corrected_challenge_strength": "none",
-      "note": "No theoretical engagement."
+      "note": "Correct as initially judged."
     }
   ],
   "confidence": 1.0

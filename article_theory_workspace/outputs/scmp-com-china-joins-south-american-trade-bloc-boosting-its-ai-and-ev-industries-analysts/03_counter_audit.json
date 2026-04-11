@@ -1,45 +1,29 @@
 {
   "grade_inflation_detected": false,
+  "false_negative_detected": false,
   "problems_with_initial_audit": [],
   "missing_support_points": [],
   "missing_challenge_points": [],
-  "corrected_verdict": "irrelevant",
+  "missing_contextual_or_illustrative_points": [],
+  "corrected_verdict": "marginal",
   "corrections_by_claim": [
     {
-      "claim_id": "C1",
-      "corrected_support_strength": "none",
-      "corrected_challenge_strength": "none",
-      "note": "Mention of AI/EV industries is purely as a demand-side driver for mineral acquisition, not an analysis of the production mode."
-    },
-    {
-      "claim_id": "C2",
-      "corrected_support_strength": "none",
-      "corrected_challenge_strength": "none",
-      "note": "No engagement with search or data mechanisms."
-    },
-    {
       "claim_id": "C3",
-      "corrected_support_strength": "none",
+      "corrected_support_strength": "weak",
       "corrected_challenge_strength": "none",
-      "note": "Discusses state diplomacy and resource strategy, but not the state's constitutive role in the internal economic logic or market dominance of specific tech firms."
-    },
-    {
-      "claim_id": "C4",
-      "corrected_support_strength": "none",
-      "corrected_challenge_strength": "none",
-      "note": "No engagement with profit vs. rent."
+      "note": "Correctly identified as illustrative. The state's role in securing mineral supply chains for AI is a classic example of the 'constitutive role' of the state in tech, but as a diplomatic observer status, it is a weak empirical data point."
     },
     {
       "claim_id": "C5",
-      "corrected_support_strength": "none",
+      "corrected_support_strength": "weak",
       "corrected_challenge_strength": "none",
-      "note": "No balance sheet or asset analysis."
+      "note": "Correctly identified as illustrative. The link between high-tech AI/EV industries and the extraction of lithium/copper from the Global South directly maps to the expropriation/core-periphery dynamic."
     },
     {
       "claim_id": "C6",
-      "corrected_support_strength": "none",
+      "corrected_support_strength": "weak",
       "corrected_challenge_strength": "none",
-      "note": "No engagement with the theoretical debate on expropriation."
+      "note": "Correctly identified as illustrative. It shows the continuity of capitalist resource-seeking behavior in the 'new' economy."
     }
   ],
   "confidence": 1.0

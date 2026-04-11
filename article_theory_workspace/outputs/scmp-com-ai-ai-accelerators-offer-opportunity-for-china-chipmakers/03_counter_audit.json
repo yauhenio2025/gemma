@@ -1,45 +1,28 @@
 {
-  "grade_inflation_detected": false,
-  "problems_with_initial_audit": [],
+  "grade_inflation_detected": true,
+  "false_negative_detected": false,
+  "problems_with_initial_audit": [
+    "The initial audit promoted C3 to 'direct' engagement and 'moderate' support strength. This is grade inflation. The article describes state actions (bans, goals, curbs), but it does not provide the structured analysis or regulatory findings required for 'moderate' support per the rubric. It is a series of illustrative examples of state power, which the rubric explicitly defines as 'marginal' relevance.",
+    "The initial audit claimed the article 'directly counter[s] the passive rentier narrative.' While the article shows investment, it does not engage the theoretical mechanism of rent vs. profit or the balance sheets of these firms. It merely illustrates that they are producing things, which is 'marginal' evidence, not 'direct' evidence that adjudicates the mechanism."
+  ],
   "missing_support_points": [],
   "missing_challenge_points": [],
-  "corrected_verdict": "irrelevant",
+  "missing_contextual_or_illustrative_points": [
+    "The article's discussion of rare earth export restrictions as a 'near-monopoly' used for 'trade leverage' is a strong illustrative point for C5/C6 and T6 (expropriation and the use of non-produced resources for power), though it doesn't resolve the theoretical debate."
+  ],
+  "corrected_verdict": "marginal",
   "corrections_by_claim": [
     {
       "claim_id": "C1",
-      "corrected_support_strength": "none",
+      "corrected_support_strength": "weak",
       "corrected_challenge_strength": "none",
-      "note": "The article reports on the production of chips, but does not analyze the nature of the investment (productive vs. rent-seeking) as required by the theory map."
-    },
-    {
-      "claim_id": "C2",
-      "corrected_support_strength": "none",
-      "corrected_challenge_strength": "none",
-      "note": "No engagement with the mechanism of search indexing or data extraction."
+      "note": "Remains weak. It provides examples of R&D and production (ASICs), but no systematic data on capex vs. buybacks."
     },
     {
       "claim_id": "C3",
-      "corrected_support_strength": "none",
+      "corrected_support_strength": "weak",
       "corrected_challenge_strength": "none",
-      "note": "While the article describes state-led industrial policy in China, it does not engage with the theoretical claim that the state is constitutive of the mode of production or the 'parcelized sovereignty' debate."
-    },
-    {
-      "claim_id": "C4",
-      "corrected_support_strength": "none",
-      "corrected_challenge_strength": "none",
-      "note": "No discussion of profit rates or the Marxist theory of surplus value."
-    },
-    {
-      "claim_id": "C5",
-      "corrected_support_strength": "none",
-      "corrected_challenge_strength": "none",
-      "note": "Mentions physical hardware, but provides no balance-sheet analysis of tangible vs. intangible assets."
-    },
-    {
-      "claim_id": "C6",
-      "corrected_support_strength": "none",
-      "corrected_challenge_strength": "none",
-      "note": "No engagement with the meta-theoretical debate on capitalism vs. feudalism."
+      "note": "Downgraded from moderate to weak. The article provides illustrative examples of state-led industrial policy (chip bans, rare earth curbs), but does not provide the structured evidence or theoretical engagement required for 'moderate' support."
     }
   ],
   "confidence": 1.0

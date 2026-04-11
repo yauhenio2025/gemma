@@ -1,33 +1,46 @@
 {
-  "overall_initial_verdict": "irrelevant",
-  "overall_reason": "The article is a standard piece of tech reporting on product launches and geopolitical competition. It describes Huawei's new AI computing clusters and their intended performance relative to US competitors. While it mentions 'domestic ecosystems' and 'trade blacklists,' it does not engage with the theoretical distinctions of the theory map (e.g., rent vs. profit, exploitation vs. expropriation, or the state's constitutive role in the mode of production). It provides outcome-level data (specs and scale) rather than mechanism-level analysis of surplus extraction.",
+  "overall_initial_verdict": "marginal",
+  "overall_reason": "The article provides a concrete example of massive capital investment in physical AI infrastructure (SuperPoDs/SuperClusters) by a major tech firm (Huawei) to compete with US rivals. This directly illustrates C1 (tech firms as productive capitalists investing in production) and C3 (the state's role in shaping tech dominance via sanctions and industrial policy), though it cannot adjudicate the systemic rent-vs-profit question on its own.",
   "claim_assessments": [
     {
       "claim_id": "C1",
-      "engagement_type": "none",
-      "support_strength": "none",
+      "engagement_type": "illustrative",
+      "support_strength": "weak",
       "challenge_strength": "none",
-      "support_points": [],
+      "support_points": [
+        "Huawei is investing in the development and deployment of massive hardware clusters (Atlas 950/960) involving hundreds of thousands of NPUs.",
+        "The goal is to provide 'abundant computing power,' which is a productive commodity/service in the AI economy."
+      ],
       "challenge_points": [],
-      "why_limited": "The article mentions the development of new hardware, which is consistent with productive investment, but it does not analyze whether this investment is 'productive innovation' versus 'moat-building' or 'regulatory capture' as required by the theory map."
+      "why_limited": "This is a single company's product roadmap; while it illustrates the 'productive investment' side of the C1 debate, it doesn't provide the systematic capex-to-profit data needed for a 'relevant' verdict."
     },
     {
       "claim_id": "C3",
-      "engagement_type": "none",
-      "support_strength": "none",
-      "challenge_strength": "none",
-      "support_points": [],
+      "engagement_type": "illustrative",
+      "support_strength": "weak",
       "challenge_points": [],
-      "why_limited": "The article mentions the US trade blacklist and the goal of a 'domestic ecosystem,' but it does not provide evidence of the state's constitutive role in building Huawei's market position or the fusion of state and capital as a systemic logic of accumulation."
+      "support_points": [
+        "The development of these systems is explicitly framed as a response to Washington's 2019 trade blacklist (sanctions), showing state power as a primary driver of tech strategy.",
+        "The goal is to create a 'domestic ecosystem' involving other Chinese firms (Cambricon, SMIC), illustrating state-led industrial policy."
+      ],
+      "why_limited": "It illustrates the state's constitutive role in the 'tech war' but does not provide a deep analysis of whether this proves sovereignty is not 'parcelized'."
     }
   ],
-  "article_level_points_for_theory": [],
-  "article_level_points_against_theory": [],
+  "contextual_relevance_points": [
+    "The article describes the 'tech war' between the US and China, which is the broad geopolitical context for the theory's discussion of state power."
+  ],
+  "illustrative_relevance_points": [
+    "Huawei's massive scale-up of NPU cards (up to 1 million in a SuperCluster) serves as a vivid example of the 'massive investment in production' that Morozov argues distinguishes capitalists from rentiers.",
+    "The use of UnifiedBus 2.0 to build a domestic ecosystem illustrates how tech firms coordinate with other producers to expand the productive capacity of a sector."
+  ],
+  "article_level_points_for_theory": [
+    "Demonstrates that AI dominance is currently a function of massive physical infrastructure investment and hardware engineering, not just passive ownership of data or IP rents."
+  ],
+  "article_level_points_against_theory": [
+    "None"
+  ],
   "irrelevance_reasons": [
-    "Fails G1: Does not engage with rent vs. profit, expropriation vs. exploitation, or the state's constitutive role.",
-    "Fails G2: Provides outcome-level reporting (hardware specs) rather than mechanism-level analysis of surplus generation.",
-    "Fails G3: Focuses on individual firm product launches rather than the systemic logic of accumulation.",
-    "Fails G5: The information is symmetrically compatible with any narrative of industrial competition and does not differentially support or challenge the specific claims of the theory map."
+    "None"
   ],
   "confidence": 1.0
 }

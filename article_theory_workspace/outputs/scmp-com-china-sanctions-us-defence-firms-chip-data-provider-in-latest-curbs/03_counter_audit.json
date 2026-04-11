@@ -1,45 +1,17 @@
 {
   "grade_inflation_detected": false,
+  "false_negative_detected": false,
   "problems_with_initial_audit": [],
   "missing_support_points": [],
   "missing_challenge_points": [],
-  "corrected_verdict": "irrelevant",
+  "missing_contextual_or_illustrative_points": [],
+  "corrected_verdict": "marginal",
   "corrections_by_claim": [
     {
-      "claim_id": "C1",
-      "corrected_support_strength": "none",
-      "corrected_challenge_strength": "none",
-      "note": "The article mentions specific firms (TechInsights, Dedrone), but provides no data on their investment patterns or production logic."
-    },
-    {
-      "claim_id": "C2",
-      "corrected_support_strength": "none",
-      "corrected_challenge_strength": "none",
-      "note": "No engagement with the source of profitability or the role of data extraction."
-    },
-    {
       "claim_id": "C3",
-      "corrected_support_strength": "none",
+      "corrected_support_strength": "weak",
       "corrected_challenge_strength": "none",
-      "note": "The article describes the state as a regulator/sanctioner, not as the constitutive force that built the firms' market power."
-    },
-    {
-      "claim_id": "C4",
-      "corrected_support_strength": "none",
-      "corrected_challenge_strength": "none",
-      "note": "No discussion of profit rates or surplus appropriation."
-    },
-    {
-      "claim_id": "C5",
-      "corrected_support_strength": "none",
-      "corrected_challenge_strength": "none",
-      "note": "No balance-sheet or asset composition data."
-    },
-    {
-      "claim_id": "C6",
-      "corrected_support_strength": "none",
-      "corrected_challenge_strength": "none",
-      "note": "No theoretical engagement with the mode of production."
+      "note": "The initial audit correctly identified this as illustrative/weak support. It is a specific instance of state power (sanctions/export controls) being used as a geopolitical tool, which directly maps to the 'indirect relevance hooks' for C3 and T4. It does not provide structural data to be 'relevant' per the rubric, but it is more than 'contextual' because it engages the mechanism of state-dictated market access."
     }
   ],
   "confidence": 1.0

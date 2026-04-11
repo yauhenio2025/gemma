@@ -1,34 +1,52 @@
 {
   "article_kind": "news",
-  "summary": "China has been granted observer status in the Andean Community (comprising Bolivia, Colombia, Ecuador, and Peru), a move seen by analysts as a strategic move to secure access to critical minerals (lithium, copper, gold) and counterbalance the US's tariff policies under the Trump administration.",
+  "summary": "China has been granted observer status in the Andean Community (a trade bloc consisting of Bolivia, Colombia, Ecuador, and Peru), which analysts say strengthens China's strategic foothold in the region, secures access to critical minerals (lithium, copper, gold) for its AI and EV industries, and provides a network of influence to counterbalance the US under the Trump administration's tariff policies.",
   "main_claims": [
-    "China's observer status in the Andean Community is a strategic foothold in the Global South",
-    "This status allows China to push its Global Governance Initiative and its own frameworks for global order",
-    "The move helps Latin American countries counterbalance the effects of US tariffs",
-    "China is leveraging US trade barriers to position itself as a more reliable partner",
-    "Access to critical minerals in the Andean Community is essential for China's AI and EV industries"
+    "China's observer status in the Andean Community is a strategic move to deepen its presence in the Global South.",
+    "This status allows China to provide alternative export channels for Latin American countries facing US tariffs.",
+    "The move secures access to critical minerals (lithium, copper, gold) necessary for AI and EV industries.",
+    "China is leveraging US tariff policies to position itself as a more reliable and stable partner compared to the US.",
+    "The observer status provides institutional support for China's Global Governance Initiative."
   ],
   "evidence_or_facts": [
-    "China was formally accepted as an observer state of the Andean Community last Tuesday",
-    "The Andean Community consists of Bolivia, Colombia, Ecuador, and Peru",
-    ""
+    "China was formally accepted as an observer state of the Andean Community (Bolivia, Colombia, Ecuador, Ecuador, Peru).",
+    "China has engaged with the Andean Community since 1999.",
+    "China-Community of Latin American and Caribbean States (CELAC) Forum was used to engage with the uma own region."
   ],
   "rhetorical_frames": [
     "South-South cooperation",
-    "Counterbalancing unilateralism/bullying (US)",
-    " "
+    "Counterbalancing unilateralism/bullying (referring to the US)",
+    "China as a 'good friend and partner'",
+    "China as a 'more reliable, stable partner' vs. US 'closing shop'",
+    "Developing countries' voice in global governance"
   ],
   "state_and_policy_content": [
-    "China's Global Governance Initiative",
-    ""
+    "China's Global Governance Initiative"
   ],
   "capital_accumulation_content": [
-    "Securing raw materials (lithium, copper, gold) for high-tech industries (AI, EVs)",
-    " "
+    "Deepening economic and investment ties with the Andean Community",
+    "Securing critical minerals (gold, copper, lithium) for high-tech industries (AI, EV)",
+    "Seeking alternative export markets for regional partners to maintain trade flows"
   ],
   "labor_content": [],
+  "infrastructure_and_supply_chain_content": [
+    "Securing supply chains for rare earths and minerals (specifically Bolivia's lithium and Peru's copper) to power AI and EV industries"
+  ],
+  "geopolitical_competition_content": [
+    "Competition between Beijing and Washington for influence in Latin America",
+    "China using US tariff policies as a strategic opportunity to expand its network of influence",
+    "Strategic presence in the Global South to counterbalance US pressure"
+  ],
+  "possible_theory_hooks": [
+    "Resource-seeking FDI/investment",
+    "Trade diversion from US to China",
+    "Institutionalized participation in regional trade blocs as a strategic tool",
+    "Geopolitical competition over critical mineral supply chains"
+  ],
   "what_is_missing_for_theory_evaluation": [
-    "Specifics on trade agreements, tariff reductions, or investment treaties resulting from observer status",
-    ""
+    "Specific details on the observer status's legal or trade preferences (e.g., tariff reductions, specific trade agreements)",
+    "Quantitative data on trade volumes or trade imbalances",
+    "Detailed investment agreements or specific company-level investment projects in the region",
+    "Information on the lack of labor standards or labor displacement in these mineral extraction industries"
   ]
 }

@@ -1,45 +1,33 @@
 {
-  "grade_inflation_detected": false,
-  "problems_with_initial_audit": [],
+  "grade_inflation_detected": true,
+  "false_negative_detected": false,
+  "problems_with_initial_audit": [
+    "The initial audit inflated a rhetorical claim by a political advisor (David Sacks) into 'moderate' support for C3 and 'weak' support for C1. Rhetorical framing by a lobbyist/advisor is not empirical evidence of a mechanism.",
+    "The initial audit failed to distinguish between political process (lobbying/donations) and economic mechanism (rent vs. profit).",
+    "The initial audit overvalued the mention of data centers as 'productive investment' because it was framed as a point of support for C1, ignoring that it was a quote from a venture capitalist pitching a policy, not a data-backed report on capex."
+  ],
   "missing_support_points": [],
   "missing_challenge_points": [],
-  "corrected_verdict": "irrelevant",
+  "missing_contextual_or_illustrative_points": [],
+  "corrected_verdict": "contextual",
   "corrections_by_claim": [
     {
       "claim_id": "C1",
       "corrected_support_strength": "none",
       "corrected_challenge_strength": "none",
-      "note": "The mention of data center construction is a political talking point for GDP growth, not an analysis of productive investment vs. rent-seeking."
-    },
-    {
-      "claim_id": "C2",
-      "corrected_support_strength": "none",
-      "corrected_challenge_strength": "none",
-      "note": "No engagement with the mechanism of search/AI profitability."
+      "note": "Sacks's claim that data centers create jobs is a rhetorical pitch, not evidence of capital expenditure patterns or the nature of the commodity produced."
     },
     {
       "claim_id": "C3",
-      "corrected_strength": "none",
+      "corrected_support_strength": "weak",
       "corrected_challenge_strength": "none",
-      "note": "The article describes current policy preferences and geopolitical competition, but does not analyze the state's constitutive role in the industry's structural power."
-    },
-    {
-      "claim_id": "C4",
-      "corrected_support_strength": "none",
-      "corrected_challenge_strength": "none",
-      "note": "Reports on layoffs as a political liability, not as a theoretical question of profit vs. rent in automated firms."
-    },
-    {
-      "claim_id": "C5",
-      "corrected_support_strength": "none",
-      "corrected_challenge_strength": "none",
-      "note": "Mention of data centers is not linked to balance-sheet analysis."
+      "note": "The administration's stated goal of 'AI dominance' for 'national security' is a standard policy hook for C3, but the article provides no specific subsidies, contracts, or legal mechanisms—only general strategic intent."
     },
     {
       "claim_id": "C6",
       "corrected_support_strength": "none",
       "corrected_challenge_strength": "none",
-      "note": "No engagement with the theoretical framework of expropriation vs. exploitation."
+      "note": "Job losses are mentioned, but without any connection to the theoretical debate over the nature of the system (capitalist vs. feudal)."
     }
   ],
   "confidence": 1.0

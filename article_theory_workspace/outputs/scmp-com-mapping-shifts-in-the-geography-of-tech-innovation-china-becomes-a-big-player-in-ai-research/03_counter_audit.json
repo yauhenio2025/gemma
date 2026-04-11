@@ -1,45 +1,29 @@
 {
   "grade_inflation_detected": false,
+  "false_negative_detected": false,
   "problems_with_initial_audit": [],
   "missing_support_points": [],
   "missing_challenge_points": [],
-  "corrected_verdict": "irrelevant",
+  "missing_contextual_or_illustrative_points": [],
+  "corrected_verdict": "marginal",
   "corrections_by_claim": [
     {
       "claim_id": "C1",
-      "corrected_support_strength": "none",
+      "corrected_support_strength": "weak",
       "corrected_challenge_strength": "none",
-      "note": "The article mentions AI research and innovation, but provides no financial data on R&D spending or analysis of whether such spending is productive or rent-seeking."
+      "note": "Correctly identified as illustrative. Huawei's supernode and DeepSeek's R&D are single data points of productive investment, which is 'weak' support per rubric."
     },
     {
       "claim_id": "C2",
       "corrected_support_strength": "none",
-      "corrected_challenge_strength": "none",
-      "note": "No engagement with the source of profitability or the mechanism of indexing vs. data extraction."
+      "corrected_challenge_strength": "weak",
+      "note": "The mention of 'platform lock-in' is a theoretical prediction of future rent, not empirical evidence of current rent extraction. 'Weak' challenge is appropriate."
     },
     {
       "claim_id": "C3",
-      "corrected_support_strength": "none",
+      "corrected_support_strength": "moderate",
       "corrected_challenge_strength": "none",
-      "note": "Mentions of US export controls and H-1B visa fees are regulatory/geopolitical outcomes, not evidence of the state's constitutive role in building the firms' original market dominance."
-    },
-    {
-      "claim_id": "C4",
-      "corrected_support_strength": "none",
-      "corrected_challenge_strength": "none",
-      "note": "No discussion of profit rates or Marxist categories of rent vs. profit."
-    },
-    {
-      "claim_id": "C5",
-      "corrected_support_strength": "none",
-      "corrected_challenge_strength": "none",
-      "note": "No balance-sheet data or discussion of tangible vs. intangible assets."
-    },
-    {
-      "claim_id": "C6",
-      "corrected_support_strength": "none",
-      "corrected_challenge_strength": "none",
-      "note": "No engagement with the theoretical debate over expropriation vs. exploitation."
+      "note": "The article provides multiple specific state mechanisms: H-1B visa fees, chip export controls, and the strategic 'recalibration' of Nvidia chip access. This constitutes 'structured evidence' of the state's constitutive role, justifying 'moderate' strength."
     }
   ],
   "confidence": 1.0

@@ -808,7 +808,7 @@ class TheoryArticleRunner:
 
     def _load_or_run(self, path: Path, builder: Any, *args: Any) -> dict[str, Any]:
         if path.exists() and not self.overwrite:
-            payload = json.loads(path.read_text(encoding="utf-8"))
+            payload = sanitize_payload(json.loads(path.read_text(encoding="utf-8")))
             try:
                 validate_payload_for_path(path, payload)
                 return payload
@@ -818,6 +818,7 @@ class TheoryArticleRunner:
         for attempt in range(1, self.max_step_retries + 2):
             try:
                 payload = builder(*args)
+                payload = sanitize_payload(payload)
                 validate_payload_for_path(path, payload)
                 path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
                 error_path = error_artifact_path(path)
@@ -1157,6 +1158,31 @@ def validate_payload_for_path(path: Path, payload: dict[str, Any]) -> None:
     if issues:
         preview = "; ".join(issues[:8])
         raise ValueError(f"Invalid payload for {path.name}: {preview}")
+
+
+def sanitize_payload(payload: Any) -> Any:
+    """Remove empty string list items and strings containing noise tokens.
+
+    Returns a cleaned copy so validate_payload_for_path can still flag
+    structural problems (missing keys, embedded JSON) while tolerating minor
+    generation artifacts that otherwise force expensive full-call retries.
+    """
+    if isinstance(payload, dict):
+        return {key: sanitize_payload(value) for key, value in payload.items()}
+    if isinstance(payload, list):
+        cleaned: list[Any] = []
+        for value in payload:
+            if isinstance(value, str):
+                stripped = value.strip()
+                if not stripped:
+                    continue
+                if any(pattern in value for pattern in SUSPECT_NOISE_PATTERNS):
+                    continue
+                cleaned.append(stripped)
+            else:
+                cleaned.append(sanitize_payload(value))
+        return cleaned
+    return payload
 
 
 def required_keys_for_output(filename: str) -> set[str]:

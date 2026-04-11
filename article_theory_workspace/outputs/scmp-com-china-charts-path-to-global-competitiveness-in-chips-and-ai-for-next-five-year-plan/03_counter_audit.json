@@ -1,45 +1,28 @@
 {
-  "grade_inflation_detected": false,
-  "problems_with_initial_audit": [],
+  "grade_inflation_detected": true,
+  "false_negative_detected": false,
+  "problems_with_initial_audit": [
+    "The initial audit classified the engagement with C3 as 'direct' and 'moderate' support. This is grade inflation. The article describes a state-led industrial policy, which is illustrative of the state's role, but it does not provide the kind of structured, empirical evidence (e.g., specific budget allocations, named contracts, or regulatory findings) that would 'update a Bayesian prior' about the state's constitutive role in the global tech economy. It is a descriptive news story about a policy plan, not a substantive analysis of the state-tech power dynamic.",
+    "The initial audit claimed the article 'directly counters the parcelized sovereignty narrative.' This is an overclaim. A story about China's 5-year plan is illustrative of state power, but it doesn't 'counter' a systemic theory about the global digital economy's shift toward techno-feudalism, which primarily focuses on the US-led platform economy. While the mechanism is analogous, the descriptive nature of the article makes it only marginally relevant."
+  ],
   "missing_support_points": [],
   "missing_challenge_points": [],
-  "corrected_verdict": "irrelevant",
+  "missing_contextual_or_illustrative_points": [
+    "The mention of 'redundant internal competition' caused by policy incentives is a useful illustrative point for C2/T2 regarding how capital is allocated in the tech sector, though it doesn't adjudicate rent vs. profit."
+  ],
+  "corrected_verdict": "marginal",
   "corrections_by_claim": [
     {
       "claim_id": "C1",
-      "corrected_support_strength": "none",
+      "corrected_support_strength": "weak",
       "corrected_challenge_strength": "none",
-      "note": "The article mentions R&D spending increases, but this is a national aggregate, not a firm-level analysis of productive investment vs. rent-seeking. It fails the mechanism gate."
-    },
-    {
-      "claim_id": "C2",
-      "corrected_support_strength": "none",
-      "corrected_challenge_strength": "none",
-      "note": "No engagement with the specific profit mechanisms of search or data."
+      "note": "Illustrative of massive R&D and infrastructure investment, but aggregate national data is weak evidence for a structural capitalist logic at the firm level."
     },
     {
       "claim_id": "C3",
-      "corrected_support_strength": "none",
+      "corrected_support_strength": "weak",
       "corrected_challenge_strength": "none",
-      "note": "The article describes state industrial policy (planning, funding), but it does not engage with the theoretical claim that the state is 'constitutive' of tech dominance as a counter to the 'parcelized sovereignty' of techno-feudalism. It is a descriptive account of state-led capitalism, not a theoretical test of the mode of production."
-    },
-    {
-      "claim_id": "C4",
-      "corrected_support_strength": "none",
-      "corrected_challenge_strength": "none",
-      "note": "No discussion of profit rates or the nature of surplus value."
-    },
-    {
-      "claim_id": "C5",
-      "corrected_support_strength": "none",
-      "corrected_challenge_strength": "none",
-      "note": "No balance-sheet data provided."
-    },
-    {
-      "claim_id": "C6",
-      "corrected_support_strength": "none",
-      "corrected_challenge_strength": "none",
-      "note": "No engagement with the meta-theoretical debate on expropriation."
+      "note": "The article is a textbook example of 'marginal' relevance: it illustrates the state's role (C3) through a specific case (China's 5-year plan) but does not provide the data or analysis to resolve the systemic theoretical question."
     }
   ],
   "confidence": 1.0

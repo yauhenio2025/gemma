@@ -1,17 +1,42 @@
 {
-  "overall_verdict": "irrelevant",
+  "overall_verdict": "marginal",
   "confidence": 1.0,
-  "one_paragraph_verdict": "The article is a journalistic report on the geopolitical competition between the US and China regarding AI research, talent acquisition, and chip sanctions. It focuses on outcomes—such as the percentage of researchers in each country, the publication of models in Nature, and the effectiveness of export controls—rather than the systemic economic mechanisms of accumulation. It does not engage with the theoretical distinctions between rent and profit, exploitation and expropriation, or the constitutive role of the state in building market dominance as defined in the theory map. While it mentions 'platform lock-in,' it does so as a general business term rather than as a specific mechanism of feudal rent extraction.",
-  "arguments_for_theory": [],
-  "arguments_against_theory": [],
-  "what_article_cannot_adjudicate": [
-    "Whether AI R&D spending represents productive capital investment (C1) or rent-seeking moat-building.",
-    "The source of profitability for AI firms (indexing vs. data extraction) (C2).",
-    "Whether the state's role in AI dominance is constitutive of the mode of production or merely regulatory/geopolitical (C3).",
-    "Whether AI firm profit rates behave as capitalist profits or monopoly rents (C4).",
-    "The ratio of tangible to intangible assets on the balance sheets of AI firms (C5).",
-    "Whether current AI extraction practices represent a qualitative break from capitalist expropriation (C6)."
+  "relevance_mode": "illustrative",
+  "one_paragraph_verdict": "The article provides illustrative evidence that supports the theory's claim that tech dominance is driven by productive investment and state-led industrial strategy rather than a shift to a 'feudal' mode of production. Specifically, it highlights Huawei's development of domestic chip clusters and DeepSeek's peer-reviewed research as evidence of genuine R&D and infrastructure investment (C1). More substantively, it provides concrete examples of the state's constitutive role in the tech sector through H-1B visa fees, chip export controls, and the strategic management of Nvidia chip access (C3). While it mentions 'platform lock-in' as a future possibility for Chinese AI models, this is a theoretical prediction of market power rather than empirical evidence of current rent extraction (C2).",
+  "contextual_relevance": [
+    "General discussion of the US-China 'tech war' as the geopolitical backdrop for AI innovation.",
+    "Statistics on the origin and location of top AI researchers."
   ],
-  "state_capital_nexus_relevance": "The article mentions state actions (export controls, visa fees, security investigations), but these are framed as geopolitical tools of competition rather than as the constitutive force that built the tech firms' market positions.",
-  "recommended_use": "ignore"
+  "arguments_for_theory": [
+    {
+      "strength": "weak",
+      "argument": "Huawei's development of a 'supernode computing cluster' and DeepSeek's peer-reviewed research in Nature indicate that AI leadership requires massive physical infrastructure and scientific R&D, contradicting the image of tech firms as passive rentiers.",
+      "claim_ids": [
+        "C1"
+      ]
+    },
+    {
+      "strength": "moderate",
+      "argument": "The US government's use of H-1B visa fees, chip export controls, and the strategic 'recalibration' of Nvidia chip access demonstrates that the state actively shapes the competitive landscape and manages human capital as a strategic asset, supporting the claim that state power is constitutive of tech dominance.",
+      "claim_ids": [
+        "C3"
+      ]
+    }
+  ],
+  "arguments_against_theory": [
+    {
+      "strength": "weak",
+      "argument": "The suggestion that open-source AI models could lead to 'platform lock-in' provides a potential mechanism for the extraction of monopoly rents in the future.",
+      "claim_ids": [
+        "C2"
+      ]
+    }
+  ],
+  "what_article_cannot_adjudicate": [
+    "Whether the overall systemic logic of the tech economy has shifted from profit to rent.",
+    "The quantitative ratio of capital expenditure to profit distributions (buybacks/dividends) across the sector.",
+    "Whether current platform revenues are structurally derived from productive activity or passive asset ownership."
+  ],
+  "state_capital_nexus_relevance": "High. The article explicitly details how state policy (immigration, sanctions, export controls) is used as a tool of geopolitical competition to enable or hinder tech innovation.",
+  "recommended_use": "use_as_minor_update"
 }

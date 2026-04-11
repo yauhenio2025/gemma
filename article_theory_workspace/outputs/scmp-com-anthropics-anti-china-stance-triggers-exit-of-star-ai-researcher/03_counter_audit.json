@@ -1,45 +1,17 @@
 {
   "grade_inflation_detected": false,
+  "false_negative_detected": false,
   "problems_with_initial_audit": [],
   "missing_support_points": [],
   "missing_challenge_points": [],
-  "corrected_verdict": "irrelevant",
+  "missing_contextual_or_illustrative_points": [],
+  "corrected_verdict": "marginal",
   "corrections_by_claim": [
     {
-      "claim_id": "C1",
-      "corrected_support_strength": "none",
-      "corrected_challenge_strength": "none",
-      "note": "The movement of high-skilled labor is a standard feature of capitalist competition for talent and does not provide evidence regarding whether R&D spending is productive or rent-seeking."
-    },
-    {
-      "claim_id": "C2",
-      "corrected_support_strength": "none",
-      "corrected_challenge_strength": "none",
-      "note": "No engagement with the profit mechanism of AI firms."
-    },
-    {
       "claim_id": "C3",
-      "corrected_support_strength": "none",
+      "corrected_support_strength": "weak",
       "corrected_challenge_strength": "none",
-      "note": "Rhetorical alignment with state 'adversary' framing is not evidence of the state's constitutive role in the firm's capital accumulation or market position."
-    },
-    {
-      "claim_id": "C4",
-      "corrected_support_strength": "none",
-      "corrected_challenge_strength": "none",
-      "note": "No data on profit rates or surplus extraction mechanisms."
-    },
-    {
-      "claim_id": "C5",
-      "corrected_support_strength": "none",
-      "corrected_challenge_strength": "none",
-      "note": "No balance sheet data."
-    },
-    {
-      "claim_id": "C6",
-      "corrected_support_strength": "none",
-      "corrected_challenge_strength": "none",
-      "note": "No theoretical engagement with the mode of production."
+      "note": "The initial audit correctly identified this as illustrative evidence for C3. The alignment between Anthropic's corporate policy (barring Chinese subsidiaries) and state-level geopolitical framing ('adversary AI') provides a concrete example of how private firms operate within a state-defined security perimeter, contradicting the 'parcelized sovereignty' narrative. It remains 'weak' because it is a single instance of corporate rhetoric and policy, not a systematic data set on state-constitutive power."
     }
   ],
   "confidence": 1.0

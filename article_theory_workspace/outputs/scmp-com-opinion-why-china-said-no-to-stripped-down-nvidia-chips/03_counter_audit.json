@@ -1,45 +1,29 @@
 {
   "grade_inflation_detected": false,
+  "false_negative_detected": false,
   "problems_with_initial_audit": [],
   "missing_support_points": [],
   "missing_challenge_points": [],
-  "corrected_verdict": "irrelevant",
+  "missing_contextual_or_illustrative_points": [],
+  "corrected_verdict": "marginal",
   "corrections_by_claim": [
     {
       "claim_id": "C1",
-      "corrected_support_strength": "none",
+      "corrected_support_strength": "weak",
       "corrected_challenge_strength": "none",
-      "note": "The article discusses chip production and revenue loss, but does not analyze the nature of the investment (productive vs. rent-seeking) as required by the theory map."
-    },
-    {
-      "claim_id": "C2",
-      "corrected_support_strength": "none",
-      "corrected_challenge_strength": "none",
-      "note": "No engagement with the specific mechanism of search indexing or data extraction."
+      "note": "Correct. The mention of Huawei/Cambricon iterating rapidly is a weak illustrative point for productive investment, but lacks the hard capex data required for higher strength."
     },
     {
       "claim_id": "C3",
-      "corrected_support_strength": "none",
+      "corrected_support_strength": "moderate",
       "corrected_challenge_strength": "none",
-      "note": "While the article describes the Chinese state's role in fostering domestic industry, it does not engage with the state's constitutive role in the US tech sector or the 'parcelized sovereignty' debate."
-    },
-    {
-      "claim_id": "C4",
-      "corrected_support_strength": "none",
-      "corrected_challenge_strength": "none",
-      "note": "No discussion of profit rates or the Marxist distinction between profit and rent."
-    },
-    {
-      "claim_id": "C5",
-      "corrected_support_strength": "none",
-      "corrected_challenge_strength": "none",
-      "note": "No balance-sheet analysis of tangible vs. intangible assets."
+      "note": "Correct. The article provides a structured argument about the state's active role in directing the market (export controls vs. regulatory mandates), which directly counters the 'parcelized sovereignty' narrative."
     },
     {
       "claim_id": "C6",
-      "corrected_support_strength": "none",
+      "corrected_support_strength": "weak",
       "corrected_challenge_strength": "none",
-      "note": "No engagement with the theoretical framework of expropriation vs. exploitation."
+      "note": "Correct. It illustrates the use of extra-economic coercion (sanctions/bans) as a tool of capitalist competition, though it doesn't name the theory."
     }
   ],
   "confidence": 1.0

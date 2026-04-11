@@ -1,21 +1,23 @@
 {
   "grade_inflation_detected": false,
+  "false_negative_detected": false,
   "problems_with_initial_audit": [],
   "missing_support_points": [],
   "missing_challenge_points": [],
-  "corrected_verdict": "irrelevant",
+  "missing_contextual_or_illustrative_points": [],
+  "corrected_verdict": "marginal",
   "corrections_by_claim": [
     {
       "claim_id": "C1",
-      "corrected_support_strength": "none",
+      "corrected_support_strength": "weak",
       "corrected_challenge_strength": "none",
-      "note": "The article describes hardware launches, which is consistent with capital investment, but it does not analyze the nature of that investment (productive vs. moat-building) or its economic effect, failing the mechanism gate."
+      "note": "Correctly identified as illustrative of massive physical investment in production, but appropriately limited to 'weak' because it is a product announcement rather than a financial audit of capex."
     },
     {
       "claim_id": "C3",
-      "corrected_support_strength": "none",
+      "corrected_support_strength": "weak",
       "corrected_challenge_strength": "none",
-      "note": "Mention of the US trade blacklist and 'domestic ecosystem' is topical overlap regarding the state, but it does not provide evidence of the state's constitutive role in Huawei's accumulation logic or the fusion of state and capital."
+      "note": "Correctly identified as illustrative of the state's role (sanctions as catalyst, domestic ecosystem as goal), but appropriately limited to 'weak' because it doesn't analyze the structural relationship between state and firm."
     }
   ],
   "confidence": 1.0

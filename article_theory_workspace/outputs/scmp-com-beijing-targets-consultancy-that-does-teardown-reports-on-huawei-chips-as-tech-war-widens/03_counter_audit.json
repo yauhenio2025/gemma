@@ -1,45 +1,27 @@
 {
-  "grade_inflation_detected": false,
-  "problems_with_initial_audit": [],
+  "grade_inflation_detected": true,
+  "false_negative_detected": false,
+  "problems_with_initial_audit": [
+    "The initial audit promoted the engagement with C3 to 'direct' and 'moderate' support, which violates the anti-grade-inflation rule. A single event (blacklisting a consultancy) is an illustration of state power, not a systematic analysis of state-constitutive power.",
+    "The initial audit claimed the article 'directly contradicts' the parcelized sovereignty notion, which is an overclaim. A single trade blacklist action does not structurally disprove a systemic theory of sovereignty transfer.",
+    "The initial audit failed to distinguish between political-process evidence (the act of blacklisting) and economic mechanism evidence (how the state actually sustains the industry's capital accumulation)."
+  ],
   "missing_support_points": [],
   "missing_challenge_points": [],
-  "corrected_verdict": "irrelevant",
+  "missing_contextual_or_illustrative_points": [],
+  "corrected_verdict": "marginal",
   "corrections_by_claim": [
     {
       "claim_id": "C1",
-      "corrected_support_strength": "none",
+      "corrected_support_strength": "weak",
       "corrected_challenge_strength": "none",
-      "note": "The article mentions AI processors and semiconductor production, but does not analyze the nature of the investment (productive vs. rent-seeking)."
-    },
-    {
-      "claim_id": "C2",
-      "corrected_support_strength": "none",
-      "corrected_challenge_strength": "none",
-      "note": "No engagement with the mechanism of search/social platform profitability."
+      "note": "Correct as initially judged; the mention of 7nm fabrication is a single illustrative data point of capital intensity."
     },
     {
       "claim_id": "C3",
-      "corrected_support_strength": "none",
+      "corrected_support_strength": "weak",
       "corrected_challenge_strength": "none",
-      "note": "The state action described is punitive/regulatory (blacklisting), not constitutive of the firm's market dominance or business model."
-    },
-    {
-      "claim_id": "C4",
-      "corrected_support_strength": "none",
-      "corrected_challenge_strength": "none",
-      "note": "No discussion of profit rates or surplus appropriation."
-    },
-    {
-      "claim_id": "C5",
-      "corrected_support_strength": "none",
-      "corrected_challenge_strength": "none",
-      "note": "No balance-sheet or asset composition analysis."
-    },
-    {
-      "claim_id": "C6",
-      "corrected_support_strength": "none",
-      "corrected_challenge_strength": "none",
-      "note": "No engagement with the theoretical debate on expropriation vs. exploitation."
+      "note": "Downgraded from moderate to weak. The article describes a political act of retaliation/protection, which illustrates the state's role (T4), but does not provide the structured data or policy framework required for 'moderate' support."
     }
   ],
   "confidence": 1.0

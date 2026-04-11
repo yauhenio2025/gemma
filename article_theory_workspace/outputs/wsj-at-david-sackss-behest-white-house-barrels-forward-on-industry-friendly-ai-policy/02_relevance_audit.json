@@ -1,69 +1,55 @@
 {
-  "overall_initial_verdict": "irrelevant",
-  "overall_reason": "The article is a political report on the Trump administration's AI policy preferences and the internal tensions between pro-industry advisors and political strategists. It does not engage with the theoretical mechanisms of the techno-feudalism debate (rent vs. profit, exploitation vs. expropriation, or the specific asset composition of tech firms). While it mentions data centers and national security, these are presented as talking points for economic growth and geopolitical competition, which the rubric explicitly identifies as insufficient for theoretical relevance.",
+  "overall_initial_verdict": "marginal",
+  "overall_reason": "The article provides illustrative evidence for several core claims, specifically the state's constitutive role in tech dominance (C3) and the nature of tech investment as productive infrastructure (C1). While it doesn't provide the systematic data needed to be 'relevant,' it moves beyond 'contextual' by describing specific policy mechanisms (national security imperatives, data center construction as GDP driver) that directly map to the theory's hooks.",
   "claim_assessments": [
     {
       "claim_id": "C1",
-      "engagement_type": "none",
-      "support_strength": "none",
+      "engagement_type": "illustrative",
+      "support_strength": "weak",
       "challenge_strength": "none",
-      "support_points": [],
+      "support_points": [
+        "David Sacks argues that the construction of AI data centers is a massive productive investment creating blue-collar jobs and boosting GDP, which aligns with the view of tech firms as productive capitalists rather than passive rentiers."
+      ],
       "challenge_points": [],
-      "why_limited": "The article mentions data center construction as a job creator, but this is a rhetorical claim by David Sacks, not an empirical analysis of whether such investment is 'productive' in a Marxist sense or merely 'moat-building' for rent extraction."
-    },
-    {
-      "claim_id": "C2",
-      "engagement_type": "none",
-      "support_strength": "none",
-      "challenge_strength": "none",
-      "support_points": [],
-      "challenge_points": [],
-      "why_limited": "No mention of the source of AI/search profitability or the role of indexing vs. data extraction."
+      "why_limited": "The evidence is a rhetorical claim by a tech advisor (Sacks) rather than independent economic data on capex."
     },
     {
       "claim_id": "C3",
-      "engagement_type": "none",
-      "support_strength": "none",
+      "engagement_type": "illustrative",
+      "support_strength": "moderate",
       "challenge_strength": "none",
-      "support_points": [],
+      "support_points": [
+        "The administration explicitly links AI dominance to national security and competition with China, illustrating the state's constitutive role in shaping the industry's growth.",
+        "The mention of industry donations to the White House and PACs suggests a symbiotic relationship between state power and capital accumulation, contradicting the 'parcelized sovereignty' thesis."
+      ],
       "challenge_points": [],
-      "why_limited": "While the article discusses the state's current policy and its desire to 'sustain American AI dominance,' it does not analyze the state's constitutive role in building the industry's core power or the fusion of state and capital as a systemic logic of accumulation."
-    },
-    {
-      "claim_id": "C4",
-      "engagement_type": "none",
-      "support_strength": "none",
-      "challenge_strength": "none",
-      "support_points": [],
-      "challenge_points": [],
-      "why_limited": "The mention of AI-driven layoffs is a report on labor market outcomes, not an analysis of whether automated firms appropriate surplus value as profit or rent."
-    },
-    {
-      "claim_id": "C5",
-      "engagement_type": "none",
-      "support_strength": "none",
-      "challenge_points": [],
-      "support_points": [],
-      "why_limited": "Mention of data centers is not linked to a balance-sheet analysis of tangible vs. intangible assets."
+      "why_limited": "It describes the political strategy but does not provide a detailed analysis of the specific subsidies or legal frameworks being implemented."
     },
     {
       "claim_id": "C6",
-      "engagement_type": "none",
+      "engagement_type": "contextual",
       "support_strength": "none",
       "challenge_strength": "none",
       "support_points": [],
       "challenge_points": [],
-      "why_limited": "No engagement with the Brenner-Wallerstein debate or the theoretical distinction between exploitation and expropriation."
+      "why_limited": "The article mentions AI-driven job losses (100,000 layoffs), which relates to the broader theme of capitalist extraction and displacement, but does not engage the 'feudal' vs 'capitalist' framing."
     }
   ],
-  "article_level_points_for_theory": [],
-  "article_level_points_against_theory": [],
-  "irrelevance_reasons": [
-    "Fails G1: Does not engage with rent vs. profit, expropriation vs. exploitation, or asset composition.",
-    "Fails G2: Focuses on political outcomes (policy shifts, voter polls) rather than mechanisms of surplus generation.",
-    "Fails G3: Discusses individual political actors and specific policy frameworks rather than the systemic logic of accumulation.",
-    "Fails G4: Does not use theoretical terms like 'rentier' or 'feudalism' in any analytical capacity.",
-    "Fails G5: The content is symmetrically compatible with any political-economy framework (e.g., standard neoliberalism, state-capitalism, or techno-feudalism)."
+  "contextual_relevance_points": [
+    "General public concern about AI regulation (75% of Americans) provides background on the public legitimacy of tech power.",
+    "Internal political divisions within the Trump administration regarding the 'out of touch' nature of the AI strategy."
   ],
-  "confidence": 1.0
+  "illustrative_relevance_points": [
+    "The 'tech race' with China as a justification for a laissez-faire regulatory environment (C3).",
+    "The framing of data center construction as a physical, job-creating infrastructure project (C1)."
+  ],
+  "article_level_points_for_theory": [
+    "Supports the idea that tech dominance is a project of the state (national security/China competition) rather than a private usurpation of state power.",
+    "Provides a concrete example of the 'productive' side of AI (physical infrastructure/data centers) that techno-feudalists often ignore."
+  ],
+  "article_level_points_against_theory": [
+    "The high level of political donations and PAC spending could be interpreted by a critic as 'rent-seeking' in the political sense, though the theory map distinguishes this from Marxist economic rent."
+  ],
+  "irrelevance_reasons": [],
+  "confidence": 0.9
 }

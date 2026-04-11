@@ -1,41 +1,55 @@
 {
   "article_kind": "news",
-  "summary": "China's Ministry of Commerce has added 14 Western entities, primarily US-based defense and intelligence firms, to its 'unreliable entity list,' banning them from trade and investment in China. This action, alongside new export controls on rare earth materials, is framed as a response to military-technical cooperation with Taiwan and threats to China's national security, and is interpreted by economists as a strategic move to gain leverage before a meeting between President Xi Jinping and President Donald Trump.",
+  "summary": "China's Ministry of Commerce has added 14 Western entities, primarily US-based defense and intelligence firms, to its 'unreliable entity list,' banning them from trade and investment in China. This action, which includes a semiconductor data analysis firm (TechInsights), coincided with new export controls on rare earth materials, occurring shortly before a scheduled meeting between Presidents Xi Jinping and Donald Trump.",
   "main_claims": [
-    "Beijing is sanctioning US defense and intelligence firms to protect national security and sovereignty.",
-    "The sanctions are a response to military-technical cooperation with Taiwan and the suppression of Chinese companies.",
-    "The measures are targeted and do not affect law-abiding foreign enterprises.",
-    "The sanctions and rare earth controls may be intended as leverage for upcoming diplomatic meetings between Xi and Trump."
+    "Beijing is using sanctions and export controls as leverage for upcoming diplomatic meetings with the US.",
+    "The sanctioned entities are accused of military-technical cooperation with Taiwan and assisting foreign governments in suppressing Chinese companies.",
+    "The Chinese government maintains that it still welcomes law-abiding foreign investment."
   ],
   "evidence_or_facts": [
-    "14 entities added to the 'unreliable entity list'.",
-    "TechInsights (Canada-based semiconductor intelligence firm) is among the sanctioned entities.",
-    "Dedrone by Axon and DZYNE Technologies (counter-drone providers) are are among the sanctioned entities.",
-    "Halifax International Security Forum (conference organizer) is sanctioned.",
-    "China imposed new export controls on rare earth materials on the same day.",
-    "TechInsights previously published a report on Huawei's Ascend 910B AI processor."
+    "14 entities added to the unreliable entity list.",
+    "TechInsights (Canada-based semiconductor intelligence firm) is among the sanctioned.",
+    "Dedrone by Axon and DZYNE Technologies (counter-drone providers) are sanctioned.",
+    "Halifax International Security Forum is sanctioned.",
+    "Sanctions include bans on trade, investment, and data sharing/sensitive information provision.",
+    "New export controls on rare earth materials and related technologies were imposed on the same day."
   ],
   "rhetorical_frames": [
-    "'Tit-for-tat response'",
-    "latest salvo amid ongoing trade tensions",
-    " 'unreliable entity list'",
-    "national security and security and development interests"
+    "'Latest salvo' in trade tensions",
+    "Tit-for-tat response",
+    "'Leverage' for diplomatic negotiations",
+    "National security and sovereignty protection"
   ],
   "state_and_policy_content": [
-    "Ministry of Commerce (China) sanctions",
-    "unreliable entity list (trade and investment ban)",
-    "export controls on rare earth materials",
-    "bilateral diplomatic meetings (Xi-Trump)"
+    "Use of the 'unreliable entity list' as a policy tool for trade and investment bans.",
+    "Implementation of export controls on rare earth materials.",
+    "Linking trade restrictions to national security and military-technical cooperation with Taiwan."
   ],
   "capital_accumulation_content": [
-    "Banning of trade and investment for 14 specific entities",
-    "Restrictions on data sharing and providing sensitive information to sanctioned firms"
+    "Banning of specific foreign firms from investing in or trading within the Chinese market.",
+    "Restrictions on the flow of semiconductor intelligence and market analysis data."
   ],
   "labor_content": [],
+  "infrastructure_and_supply_chain_content": [
+    "Targeting of the semiconductor data supply chain (via TechInsights).",
+    "Control of rare earth materials as a strategic supply chain lever."
+  ],
+  "geopolitical_competition_content": [
+    "US-China trade and tech war.",
+    "China's response to US tariffs and suppression of Chinese companies.",
+    "Tensions regarding Taiwan's military-technical cooperation.",
+    "Strategic timing of sanctions ahead of a Xi-Trump meeting."
+  ],
+  "possible_theory_hooks": [
+    "State-led strategic trade policy",
+    "Weaponization of interdependence (rare earths and market access)",
+    "The role of security-driven trade restrictions in geopolitical competition",
+    "The impact of sanctions on information asymmetry in the semiconductor industry"
+  ],
   "what_is_missing_for_theory_evaluation": [
-    "Detailed impact on the global semiconductor supply chain",
-    "Specific financial losses for the sanctioned firms",
-    "Detailed legal framework of the 'unreliable entity list'",
-    "Quantitative data on the volume of trade affected by "
+    "Specific financial impact on the sanctioned firms.",
+    "Detailed list of all 14 entities to assess the sector-wide impact.",
+    "Detailed technical specifications of the rare earth export controls.",
+    "Evidence of whether these sanctions actually shifted the diplomatic leverage in the subsequent meeting."
   ]
 }

@@ -1,47 +1,70 @@
 {
   "article_kind": "news",
-  "summary": "The article discusses China's strategic planning for the 15th five-year plan (2026-2030), focusing on achieving global competitiveness in semiconductors and AI. It highlights the transition from 'catching up' and 'import substitution' to pioneering new technological pathways to bypass US-led export curbs and avoid redundant internal competition. It mentions specific technical goals like FDSOI technology, RISC-V, and brain-inspired computing, and and the AI ecosystem integration of data, algorithms, and computing power.",
+  "summary": "The article discusses China's strategic goals for the 15th Five-Year Plan (2026-2030), focusing on high-end semiconductors and AI. It highlights the transition from a 'catch-up' strategy of import substitution to pioneering new technological pathways to overcome US-led export curbs and supply chain decoupling. It identifies key technical hurdles (e.g., EUV lithography) and alternative technical routes (e.g., FDSOI, chiplets, RISC-V) and emphasizes the integration of AI into manufacturing and future industries like humanoid robots and the low-altitude economy.",
   "main_claims": [
     "China aims to be a global leader in science and technology by 2035",
-    "The 15th five-year plan period is a critical window for breakthroughs in AI and semiconductors",
-    "China must move from 'import substitution' to pioneering new technological pathways to overcome US export curbs",
-    "Redundant internal competition among domestic firms is wasting innovative resources",
-    "AI is a dual catalyst: it creates demand for AI chips and transforms the manufacturing process itself",
-    "The AI strategy involves breakthroughs in foundational algorithms, brain-inspired computing, and the integration of data/computing power"
+    "The 15th Five-Year Plan period is a critical window for breakthroughs in chips and AI",
+    "China must transition from 'import substitution' to 'pioneering new technological pathways'",
+    "Self-sufficiency in mature nodes (28nm and above) has led to redundant internal competition among domestic firms",
+    "AI is a dual catalyst: it creates demand for AI chips and optimizes chip design/manufacturing",
+    "The state is prioritizing the integration of AI into industrial application scenarios (humanoid robots, smart transport, etc.)"
   ],
   "evidence_or_facts": [
-    "National R&D investment has increased by 48% since 2020",
+    "National R&D investment increased by 48% compared to 2020",
     "China is 10th in the Global Innovation Index",
     "China leads in volume of high-impact international journal publications and patent applications",
     "China has achieved self-sufficiency in mature process nodes (28nm and above)",
     "US-led export curbs on advanced chip manufacturing technology",
-    "Mention of specific technologies: FDSOI, RISC-V, and nanoimprint lithography"
+    "Mention of specific technologies: FDSOI, chiplets, RISC-V, nanoimprint lithography, EUV lithography"
   ],
   "rhetorical_frames": [
     "Strategic competition/Battleground",
-    "National competitiveness",
-    " "
+    "National security/Self-reliance (building our own house with our own blueprints)",
+    "High-quality economic development",
+    "Capturing the 'decisive period'"
   ],
   "state_and_policy_content": [
-    "Drafting of the 15th five-year plan (2026-2030)",
+    "Drafting of the 15th Five-Year Plan (2026-2030)",
     "State Council press briefing by Minister Yin Hejun",
-    "Policy incentives attracting capital to replicate mature products",
+    "Focus on 'scientific talent' and 'ecosystem that integrates scientific and industrial innovation'",
+    "Policy incentives attracting capital to mature products, which caused redundant internal competition",
     "Establishment of national computing power scheduling platforms",
-    "Focus on creating AI and manufacturing application scenarios"
+    "Promotion of authorized use of public data"
   ],
   "capital_accumulation_content": [
-    "R&D investment surge",
-    "Capital attracted to 'low-level, redundant internal competition' due to policy incentives",
-    "Investment in emerging and disruptive technologies"
+    "Surge in national R&D investment",
+    "Policy incentives attracting capital to replicate mature products (leading to waste of innovative resources)",
+    "Forward-looking investments in disruptive technologies",
+    "Shift from 'catching up' to pioneering new pathways"
   ],
   "labor_content": [
-    "Mention of the number of researchers being the world's largest",
+    "Mention of the world's largest number of researchers",
     "Focus on the introduction of scientific talent"
   ],
+  "infrastructure_and_supply_chain_content": [
+    "Supply chain decoupling from the US",
+    "Need for independent R&D of advanced process nodes",
+    "Need for breakthroughs in advanced process equipment (lithography machines)",
+    "Need for building the RISC-V open-source chip ecosystem",
+    "Development of computing infrastructure and computing networks"
+  ],
+  "geopolitical_competition_content": [
+    "US-led export curbs on advanced chip manufacturing technology",
+    "Technology blockade and supply chain decoupling",
+    "Competition with American, Japanese and European companies in the high-end chip market",
+    "Strategic passivity caused by dependency on foreign technological road maps"
+  ],
+  "possible_theory_hooks": [
+    "Rent-seeking behavior induced by policy incentives (redundant internal competition in mature nodes)",
+    "Import substitution industrialization (ISI) and its limits",
+    "State-led technological leapfrogging (via FDSOI, RISC-V, etc.)",
+    "The role of the state in coordinating capital allocation to avoid 'low-level redundant competition'",
+    "Interplay between AI as a general-purpose technology (GPT) and semiconductor hardware"
+  ],
   "what_is_missing_for_theory_evaluation": [
-    "Specifics on how the state's funding mechanisms (subsidies, guidance funds) работает exactly",
-    "Detailed data on the majorité of the private sector's role versus state-owned enterprises (SOEs) in these specific breakthroughs",
-    "Detailed labor market dynamics beyond the general mention of 'talent'",
-    "Detailed cost-benefit analysis of the technical pathways chosen"
+    "Specific budget figures for the 15th Five-Year Plan",
+    "Detailed mechanisms of how the 'redundant competition' is an inefficient allocation of capital",
+    "Detailed data on the rate of return on these investments",
+    "Specific names of the firms involved in the 'redundant competition' or"
   ]
 }

@@ -1,27 +1,23 @@
 {
   "grade_inflation_detected": false,
+  "false_negative_detected": false,
   "problems_with_initial_audit": [],
   "missing_support_points": [],
   "missing_challenge_points": [],
-  "corrected_verdict": "irrelevant",
+  "missing_contextual_or_illustrative_points": [],
+  "corrected_verdict": "marginal",
   "corrections_by_claim": [
     {
       "claim_id": "C1",
-      "corrected_support_strength": "none",
+      "corrected_support_strength": "weak",
       "corrected_challenge_strength": "none",
-      "note": "The article describes a physical asset, but does not analyze the nature of the investment (productive vs. moat-building) or its relation to surplus extraction."
+      "note": "Correctly identified as illustrative. A single project by a niche firm (Highlander) is a data point for physical capital intensity, but not a structural proof of the tech sector's overall investment patterns."
     },
     {
       "claim_id": "C3",
-      "corrected_support_strength": "none",
+      "corrected_support_strength": "weak",
       "corrected_challenge_strength": "none",
-      "note": "Mention of subsidies and state-owned clients is descriptive of a specific project's funding, not an analysis of the state's constitutive role in the industry's systemic dominance."
-    },
-    {
-      "claim_id": "C5",
-      "corrected_support_strength": "none",
-      "corrected_challenge_strength": "none",
-      "note": "The existence of a tangible asset does not constitute balance-sheet analysis of tangible vs. intangible asset ratios."
+      "note": "Correctly identified as illustrative. The mention of specific subsidies (40m yuan) and state-owned enterprise partnerships provides a concrete example of the state's constitutive role, but does not adjudicate the systemic sovereignty question."
     }
   ],
   "confidence": 1.0

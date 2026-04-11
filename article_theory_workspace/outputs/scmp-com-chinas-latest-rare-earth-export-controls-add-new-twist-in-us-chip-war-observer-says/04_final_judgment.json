@@ -1,17 +1,41 @@
 {
-  "overall_verdict": "irrelevant",
+  "overall_verdict": "marginal",
   "confidence": 1.0,
-  "one_paragraph_verdict": "The article is a standard news report on geopolitical competition and trade policy, specifically focusing on China's export controls on rare earth materials to hinder US chipmaking. It does not engage with the theoretical distinctions between rent and profit, exploitation and expropriation, or the specific Marxist categories of accumulation that the theory map requires. While it mentions the state's role in regulating exports, it does not analyze the state's constitutive role in building the industry's market position or the mode of surplus extraction. Consequently, it fails all five relevance gates (G1-G5), as it provides only topical overlap regarding 'tech' and 'state' without any analytical engagement with the theory's mechanisms.",
-  "arguments_for_theory": [],
+  "relevance_mode": "illustrative",
+  "one_paragraph_verdict": "The article describes China's implementation of export controls on rare earth materials essential for advanced chipmaking and AI. This is marginally relevant as it provides a concrete illustration of the state's constitutive role in the high-tech economy (C3), demonstrating that state power—via trade policy and resource control—actively shapes the competitive landscape of the 'chip war.' It also touches upon the physical infrastructure and resource dependencies of the tech sector, illustrating the theory's argument that tech dominance is not merely a result of 'digital rent' but is tied to material expropriation and state-led industrial strategy (C5/C6). However, the article is a news report on a specific policy action and does not provide the systematic data or structural economic analysis required to adjudicate the rent-vs-profit debate or the systemic nature of accumulation.",
+  "contextual_relevance": [
+    "The general geopolitical context of the US-China 'chip war' and the struggle for technological dominance."
+  ],
+  "arguments_for_theory": [
+    {
+      "strength": "weak",
+      "argument": "The use of export controls on rare earths to target specific chip benchmarks (14nm logic, 256-layer memory) illustrates that the state is a primary actor in managing tech competition, contradicting the 'parcelized sovereignty' thesis of techno-feudalism.",
+      "claim_ids": [
+        "C3"
+      ]
+    },
+    {
+      "strength": "weak",
+      "argument": "China's dominance in the rare earth supply chain and its use of this dominance as a strategic lever illustrates the role of resource monopoly and expropriation as a constitutive feature of capitalist accumulation (per Wallerstein/Fraser).",
+      "claim_ids": [
+        "C5",
+        "C6"
+      ]
+    },
+    {
+      "strength": "weak",
+      "argument": "The claim by industry observer Xiang Ligang that Chinese firms have resolved R&D hurdles and are moving to expand production capacity suggests a logic of productive investment rather than passive rent extraction.",
+      "claim_ids": [
+        "C1"
+      ]
+    }
+  ],
   "arguments_against_theory": [],
   "what_article_cannot_adjudicate": [
-    "Whether tech R&D spending is productive capital investment or rent-seeking moat-building (C1)",
-    "The source of Google's profitability (C2)",
-    "Whether the state constitutively built the market dominance of specific firms rather than merely regulating trade (C3)",
-    "Whether tech firm profit rates behave like capitalist profits or monopoly rents (C4)",
-    "The ratio of tangible to intangible assets on tech balance sheets (C5)",
-    "The validity of the techno-feudalism diagnosis versus an expanded theory of capitalism (C6)"
+    "Whether the revenue of these tech firms is structurally 'rent' or 'profit' in the Marxist sense.",
+    "Whether there is a systemic, economy-wide decoupling of profit and productive investment.",
+    "The actual financial scale of the capital expenditure involved in overcoming the semiconductor bottlenecks."
   ],
-  "state_capital_nexus_relevance": "The article describes the state acting as a geopolitical regulator of exports, which is a standard function of national security policy and does not provide evidence of the state's constitutive role in the internal capital accumulation or market dominance of specific firms as required by C3.",
-  "recommended_use": "ignore"
+  "state_capital_nexus_relevance": "High. The article focuses entirely on the state's use of trade policy, export controls, and resource monopolies to drive national industrial strategy and counter foreign technological sanctions.",
+  "recommended_use": "use_as_minor_update"
 }

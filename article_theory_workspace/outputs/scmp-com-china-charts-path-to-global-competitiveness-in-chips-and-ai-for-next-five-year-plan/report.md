@@ -1,16 +1,23 @@
 # scmp.com-China charts path to global competitiveness in chips and AI for next five-year plan.pdf
 
-- Verdict: `irrelevant`
+- Verdict: `marginal`
 - Confidence: `1.0`
-- Recommended use: `ignore`
+- Relevance mode: `illustrative`
+- Recommended use: `use_as_minor_update`
 
 ## Bottom Line
 
-The article is a descriptive report on China's national strategic planning for semiconductors and AI within the framework of its 15th five-year plan. While it mentions state-led R&D investment and the goal of global competitiveness, it does not engage with the theoretical mechanisms of the techno-feudalism debate. It provides no analysis of rent versus profit, exploitation versus expropriation, or the specific claim that the state is 'constitutive' of tech dominance in a way that tests the theory's claims. The content is consistent with standard state-led industrial policy in a capitalist framework and lacks the analytical depth to either support or challenge the specific claims (C1-C6) of the provided theory map.
+The article is marginally relevant as it provides a clear illustrative case of the state's constitutive role in the high-tech economy (C3), specifically through China's 15th Five-Year Plan. It describes a state-led effort to direct capital, R&D, and infrastructure buildout in semiconductors and AI to overcome geopolitical constraints (US export curbs). This supports the theory's claim that tech dominance is a project of national sovereignty and industrial policy rather than a private 'parcelized' sovereignty. Additionally, it illustrates the nature of productive investment (C1) through the focus on physical hardware (lithography, chip fabrication) and the risk of 'redundant internal competition' induced by state policy, which touches upon the allocation of capital in the tech sector (T2). However, it is a descriptive news report and does not provide the structured empirical data or theoretical analysis required to adjudicate the rent-vs-profit or exploitation-vs-expropriation debates.
+
+## Contextual Relevance
+
+- General discussion of the US-China 'chip war' and supply chain decoupling
+- Mention of the Global Innovation Index and patent application volumes
 
 ## Arguments For The Theory
 
-- None.
+- [weak] The article illustrates that high-tech development is centrally coordinated by the state via Five-Year Plans, supporting the claim that state power is constitutive of tech dominance (C3). (claims: C3)
+- [weak] The focus on massive R&D investment (48% increase) and the need for breakthroughs in physical manufacturing equipment (lithography) illustrates the 'productive capitalist' model of tech investment (C1). (claims: C1)
 
 ## Arguments Against The Theory
 
@@ -18,14 +25,14 @@ The article is a descriptive report on China's national strategic planning for s
 
 ## What The Article Cannot Adjudicate
 
-- Whether tech firm profit rates behave as equalized capitalist profits or persistent monopoly rents (C4)
-- The proportion of revenue derived from behavioral targeting versus indexing scale (C2)
-- The tangible versus intangible asset ratio of tech firms' balance sheets (C5)
-- Whether the state's role in China's tech sector is 'constitutive' of a new mode of production or simply a form of state-led capitalist industrial policy (C3/C6)
+- Whether the revenue of these firms is structurally 'rent' or 'profit' in the Marxist sense (C2).
+- Whether the global digital economy has undergone a systemic shift to 'techno-feudalism' (C6).
+- The relative importance of user data extraction versus content indexing/commodity production for revenue (C4).
+- The specific balance between exploitation and expropriation in the global tech supply chain (C5).
 
 ## Notes
 
-- State-capital nexus relevance: The article describes a strong state-capital nexus in China, but it does so at the level of policy goals and national strategy, not as a theoretical engagement with the 'parcelized sovereignty' claim of techno-feudalism.
-- Initial audit verdict: irrelevant
-- Counter-audit verdict: irrelevant
-- Theory thesis: The techno-feudalism diagnosis is analytically wrong: major tech firms are capitalist producers engaged in commodity production and massive capital investment, not feudal rentiers. The feudal label stems from unresolved weaknesses in Marxist political economy (specifically the Brenner–Wallerstein debate over exploitation vs. expropriation) rather than from an actual transformation of the mode of production.
+- State-capital nexus relevance: High. The article describes a textbook case of state-led industrial policy where the state defines the technological roadmap, directs capital allocation, and leverages tech for national security and geopolitical competition.
+- Initial audit verdict: marginal
+- Counter-audit verdict: marginal
+- Theory thesis: The 'techno-feudalism' thesis—that digital platforms have replaced capitalist profit-making with feudal rent extraction—reflects analytical weakness on the left rather than genuine systemic transformation. Tech giants are better understood as capitalist producers making massive investments in production, not as parasitic feudal rentiers. The thesis arises from unresolved tensions in Marxist debates (Brenner vs. Wallerstein) about exploitation versus expropriation, and from frameworks ('user-ism,' cognitive capitalism) that misidentify the sources of tech-company revenues. A more expansive conception of capitalism that integrates both exploitation and expropriation eliminates the need to invoke feudalism.

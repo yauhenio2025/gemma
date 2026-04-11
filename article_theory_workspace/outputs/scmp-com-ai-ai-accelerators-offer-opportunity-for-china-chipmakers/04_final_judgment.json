@@ -1,17 +1,43 @@
 {
-  "overall_verdict": "irrelevant",
+  "overall_verdict": "marginal",
   "confidence": 1.0,
-  "one_paragraph_verdict": "The article is a technical and geopolitical report on the shift toward Application-Specific Integrated Circuits (ASICs) in China's AI chip industry, driven largely by US export bans. While it mentions corporate R&D and state-led industrial goals, it does not engage with the theoretical mechanisms of the techno-feudalism debate. It describes a market shift in hardware procurement and strategic autonomy, which is entirely compatible with standard industrial policy and capitalist competition, and provides no analysis of rent vs. profit, the nature of surplus extraction, or the specific constitutive role of the state in the mode of production. It fails all five relevance gates.",
-  "arguments_for_theory": [],
-  "arguments_against_theory": [],
-  "what_article_cannot_adjudicate": [
-    "Whether AI chip R&D represents productive capitalist investment (C1) or rent-seeking moat-building.",
-    "The proportion of tech revenue derived from data extraction vs. commodity production (C2).",
-    "Whether the state's role in the chip industry is constitutive of a new mode of production or merely a regulatory/geopolitical intervention (C3).",
-    "The behavior of profit rates in the AI hardware sector relative to economy-wide averages (C4).",
-    "The ratio of tangible to intangible assets on the balance sheets of the mentioned chipmakers (C5).",
-    "The theoretical validity of the techno-feudalism label versus an expanded theory of capitalism (C6)."
+  "relevance_mode": "illustrative",
+  "one_paragraph_verdict": "The article is marginally relevant as it provides illustrative examples of the state's constitutive role in the tech economy (C3) and the high-capital-intensity nature of AI infrastructure investment (C1). It documents US export bans and Chinese state goals as primary drivers for the development of domestic AI accelerators (ASICs), which directly counters the 'passive rentier' narrative of techno-feudalism by showing tech giants (Huawei, Alibaba, Baidu) engaged in intensive R&D and hardware production. Additionally, the discussion of China's rare earth monopoly used as trade leverage illustrates the intersection of non-produced resources and geopolitical power (C5/C6, T6), though it does not provide the systematic data required to adjudicate the rent-vs-profit debate.",
+  "contextual_relevance": [
+    "General reporting on US-China trade tensions and tit-for-tat sanctions.",
+    "Mention of gold reserves and banking M&A (HSBC), which are broad financial indicators but not specific to the techno-feudalism mechanism."
   ],
-  "state_capital_nexus_relevance": "The article describes the Chinese state's role in encouraging domestic chip production and the US state's role in restricting exports. This is reported as a matter of geopolitical competition and 'strategic autonomy,' not as a theoretical engagement with whether state power is constitutive of the systemic logic of accumulation.",
-  "recommended_use": "ignore"
+  "arguments_for_theory": [
+    {
+      "strength": "weak",
+      "argument": "China's use of its near-monopoly on rare earth minerals to create trade leverage illustrates the extraction of value from a non-produced resource, which could be framed as a form of rent-seeking or expropriation.",
+      "claim_ids": [
+        "C5",
+        "C6"
+      ]
+    }
+  ],
+  "arguments_against_theory": [
+    {
+      "strength": "weak",
+      "argument": "Major tech firms (Huawei, Alibaba, Baidu, Tencent) are investing heavily in the R&D and production of custom ASIC chips, demonstrating they are productive capitalists rather than passive rentiers.",
+      "claim_ids": [
+        "C1"
+      ]
+    },
+    {
+      "strength": "weak",
+      "argument": "The development of the Chinese AI chip industry is explicitly driven by state industrial policy (export bans, state goals), illustrating that tech dominance is a product of state-led strategy rather than a private usurpation of state sovereignty.",
+      "claim_ids": [
+        "C3"
+      ]
+    }
+  ],
+  "what_article_cannot_adjudicate": [
+    "Whether the revenue from these AI accelerators constitutes capitalist profit or monopoly rent.",
+    "The systematic balance of capital expenditure versus stock buybacks across the tech sector.",
+    "Whether the 'parcelized sovereignty' thesis is structurally true despite these state interventions."
+  ],
+  "state_capital_nexus_relevance": "High. The article explicitly links US sanctions and Chinese state goals to the structural shift in AI hardware production, reinforcing the claim that the state is constitutive of tech dominance.",
+  "recommended_use": "use_as_minor_update"
 }

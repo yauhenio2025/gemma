@@ -1,69 +1,43 @@
 {
-  "overall_initial_verdict": "irrelevant",
-  "overall_reason": "The article is a standard news report on China's industrial policy and GDP growth projections. It fails all five relevance gates. It does not engage with the rent-vs-profit distinction, the nature of surplus extraction, or the specific theoretical mechanisms of techno-feudalism. While it mentions state investment and US-China competition, it does so at the level of 'growth engines' and 'geopolitical rivalry' rather than analyzing the state's constitutive role in the mode of production as required by C3.",
+  "overall_initial_verdict": "marginal",
+  "overall_reason": "The article provides illustrative evidence of state-led industrial policy and massive physical infrastructure investment in AI, which directly relates to the theory's claims about the state's constitutive role (C3) and the nature of tech firms as productive capitalists (C1). While it doesn't adjudicate the rent-vs-profit debate, it serves as a strong data point for the 'state-capital' and 'infrastructure' hooks.",
   "claim_assessments": [
     {
       "claim_id": "C1",
-      "engagement_type": "none",
-      "support_strength": "none",
+      "engagement_type": "illustrative",
+      "support_strength": "weak",
       "challenge_strength": "none",
-      "support_points": [],
+      "support_points": [
+        "China is investing heavily in data centers and chips, with computing capacity expanding by 30% annually.",
+        "Smart computing power is projected to grow by 43% this year, indicating massive capital expenditure on physical production assets."
+      ],
       "challenge_points": [],
-      "why_limited": "The article mentions investment in data centers and chips, but does not analyze whether this is productive capital investment or the creation of rent-extracting moats."
-    },
-    {
-      "claim_id": "C2",
-      "engagement_type": "none",
-      "support_strength": "none",
-      "challenge_strength": "none",
-      "support_points": [],
-      "challenge_points": [],
-      "why_limited": "No mention of the source of AI profitability or the role of indexing vs. data extraction."
+      "why_limited": "The article describes state-led investment rather than private firm investment, but it still illustrates the capital-intensive nature of the AI economy, challenging the 'passive rentier' image."
     },
     {
       "claim_id": "C3",
-      "engagement_type": "rhetorical",
-      "support_strength": "none",
+      "engagement_type": "direct",
+      "support_strength": "moderate",
       "challenge_strength": "none",
-      "support_points": [],
+      "support_points": [
+        "The creation of a national computing network to unify data markets and match regional resource demand is a clear example of the state's constitutive role in building tech dominance.",
+        "The push for self-reliance in chips and data centers is a direct response to US export controls, showing that geopolitical competition shapes tech infrastructure.",
+        "The state is actively coordinating provinces (Shanghai, Zhejiang, etc.) to optimize computing power allocation."
+      ],
       "challenge_points": [],
-      "why_limited": "Mentions state-led computing networks and US export controls, but this is framed as national competition and growth strategy, not as an analysis of how the state constitutes the market position of firms to challenge the 'parcelized sovereignty' thesis."
-    },
-    {
-      "claim_id": "C4",
-      "engagement_type": "none",
-      "support_strength": "none",
-      "challenge_strength": "none",
-      "support_points": [],
-      "challenge_points": [],
-      "why_limited": "No engagement with the Marxist theory of profit equalization or labor-light firms."
-    },
-    {
-      "claim_id": "C5",
-      "engagement_type": "none",
-      "support_strength": "none",
-      "challenge_points": [],
-      "support_points": [],
-      "why_limited": "Mentions data centers, but not in the context of balance-sheet analysis of tangible vs. intangible assets."
-    },
-    {
-      "claim_id": "C6",
-      "engagement_type": "none",
-      "support_strength": "none",
-      "challenge_strength": "none",
-      "support_points": [],
-      "challenge_points": [],
-      "why_limited": "No engagement with the Brenner-Wallerstein debate or the definition of capitalism."
+      "why_limited": "The article focuses on the Chinese state, whereas the theory map primarily discusses Silicon Valley, but the mechanism of state-led industrial policy is identical and supports the general claim that tech power is not 'parcelized' away from the state."
     }
   ],
-  "article_level_points_for_theory": [],
-  "article_level_points_against_theory": [],
-  "irrelevance_reasons": [
-    "Fails G1: Does not engage with rent vs. profit, expropriation vs. exploitation, or tangible/intangible asset ratios.",
-    "Fails G2: Reports on outcomes (GDP growth, capacity expansion) rather than mechanisms of surplus appropriation.",
-    "Fails G3: Focuses on national policy and growth targets rather than the systemic logic of accumulation.",
-    "Fails G4: Uses 'growth engine' and 'battleground' as rhetorical frames without defining economic mechanisms.",
-    "Fails G5: The data on AI growth is symmetrically compatible with both a productive-capitalist and a rent-extraction reading."
+  "contextual_relevance_points": [
+    "The article mentions the US-China rivalry over AI as a 'critical battleground,' providing background on the geopolitical environment in which tech firms operate."
   ],
+  "illustrative_relevance_points": [
+    "The mention of DeepSeek AI's low-cost, high-performance model illustrates the competitive dynamics of AI production and the pursuit of efficiency/innovation over simple rent extraction."
+  ],
+  "article_level_points_for_theory": [
+    "Demonstrates that AI dominance requires massive, state-coordinated physical infrastructure (data centers, chips), which contradicts the notion of platforms as purely intangible, parasitic rentiers."
+  ],
+  "article_level_points_against_theory": [],
+  "irrelevance_reasons": [],
   "confidence": 1.0
 }
