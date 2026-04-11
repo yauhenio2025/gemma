@@ -1,0 +1,33 @@
+{
+  "overall_implication": "confirms",
+  "summary": "The article illustrates the state's active role in protecting and sustaining 'national champion' tech firms (Huawei, SMIC) through trade blacklists and data restrictions, reinforcing the claim that tech power is a function of state-led geopolitical strategy rather than a private 'parcelization' of sovereignty.",
+  "claim_level_implications": [
+    {
+      "claim_id": "C1",
+      "effect": "confirms",
+      "why": "The mention of SMIC's 7nm fabrication process serves as a concrete example of the massive, capital-intensive physical infrastructure required for high-end semiconductor production, supporting the view of tech firms as productive capitalists.",
+      "evidence_from_document": [
+        "TechInsights found that Chinese foundry Semiconductor Manufacturing International Corp (SMIC) was behind the 7-nanometre Kirin processor inside Huawei’s Mate 60 Pro smartphone"
+      ],
+      "proposed_revision": "None. The evidence is illustrative and supports the existing claim."
+    },
+    {
+      "claim_id": "C3",
+      "effect": "confirms",
+      "why": "The Chinese government's use of the 'unreliable entity list' to protect Huawei and SMIC from reverse-engineering and data leaks demonstrates that the state is not subordinate to tech platforms, but actively shapes their competitive environment and security.",
+      "evidence_from_document": [
+        "The Chinese government has put a Canadian semiconductor consultancy... on a trade blacklist",
+        "The ministry said the move was to 'safeguard national sovereignty, security, and development interests'",
+        "Chinese individuals and organisations have been told not to 'transmit data or provide sensitive information' to the firm"
+      ],
+      "proposed_revision": "None. The evidence reinforces the state's constitutive role as described in C3."
+    }
+  ],
+  "new_subclaims": [],
+  "new_open_questions": [],
+  "revision_priority": "low",
+  "recommended_follow_up": [
+    "Monitor for reports on the actual cost of sanctions-evasion procurement strategies to see if they impact the 'profit-investment' puzzle (T2)."
+  ],
+  "confidence": 1.0
+}

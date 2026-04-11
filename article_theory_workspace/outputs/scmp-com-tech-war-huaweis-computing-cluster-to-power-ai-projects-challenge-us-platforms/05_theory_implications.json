@@ -1,0 +1,31 @@
+{
+  "overall_implication": "confirms",
+  "summary": "The article provides a concrete empirical example of a major tech firm (Huawei) engaging in massive physical infrastructure investment to maintain competitiveness in the AI sector. This supports the theory's claim that tech giants are productive capitalists rather than passive rentiers, and illustrates the state's constitutive role in driving tech strategy through sanctions and industrial policy.",
+  "claim_level_implications": [
+    {
+      "claim_id": "C1",
+      "effect": "confirms",
+      "why": "Huawei's development of SuperPoDs and SuperClusters involving hundreds of thousands to millions of NPUs is a direct example of the 'massive investment in production' and 'physical infrastructure' mentioned in C1's support requirements.",
+      "evidence_from_document": [
+        "The Atlas 950 SuperCluster, available by the end of 2026, will have more than 500,000 Ascend NPUs, while the Atlas 960 SuperCluster will have more than 1 million Ascend NPUs."
+      ],
+      "proposed_revision": "None. The evidence confirms the existing claim as stated."
+    },
+    {
+      "claim_id": "C3",
+      "effect": "confirms",
+      "why": "The article explicitly links Huawei's technical roadmap to the 2019 US trade blacklist, demonstrating that state-led geopolitical competition and sanctions are primary drivers of corporate investment and strategic direction, rather than the 'parcelized sovereignty' of tech lords.",
+      "evidence_from_document": [
+        "Huawei’s latest computing systems reflect the company’s increased confidence... following years of holding its semiconductor development plans close to its chest since the firm was added to Washington’s trade blacklist in 2019."
+      ],
+      "proposed_revision": "None. The evidence confirms the existing claim as stated."
+    }
+  ],
+  "new_subclaims": [],
+  "new_open_questions": [],
+  "revision_priority": "low",
+  "recommended_follow_up": [
+    "Monitor for independent performance benchmarks of Huawei's clusters to verify if the 'productive' capacity is genuine or primarily defensive/symbolic."
+  ],
+  "confidence": 1.0
+}

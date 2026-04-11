@@ -1,0 +1,23 @@
+{
+  "overall_implication": "confirms",
+  "summary": "The article provides a concrete example of how private AI firms (Anthropic, OpenAI) align their corporate rhetoric and market access policies with US state-level geopolitical narratives ('adversary AI'). This supports the theory's claim that tech dominance is underwritten by state strategy rather than being a private 'parcelization' of sovereignty.",
+  "claim_level_implications": [
+    {
+      "claim_id": "C3",
+      "effect": "confirms",
+      "why": "Anthropic's explicit characterization of China as an 'adversarial nation' and its policy of barring Chinese subsidiaries globally mirror the US state's 'adversary AI' framing. This illustrates that these firms are not independent 'tech lords' operating outside state power, but are integrated into the national security apparatus's geopolitical strategy.",
+      "evidence_from_document": [
+        "Anthropic labelled China as [an adversarial nation] last month when it began barring subsidiaries of Chinese companies anywhere in the world from accessing its services.",
+        "Anthropic’s rhetoric on China has mirrored that of the Trump administration, which has called Chinese AI 'adversary AI'."
+      ],
+      "proposed_revision": "No revision needed; the article serves as a concrete empirical instance of the mechanism described in C3."
+    }
+  ],
+  "new_subclaims": [],
+  "new_open_questions": [],
+  "revision_priority": "low",
+  "recommended_follow_up": [
+    "Investigate if other AI firms' market access restrictions are based on formal state mandates (e.g., export controls) or voluntary alignment with state security narratives."
+  ],
+  "confidence": 1.0
+}

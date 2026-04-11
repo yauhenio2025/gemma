@@ -1,0 +1,29 @@
+{
+  "grade_inflation_detected": true,
+  "false_negative_detected": false,
+  "problems_with_initial_audit": [
+    "The initial audit classified the engagement with C3 as 'direct' and 'moderate' support. This is grade inflation. The article describes a reaction to US sanctions, which is an illustrative example of state power, but it does not provide a structured analysis of the state's constitutive role or a regulatory finding that updates a prior about the 'parcelized sovereignty' thesis. It is a news report on a specific industrial push, not a theoretical adjudication.",
+    "The initial audit claimed the article 'directly contradicts' the parcelized sovereignty view. This is an overclaim; a single instance of a state exercising power via sanctions does not structurally disprove a systemic theory of sovereignty transfer, though it is a useful counter-example."
+  ],
+  "missing_support_points": [],
+  "missing_challenge_points": [],
+  "missing_contextual_or_illustrative_points": [
+    "The Morgan Stanley profit margin data (Huawei 47.9% vs Nvidia 77.6%) is a concrete data point that illustrates the relationship between hardware efficiency and profit margins (T2/C2), though it remains illustrative rather than adjudicative."
+  ],
+  "corrected_verdict": "marginal",
+  "corrections_by_claim": [
+    {
+      "claim_id": "C1",
+      "corrected_support_strength": "weak",
+      "corrected_challenge_strength": "none",
+      "note": "Remains weak. It illustrates the capital-intensive nature of AI (hardware-software stacks), but it is a single-case anecdote."
+    },
+    {
+      "claim_id": "C3",
+      "corrected_support_strength": "weak",
+      "corrected_challenge_strength": "none",
+      "note": "Downgraded from moderate to weak. The article is a story about sanctions and domestic response; it is an illustrative example of state power, not a systematic proof of the state's constitutive role."
+    }
+  ],
+  "confidence": 1.0
+}

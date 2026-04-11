@@ -1,0 +1,39 @@
+{
+  "grade_inflation_detected": false,
+  "false_negative_detected": true,
+  "problems_with_initial_audit": [
+    "The initial audit missed a critical point of tension regarding C1: the author's 'bubble circle' argument explicitly challenges the idea that these investments are 'productive' in the capitalist sense, framing them as circular capital flows to sustain valuations rather than capacity expansion.",
+    "The initial audit failed to identify the specific link to T7 (Quantitative Easing/Monetary Policy) as a direct mechanism for asset inflation, treating it as merely 'contextual' when the theory map explicitly lists central bank policy as an illustrative hook for the political-capitalism dimension of C5."
+  ],
+  "missing_support_points": [
+    "The mention of 'function-specific AI' (e.g., autonomous mining) providing real productivity gains serves as a narrow but direct support point for C1 (tech firms producing genuine commodities/services that raise productivity)."
+  ],
+  "missing_challenge_points": [
+    "The 'bubble circle' mechanism (Nvidia investing in OpenAI to inflate its own order book) is a strong illustrative challenge to C1. It suggests that massive capex is not always 'productive investment' but can be a financialized strategy to maintain monopoly pricing and valuations, which aligns with the rentier/financialization critique."
+  ],
+  "missing_contextual_or_illustrative_points": [
+    "The specific mention of the Fed's balance sheet expansion beyond $5 trillion provides a concrete data point for T7 and the 'political capitalism' aspect of C5."
+  ],
+  "corrected_verdict": "marginal",
+  "corrections_by_claim": [
+    {
+      "claim_id": "C1",
+      "corrected_support_strength": "weak",
+      "corrected_challenge_strength": "weak",
+      "note": "Supports C1 via the scale of infrastructure spend and function-specific AI productivity, but challenges C1 via the 'bubble circle' argument that this spend is speculative/circular rather than productive."
+    },
+    {
+      "claim_id": "C3",
+      "corrected_support_strength": "weak",
+      "corrected_challenge_strength": "none",
+      "note": "Remains weak support; the author's speculation about Treasury-funded borrowing is illustrative of the state's constitutive role but not empirical proof."
+    },
+    {
+      "claim_id": "C5",
+      "corrected_support_strength": "none",
+      "corrected_challenge_strength": "none",
+      "note": "The article provides the 'financialization' context (T7) that feeds into the C5 debate, but does not engage the exploitation/expropriation theoretical divide."
+    }
+  ],
+  "confidence": 1.0
+}

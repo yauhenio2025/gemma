@@ -1,0 +1,33 @@
+{
+  "overall_implication": "confirms",
+  "summary": "The article provides illustrative evidence that tech dominance is a product of massive capital investment in hardware-software stacks and is fundamentally shaped by state power (sanctions and industrial policy), rather than being a result of 'parcelized sovereignty' or passive rent extraction.",
+  "claim_level_implications": [
+    {
+      "claim_id": "C1",
+      "effect": "confirms",
+      "why": "The effort to build a 'self-sufficient AI stack' (domestic chips, specialized data formats like UE8M0 FP8) demonstrates that AI leadership requires intense productive investment and technical coordination, supporting the view of tech firms as producers rather than passive rentiers.",
+      "evidence_from_document": [
+        "The disclosure hints that China has made key progress in building a self-sufficient AI stack consisting of domestic technologies",
+        "DeepSeek’s use of these formats, if combined with China’s domestic chips, could translate to a new breakthrough in hardware-software coordination."
+      ],
+      "proposed_revision": "None. The evidence is illustrative and confirms the existing claim."
+    },
+    {
+      "claim_id": "C3",
+      "effect": "confirms",
+      "why": "The entire drive for domestic AI chips is a direct response to US export restrictions, illustrating that state power is a primary catalyst for industrial coordination and infrastructure buildout, which contradicts the techno-feudalist notion that state sovereignty has been replaced by platform power.",
+      "evidence_from_document": [
+        "a development that could help the country shrug off US chip export restrictions",
+        "Local chip developers... have scrambled to adapt their self-developed chips... to fill a void left by heightened US chip-export controls."
+      ],
+      "proposed_revision": "None. The evidence is illustrative and confirms the existing claim."
+    }
+  ],
+  "new_subclaims": [],
+  "new_open_questions": [],
+  "revision_priority": "low",
+  "recommended_follow_up": [
+    "Monitor for data on the actual capital expenditure (CAPEX) of Chinese AI firms to see if it matches the investment patterns of US giants."
+  ],
+  "confidence": 1.0
+}

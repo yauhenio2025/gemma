@@ -1,0 +1,33 @@
+{
+  "overall_implication": "confirms",
+  "summary": "The article provides illustrative evidence of the capital-intensive nature of the AI economy and the state's constitutive role in building digital infrastructure, supporting the theory's critique of the 'techno-feudalism' thesis.",
+  "claim_level_implications": [
+    {
+      "claim_id": "C1",
+      "effect": "confirms",
+      "why": "The report of massive expansion in computing capacity (30% annually) and smart computing power (43% growth) illustrates that AI dominance requires significant physical infrastructure investment, contradicting the image of platforms as passive rentiers.",
+      "evidence_from_document": [
+        "overall computing capacity expanding by about 30 per cent annually",
+        "smart computing power is projected to grow by 43 per cent this year"
+      ],
+      "proposed_revision": "Add a footnote or illustrative example noting that state-led AI initiatives (e.g., China's national computing network) demonstrate the continued necessity of massive physical capital expenditure in the digital economy."
+    },
+    {
+      "claim_id": "C3",
+      "effect": "confirms",
+      "why": "The creation of a national computing network and the state-led coordination of provinces to optimize resource allocation directly illustrates the state's constitutive role in shaping the digital economy, challenging the idea that sovereignty has been 'parcelized' among private platforms.",
+      "evidence_from_document": [
+        "Beijing is knitting together a national computing network... designed to match business demand with underused resources across regions",
+        "10 provinces and municipalities... had joined a unified platform"
+      ],
+      "proposed_revision": "Use this as a case study to strengthen the argument that tech dominance is underwritten by state industrial policy and geopolitical strategy rather than private neo-feudal usurpation."
+    }
+  ],
+  "new_subclaims": [],
+  "new_open_questions": [],
+  "revision_priority": "low",
+  "recommended_follow_up": [
+    "Investigate if similar levels of physical infrastructure investment are being mirrored by private US-based AI firms to further strengthen C1."
+  ],
+  "confidence": 1.0
+}

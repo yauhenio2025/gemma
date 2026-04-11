@@ -1,0 +1,36 @@
+{
+  "overall_implication": "confirms",
+  "summary": "The article provides a clear illustrative case of state-led industrial policy in China, reinforcing the theory's claim that high-tech dominance is a project of national sovereignty and strategic investment rather than a private 'parcelized' sovereignty. It describes massive R&D surges and a focus on physical infrastructure (semiconductors, lithography), which aligns with the 'productive capitalist' model of tech investment over a rentier one.",
+  "claim_level_implications": [
+    {
+      "claim_id": "C1",
+      "effect": "confirms",
+      "why": "The article documents a 48% surge in national R&D investment and a strategic focus on building physical manufacturing capabilities (e.g., lithography machines, chip fabrication), illustrating that the foundation of AI and tech dominance is massive, risk-heavy capital expenditure in hardware, not passive rent extraction.",
+      "evidence_from_document": [
+        "National R&D investment has surged by 48 per cent compared to 2020",
+        "Systematic breakthroughs are still needed in the development of advanced process equipment, such as lithography machines and their core components"
+      ],
+      "proposed_revision": "None. The evidence reinforces the existing claim that tech dominance requires massive productive investment."
+    },
+    {
+      "claim_id": "C3",
+      "effect": "confirms",
+      "why": "The article describes the 15th Five-Year Plan as a blueprint for national competitiveness, explicitly linking tech development to geopolitical competition (US export curbs) and national security. This directly supports the claim that the state is constitutive of tech power, contradicting the techno-feudalist view that sovereignty has been usurped by platforms.",
+      "evidence_from_document": [
+        "As China drafts its 15th five-year plan... we explore what China will do in the field of science and technology",
+        "This push comes as international competition intensifies in strategic fields such as semiconductors and artificial intelligence",
+        "US-led export curbs hobble Beijing’s access to advanced chip manufacturing technology"
+      ],
+      "proposed_revision": "None. The evidence provides a strong illustrative example of the state's central role in directing the tech economy."
+    }
+  ],
+  "new_subclaims": [],
+  "new_open_questions": [
+    "To what extent does state-led 'redundant internal competition' in mature nodes represent a form of political rent-seeking that differs from the Marxist economic rent described in C2?"
+  ],
+  "revision_priority": "low",
+  "recommended_follow_up": [
+    "Compare the Chinese state-led model of tech investment with US government contracts and subsidies (e.g., CHIPS Act) to further strengthen the argument that state power is constitutive of tech dominance globally."
+  ],
+  "confidence": 1.0
+}
