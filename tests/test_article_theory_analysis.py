@@ -3,11 +3,14 @@ from __future__ import annotations
 import zipfile
 from pathlib import Path
 
+import pytest
+
 from gemma.article_theory_analysis import (
     TheoryArticleRunner,
     chat_json_with_retries,
     load_documents,
     parse_json_payload,
+    validate_payload_for_path,
 )
 
 
@@ -540,3 +543,143 @@ def test_stale_outputs_are_rebuilt(tmp_path: Path) -> None:
     runner.run()
 
     assert '"summary": "new"' in (article_dir / "01_article_map.json").read_text(encoding="utf-8")
+
+
+def test_academic_profile_uses_separate_dirs_and_schema(tmp_path: Path) -> None:
+    workspace = tmp_path / "workspace"
+    (workspace / "nlr").mkdir(parents=True)
+    (workspace / "articles").mkdir(parents=True)
+    theory_output = workspace / "academic_outputs" / "_theory"
+    theory_output.mkdir(parents=True)
+
+    (workspace / "nlr" / "morozov.txt").write_text("theory", encoding="utf-8")
+    (workspace / "articles" / "amazon-paper.txt").write_text("academic paper text", encoding="utf-8")
+    (theory_output / "01_theory_map.json").write_text(
+        """{
+          "thesis": "Capitalism has not turned into techno-feudalism.",
+          "core_claims": [],
+          "secondary_themes": [],
+          "article_relevance_hooks": [],
+          "conceptual_boundaries": [],
+          "relevance_red_flags": [],
+          "open_questions": []
+        }""",
+        encoding="utf-8",
+    )
+    (theory_output / "02_theory_rubric.json").write_text(
+        """{
+          "relevance_tiers": [],
+          "relevance_questions": [],
+          "what_counts_as_real_evidence": [],
+          "what_counts_as_contextual_or_illustrative_relevance": [],
+          "what_does_not_count": [],
+          "support_strength_scale": [],
+          "challenge_strength_scale": [],
+          "anti_grade_inflation_rule": "Do not inflate adjacency.",
+          "anti_false_negative_rule": "Do not erase real conceptual contact.",
+          "default_verdict_rule": "Default to marginal when a paper contributes indirectly."
+        }""",
+        encoding="utf-8",
+    )
+
+    fake_client = FakeClient(
+        [
+            {
+                "article_kind": "academic",
+                "summary": "A paper about Amazon and competition.",
+                "research_question": "How should Amazon's market behavior be understood?",
+                "main_claims": ["Amazon reveals tensions between monopoly and competition."],
+                "method_or_approach": ["political-economy analysis"],
+                "empirical_scope_or_case": ["Amazon"],
+                "evidence_or_facts": ["Firm behavior and market structure examples."],
+                "theoretical_frameworks": ["Marxian competition theory"],
+                "explicit_theoretical_interventions": ["Critiques monopoly simplifications."],
+                "section_level_moves": ["Sets up debate", "Reinterprets Amazon", "Draws implications"],
+                "rhetorical_frames": ["Monopoly versus competition"],
+                "state_and_policy_content": [],
+                "capital_accumulation_content": ["Amazon as accumulation strategy."],
+                "labor_content": ["Warehouse labor and control."],
+                "infrastructure_and_supply_chain_content": ["Logistics integration."],
+                "geopolitical_competition_content": [],
+                "possible_theory_hooks": ["competition under digital capitalism"],
+                "what_is_missing_for_theory_evaluation": ["No direct discussion of techno-feudalism."],
+            },
+            {
+                "overall_initial_verdict": "marginal",
+                "overall_reason": "The paper bears indirectly through competition categories.",
+                "claim_assessments": [],
+                "contextual_relevance_points": ["Competition theory literature."],
+                "illustrative_relevance_points": ["Amazon as a case."],
+                "article_level_points_for_theory": ["The paper contests monopoly simplifications."],
+                "article_level_points_against_theory": [],
+                "irrelevance_reasons": [],
+                "confidence": 0.82,
+            },
+            {
+                "grade_inflation_detected": False,
+                "false_negative_detected": False,
+                "problems_with_initial_audit": [],
+                "missing_support_points": [],
+                "missing_challenge_points": [],
+                "missing_contextual_or_illustrative_points": [],
+                "corrected_verdict": "marginal",
+                "corrections_by_claim": [],
+                "confidence": 0.83,
+            },
+            {
+                "overall_verdict": "marginal",
+                "confidence": 0.84,
+                "relevance_mode": "illustrative",
+                "one_paragraph_verdict": "The paper is a useful minor update on competition categories.",
+                "contextual_relevance": ["It sharpens debate about monopoly and competition."],
+                "arguments_for_theory": [
+                    {
+                        "strength": "weak",
+                        "argument": "It supports treating Amazon as part of capitalist competition rather than a post-capitalist rupture.",
+                        "claim_ids": ["C1"],
+                    }
+                ],
+                "arguments_against_theory": [],
+                "what_article_cannot_adjudicate": ["It does not directly evaluate Morozov's overall thesis."],
+                "state_capital_nexus_relevance": "Minimal.",
+                "recommended_use": "use_as_minor_update",
+            },
+        ]
+    )
+
+    runner = TheoryArticleRunner(
+        workspace=workspace,
+        client=fake_client,
+        analysis_profile="academic",
+        max_reconcile_rounds=0,
+    )
+
+    result = runner.run(stage="articles")
+
+    assert result["article_count"] == 1
+    assert (workspace / "academic_outputs" / "amazon-paper" / "report.md").exists()
+    assert (workspace / "cache" / "articles" / "amazon-paper.txt").exists()
+    index_md = (workspace / "academic_outputs" / "index.md").read_text(encoding="utf-8")
+    assert "Academic Theory Analysis Index" in index_md
+    assert "Papers analyzed: 1" in index_md
+
+
+def test_validate_payload_for_academic_article_map_requires_extra_keys(tmp_path: Path) -> None:
+    path = tmp_path / "01_article_map.json"
+    payload = {
+        "article_kind": "academic",
+        "summary": "A paper summary.",
+        "main_claims": [],
+        "evidence_or_facts": [],
+        "rhetorical_frames": [],
+        "state_and_policy_content": [],
+        "capital_accumulation_content": [],
+        "labor_content": [],
+        "infrastructure_and_supply_chain_content": [],
+        "geopolitical_competition_content": [],
+        "possible_theory_hooks": [],
+        "what_is_missing_for_theory_evaluation": [],
+    }
+
+    with pytest.raises(ValueError):
+        validate_payload_for_path(path, payload, analysis_profile="academic")

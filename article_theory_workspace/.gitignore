@@ -5,3 +5,8 @@ outputs/*
 !outputs/_theory/
 !outputs/_theory/*.json
 !outputs/_theory/README.md
+academic_outputs/*
+!academic_outputs/.gitkeep
+!academic_outputs/_theory/
+!academic_outputs/_theory/*.json
+!academic_outputs/_theory/README.md

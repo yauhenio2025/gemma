@@ -1,0 +1,109 @@
+{
+  "relevance_tiers": [
+    {
+      "label": "irrelevant",
+      "definition": "The paper does not engage with any of the essay's core claims, secondary themes, conceptual boundaries, or open questions. It may share surface vocabulary (e.g., 'platform,' 'digital,' 'monopoly,' 'rent') but operates in a different analytical universe—no contact with the capitalism-feudalism boundary question, no analysis of tech firm production processes, no engagement with the Marxian rent-profit distinction, no treatment of exploitation-expropriation tensions, and no bearing on the state-capital nexus in tech. Papers that are purely normative, regulatory-procedural, or confined to consumer-experience/privacy domains without political-economy framing fall here.",
+      "recommended_use": "ignore"
+    },
+    {
+      "label": "contextual",
+      "definition": "The paper addresses a domain adjacent to the essay's concerns—financialization, inequality, platform governance, digital regulation, general monopoly critique, labor markets in the gig economy—but does not make contact with the specific theoretical architecture: it neither adjudicates the rent-vs-profit distinction in Marxian terms, nor engages the feudalism analogy's coherence, nor analyzes what tech firms actually produce, nor addresses the Brenner-Wallerstein genealogy or the exploitation-expropriation nexus. It may supply useful background on the economic environment the essay describes, or illuminate one empirical corner without engaging the interpretive framework. The connection requires the evaluator to build a bridge the paper itself does not construct.",
+      "recommended_use": "mention_in_passing"
+    },
+    {
+      "label": "marginal",
+      "definition": "The paper engages with at least one of the essay's core claims or secondary themes at a substantive level, but does so partially, indirectly, or from a disciplinary angle that limits direct applicability. Examples: an empirical study of a single platform's business model that does not theorize rent vs. profit; a contribution to the Brenner debate that does not address its contemporary digital-economy implications; a digital labor study that documents user contributions without connecting to the feudalism question; a historical study of feudal institutions that could inform but does not directly engage the analogy debate; a CasP or Veblenian study that addresses sabotage without connecting to the Marxist categories at stake. The paper bears on the theory but requires significant interpretive labor to integrate.",
+      "recommended_use": "use_as_minor_update"
+    },
+    {
+      "label": "relevant",
+      "definition": "The paper directly engages with one or more of the essay's core claims, secondary themes, or open questions at the level of theoretical argument, empirical adjudication, or conceptual clarification. It either: (a) explicitly addresses the techno-feudalism thesis or a named interlocutor (Varoufakis, Durand, Zuboff, Vercellone, Foley, Morozov himself); (b) provides firm-level or sector-level evidence that supports or challenges the claim that tech firms are producers vs. rentiers; (c) advances or critiques the exploitation-expropriation integration framework (Fraser, Moore, Political Marxism); (d) documents the constitutive state-capital nexus in tech with political-economy framing; (e) engages the Marxian rent-profit distinction with reference to intangibles, IP, or digital monopoly; or (f) systematically develops or critiques the cognitive capitalism, surveillance capitalism, or CasP frameworks in ways that bear on the essay's analytical choices. The paper's argument, evidence, or conceptual apparatus could substantively alter, refine, or challenge a specific node in the theory map.",
+      "recommended_use": "use_as_substantive_evidence"
+    }
+  ],
+  "relevance_questions": [
+    "Does the paper engage with the capitalism-vs-feudalism boundary question, whether through mode-of-production analysis, socio-political comparison, or critique of the analogy's coherence?",
+    "Does the paper analyze what tech firms actually produce (commodities, services, infrastructure) as opposed to treating their operations as self-evidently extractive or monopolistic?",
+    "Does the paper operate with or critically examine the Marxian distinction between rent and profit, or between exploitation and expropriation?",
+    "Does the paper engage with any of the essay's named interlocutors or frameworks: Varoufakis, Durand, Zuboff, Foley, Vercellone, Fraser, Moore, Brenner, Wallerstein, Nitzan and Bichler, Political Marxism, cognitive capitalism, CasP?",
+    "Does the paper provide firm-level, sector-level, or macroeconomic evidence about tech firm revenue composition, cost structures, R&D functions, intangible asset ratios, or labor processes that could adjudicate between production and rent-extraction interpretations?",
+    "Does the paper address the role of the US state (military, intelligence, industrial policy) in constituting Silicon Valley's dominance, with political-economy framing?",
+    "Does the paper contribute to the theoretical question of whether capitalism can be expanded to include expropriation, political coercion, and cheap natures as constitutive, or whether doing so collapses analytical specificity?",
+    "Does the paper engage with the profit-investment puzzle, secular stagnation, or the rise of intangibles in a way that bears on whether the economy is undergoing a systemic transition or remaining capitalistically intelligible?",
+    "Does the paper use the feudalism analogy with analytical precision (engaging definitions, testing mechanisms) rather than as rhetorical decoration?",
+    "Does the paper address global value chains, intellectual monopoly, or surplus distribution across production networks in ways that bear on whether lead-firm advantages constitute rent or monopoly profit?"
+  ],
+  "what_counts_as_real_evidence": [
+    "Firm-level financial analysis of Google, Amazon, Apple, Meta, or Microsoft showing revenue decomposition, cost structures, capital expenditure patterns, or intangible-to-tangible asset ratios that bear on the production-vs-rentierism question",
+    "Empirical case studies of platform labor processes (warehouse work, content moderation, search-index production, logistics) that reveal whether these firms organize capitalist production or merely intermediate",
+    "Textual-analytical reconstruction of the Brenner-Wallerstein debate, Political Marxism's boundaries, or the genealogy of the techno-feudalism thesis that corroborates or challenges Morozov's intellectual history",
+    "Systematic theoretical argument—with textual grounding in Marx, Fraser, Moore, Veblen, or others—about the rent-profit distinction, exploitation-expropriation nexus, or the definition of capitalism's boundaries",
+    "Historical evidence on US state involvement in tech development (DARPA, NSA, Pentagon contracts, industrial policy) with analysis of its implications for the sovereignty and autonomy claims of techno-feudalism",
+    "Quantitative or qualitative studies of advertising markets, behavioral data's economic role, or the relative contribution of data extraction vs. other operations to platform profitability",
+    "Comparative historical analysis of feudal institutions, parcelized sovereignty, or extra-economic coercion that rigorously tests whether digital-era phenomena structurally resemble feudal logics",
+    "Global value chain analysis showing how surplus is distributed between platform lead firms and suppliers, with implications for whether lead-firm advantages are rents or profits",
+    "Studies that empirically test whether platform profits collapse when data extraction is curtailed, IP protections are weakened, or state support is withdrawn"
+  ],
+  "what_counts_as_contextual_or_illustrative_relevance": [
+    "Rentier capitalism literature (e.g., Christophers on rentierism) that documents rent-seeking across the economy without specifically adjudicating the feudalism question or the Marxian rent-profit distinction in tech",
+    "General financialization studies that illuminate the macro-environment Durand's thesis emerged from, but do not directly address digital production or the feudal analogy",
+    "Digital labor debates (Terranova, Fuchs, Scholz) that discuss free labor or prosumption without connecting to the specific feudalism-vs-capitalism question or the user-ism critique",
+    "Platform governance or digital sovereignty literature that describes regulatory dynamics without political-economy depth on accumulation, rent, or production",
+    "Inequality or wealth-concentration studies that provide background on class polarization without engaging mode-of-production or systemic-transition categories",
+    "Innovation economics or Schumpeterian competition literature that addresses tech dynamism without engaging the Marxian theoretical apparatus",
+    "Gig economy studies that document labor conditions and platform control without theorizing whether this constitutes capitalist exploitation, feudal extraction, or something else",
+    "Historical studies of feudalism or the transition debate that provide institutional detail potentially useful for testing the analogy, but do not themselves make the connection to digital capitalism",
+    "IP law and patent economics literature that documents the growing role of intangibles without engaging the political-economy question of whether this transforms the mode of accumulation"
+  ],
+  "what_does_not_count": [
+    "Papers using 'feudalism,' 'neo-feudalism,' or 'techno-feudalism' purely as rhetorical provocation or journalistic shorthand without engaging definitional or mode-of-production debates",
+    "Digital ethics, privacy, or data-protection literature focused on individual rights, consent frameworks, or regulatory compliance without connecting to political economy of production or accumulation",
+    "General 'Big Tech is too powerful' arguments that assert monopoly without analyzing business models, cost structures, or what is produced",
+    "Papers treating data extraction or surveillance as self-evidently the core of tech profitability without examining alternative explanations or production processes",
+    "Antitrust or competition policy analyses using 'rent-seeking' in the Public Choice sense without engaging Marxian rent theory or the specific feudalism debate",
+    "Consumer experience, UX design, or behavioral psychology research on platform engagement that does not connect to political-economy categories",
+    "Papers that invoke Marxist vocabulary at the surface level (e.g., 'exploitation,' 'accumulation,' 'class') without systematic theoretical engagement with the specific debates at stake",
+    "Media studies or cultural criticism of 'platform culture' without economic analysis",
+    "Pure computer science, AI/ML, or information-systems papers on technical architectures without political-economy framing",
+    "Papers about cryptocurrency, blockchain, or Web3 that invoke 'decentralization' vs. 'feudalism' without rigorous economic analysis"
+  ],
+  "support_strength_scale": [
+    {
+      "label": "none",
+      "definition": "The paper provides no evidence, argument, or conceptual apparatus that supports any of the essay's core claims. It may be relevant to adjacent topics but does not corroborate the thesis."
+    },
+    {
+      "label": "weak",
+      "definition": "The paper provides indirect or partial support for one claim—e.g., a case study of one tech firm's production processes that is consistent with the capitalist-producer characterization but does not theorize it, or a historical point about state-capital relations that aligns with C4 without addressing the feudalism debate. The support requires substantial interpretive extension by the reader."
+    },
+    {
+      "label": "moderate",
+      "definition": "The paper provides substantive evidence or argument that supports one or more core claims with reasonable directness—e.g., a systematic analysis of Google's revenue structure showing commodity production is primary; a theoretical reconstruction of Political Marxism's blind spots regarding expropriation; an empirical refutation of the 'data-as-primary-value-source' thesis; or a historical study of the US military-tech nexus that demonstrates constitutive state involvement. The connection to the essay's architecture is evident, even if the paper was not written in dialogue with it."
+    },
+    {
+      "label": "strong",
+      "definition": "The paper directly and substantially corroborates a core claim or the overarching thesis—e.g., a comprehensive demonstration that tech firms' profit structures are inconsistent with rentierism; a decisive theoretical argument that the exploitation-expropriation framework dissolves the feudal analogy; or a multi-firm empirical study showing that production (not data extraction) drives platform profitability. The paper could be cited as primary evidence in defense of the essay's argument."
+    }
+  ],
+  "challenge_strength_scale": [
+    {
+      "label": "none",
+      "definition": "The paper provides no evidence, argument, or conceptual apparatus that challenges any of the essay's core claims. It may describe phenomena the essay also describes but interprets them compatibly or non-competitively."
+    },
+    {
+      "label": "weak",
+      "definition": "The paper provides indirect or partial challenge to one claim—e.g., a study suggesting data extraction is more economically significant than the essay allows, but without full revenue decomposition; or an argument that Political Marxism has more internal resources for handling expropriation than Morozov credits, but without fully demonstrating this. The challenge is suggestive rather than decisive."
+    },
+    {
+      "label": "moderate",
+      "definition": "The paper provides substantive evidence or argument that challenges one or more core claims—e.g., empirical evidence that tech firm profits are primarily IP-rent-derived; a rigorous defense of the digital labor thesis showing user contributions are quantitatively central; a theoretical argument that expanding 'capitalism' to include expropriation empties it of content; or a demonstration that platform sovereignty genuinely overrides state sovereignty in significant domains. The challenge requires the essay's framework to be revised or qualified."
+    },
+    {
+      "label": "strong",
+      "definition": "The paper directly and substantially undermines a core claim or the overarching thesis—e.g., a definitive demonstration that tech firm profits collapse when data extraction is curtailed; a complete theoretical framework showing the feudal analogy captures structural dynamics the expanded-capitalism framework cannot; or comprehensive evidence that the Brenner-Wallerstein genealogy is historically inaccurate and the techno-feudalism thesis has independent analytical origins. The paper would force fundamental reconsideration of the essay's argument."
+    }
+  ],
+  "anti_grade_inflation_rule": "A paper must make substantive analytical contact with at least one specific mechanism, distinction, or empirical claim in the theory map to be rated above 'contextual.' Shared vocabulary (e.g., 'platform capitalism,' 'rent,' 'extraction,' 'monopoly,' 'feudal') is insufficient. The paper must either: (a) operate with the same conceptual distinctions (rent vs. profit in Marxian terms; exploitation vs. expropriation; economic vs. extra-economic coercion; production vs. redistribution), (b) provide firm-level or sector-level evidence that could adjudicate a specific empirical dispute in the theory, or (c) engage with the same theoretical genealogy (Brenner-Wallerstein, Political Marxism, cognitive capitalism, CasP, Fraser-Moore). If the evaluator must construct more than one inferential step to connect the paper's argument to the essay's architecture, the paper should not be rated 'relevant.' Mere topical overlap with 'Big Tech,' 'digital economy,' 'platform power,' or 'inequality' is not engagement. A paper about feudalism that does not connect to capitalism-boundary debates is not relevant. A paper about rent that does not distinguish Marxian from neoclassical or colloquial senses is not relevant at the 'relevant' tier.",
+  "anti_false_negative_rule": "A paper should not be dismissed as irrelevant merely because it does not cite Morozov, Varoufakis, Durand, or use the term 'techno-feudalism.' The theory map encompasses multiple distinct debates: (1) the nature of tech firm production, (2) the Marxian rent-profit boundary, (3) the exploitation-expropriation nexus, (4) the state-capital relation in tech, (5) the cognitive capitalism and digital labor traditions, (6) historical feudalism and the transition debate, (7) CasP and Veblenian sabotage, and (8) global value chain surplus distribution. A paper that makes a significant contribution to any one of these debates bears on the theory, even if it was written before the techno-feudalism thesis existed or in a different disciplinary tradition. Empirical case studies of individual platforms, historical reconstructions of the US security state's role in tech, Marxological exegeses of Capital Vol. 3 on equalization, and comparative political economy of IP regimes can all be relevant without ever mentioning feudalism. The evaluator should ask: 'If Morozov were revising the essay, would this paper's findings or arguments require him to modify, extend, or defend any specific claim?' If yes, the paper is at least 'marginal.'",
+  "default_verdict_rule": "When uncertain, default to 'contextual' rather than 'irrelevant' if the paper addresses the digital economy, platform capitalism, or Marxist political economy in any substantive way—but default to 'contextual' rather than 'marginal' or 'relevant' if the paper's connection to the essay's specific theoretical architecture requires more than one inferential step to establish. The burden of proof for 'relevant' is that the paper's core argument or evidence speaks to a named claim, mechanism, or distinction in the theory map without requiring the evaluator to hypothesize unstated implications. The burden of proof for 'irrelevant' is that no reasonable interpretive path connects the paper's contribution to any node in the theory map, including secondary themes and open questions."
+}

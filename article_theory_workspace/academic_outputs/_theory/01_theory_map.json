@@ -1,0 +1,368 @@
+{
+  "thesis": "The techno-feudalism thesis—the claim that digital platforms are replacing capitalism with a new feudalism—is analytically incoherent, stemming not from genuine systemic transformation but from unresolved tensions in Marxist political economy (especially the Brenner–Wallerstein debate) and from the left's inability to theorize what tech firms actually produce. Tech giants are better understood as capitalist producers operating within an expanded conception of capitalism that integrates exploitation and expropriation, rather than as feudal rentiers or lords exercising extra-economic coercion.",
+  "core_claims": [
+    {
+      "id": "C1",
+      "claim": "Tech firms like Google and Amazon are capitalist producers, not feudal rentiers. Google produces a search-result commodity; its massive R&D spending and capital investment are incompatible with the lazy-rentier characterization. The core of Google's profitability lies in cost-free indexing of others' content, not primarily in user-data extraction.",
+      "why_it_matters": "This is the central empirical-analytical intervention: if tech firms are productively capitalist, the entire techno-feudalism edifice collapses. It also reframes regulatory and political responses.",
+      "support_requirements": [
+        "Detailed analysis of tech firm business models showing production of commodities",
+        "Evidence that R&D and capital expenditure levels are inconsistent with pure rentierism",
+        "Demonstration that data extraction is secondary to other value-generating operations",
+        "Analysis showing tech firms have fewer intangible assets relative to total assets than commonly assumed"
+      ],
+      "challenge_requirements": [
+        "Evidence that tech firm profits derive predominantly from IP rents or data monopolies rather than commodity production",
+        "Demonstration that R&D spending is primarily defensive (predation/sabotage) rather than productive",
+        "Case studies showing tech firms can maintain profits without ongoing production investment"
+      ],
+      "indirect_relevance_hooks": [
+        "Any empirical study of tech firm revenue composition, cost structures, or business models",
+        "Studies of platform labor processes and what is actually produced",
+        "Analysis of advertising markets and their relation to data extraction",
+        "Studies comparing intangible vs tangible asset ratios across industries"
+      ],
+      "false_positive_matches": [
+        "General discussions of 'Big Tech' power that do not analyze business models or production processes",
+        "Journalistic accounts of tech monopoly that use feudal metaphor loosely",
+        "Digital ethics literature focused solely on privacy without economic analysis"
+      ]
+    },
+    {
+      "id": "C2",
+      "claim": "The techno-feudalism thesis originates from unresolved tensions in the Brenner–Wallerstein debate over whether expropriation and extra-economic coercion are constitutive of capitalism or external to it. Because Political Marxism cannot integrate ongoing dispossession into its model of accumulation-via-innovation, any economy where political redistribution is prominent gets misclassified as non-capitalist or feudal.",
+      "why_it_matters": "This is the deepest theoretical claim: techno-feudalism is a symptom of a paradigm crisis within Marxist theory, not a discovery about the real economy. Resolving the underlying debate would dissolve the feudal analogy.",
+      "support_requirements": [
+        "Textual reconstruction of the Brenner–Wallerstein debate and its unresolved tensions",
+        "Evidence that Political Marxism's strict separation of exploitation from expropriation creates analytical blind spots",
+        "Demonstration that Harvey's 'accumulation by dispossession' became analytically overextended precisely because of this gap"
+      ],
+      "challenge_requirements": [
+        "Arguments that Political Marxism can coherently integrate expropriation without losing analytical precision",
+        "Alternative theoretical genealogies for the techno-feudalism thesis not rooted in this debate",
+        "Evidence that the feudal analogy captures something the expanded-capitalism framework cannot"
+      ],
+      "indirect_relevance_hooks": [
+        "Any engagement with the transition-from-feudalism debate",
+        "Literature on primitive accumulation and its continuation",
+        "Fraser's exploitation-expropriation framework",
+        "Moore's 'Cheap Natures' and appropriation outside commodity circuits",
+        "Discussions of Political Marxism's analytical boundaries"
+      ],
+      "false_positive_matches": [
+        "General references to Brenner or Wallerstein on topics unrelated to the capitalism-feudalism boundary",
+        "Medieval history that does not bear on the conceptual apparatus used in these debates"
+      ]
+    },
+    {
+      "id": "C3",
+      "claim": "'User-ism'—the analytical fixation on user-data extraction as the principal driver of tech profits (exemplified by Zuboff and echoed by Durand)—systematically misidentifies the locus of value creation in the digital economy, paralleling Italian workerism's inability to theorize labor-light capitalist production.",
+      "why_it_matters": "This names a specific epistemological error shared across otherwise divergent frameworks (surveillance capitalism, cognitive capitalism, techno-feudalism): if no visible human input is detected at the point of profit, the operation is classified as rent rather than capitalist production.",
+      "support_requirements": [
+        "Analysis showing that Zuboff's framework ignores Google's indexing operations and commodity production",
+        "Evidence that the 'digital labor' thesis overstates users' contribution to platform profitability",
+        "Demonstration that Marx's equalization-of-profits framework explains automated/labor-light firm profits without invoking rent"
+      ],
+      "challenge_requirements": [
+        "Empirical evidence that behavioral data extraction is quantitatively central to platform revenues",
+        "Theoretical arguments that user interaction constitutes a form of productive labor that generates surplus value",
+        "Cases where platform profitability collapses when data extraction is curtailed"
+      ],
+      "indirect_relevance_hooks": [
+        "Digital labor debates",
+        "Studies of advertising economics and behavioral targeting",
+        "Operaismo/post-operaismo theoretical literature",
+        "Surveillance capitalism critiques or extensions",
+        "Marx's theory of profit equalization across industries"
+      ],
+      "false_positive_matches": [
+        "Privacy studies that discuss data extraction without connecting to political economy of production",
+        "UX research on user engagement metrics"
+      ]
+    },
+    {
+      "id": "C4",
+      "claim": "The techno-feudalist framework systematically obscures the constitutive role of the American state—through military spending, surveillance infrastructure, geopolitical strategy and industrial policy—in building and sustaining Silicon Valley's global dominance.",
+      "why_it_matters": "If state power is central to tech hegemony, the feudal framing (sovereignty parceled among private techno-lords, states weakened) is not merely imprecise but inverts the actual power structure.",
+      "support_requirements": [
+        "Historical evidence of US state involvement in tech industry development (Cold War, War on Terror, DARPA, NSA links)",
+        "Analysis of Google-Pentagon, Palantir-intelligence community, or similar state-capital nexuses",
+        "Geopolitical analysis showing tech competition is state-organized (US-China rivalry)"
+      ],
+      "challenge_requirements": [
+        "Evidence that tech firms have genuinely achieved autonomy from state power",
+        "Cases where platform sovereignty overrides or displaces state sovereignty",
+        "Demonstration that state involvement is incidental rather than constitutive"
+      ],
+      "indirect_relevance_hooks": [
+        "National security state and innovation literature (e.g., Linda Weiss)",
+        "US industrial policy and tech",
+        "US-China tech competition",
+        "Platform governance and sovereignty debates",
+        "Military-digital complex studies"
+      ],
+      "false_positive_matches": [
+        "General tech regulation literature that treats state and firms as external adversaries",
+        "EU digital policy discussions that do not address US state-capital relations"
+      ]
+    },
+    {
+      "id": "C5",
+      "claim": "An expanded conception of capitalism—one that treats expropriation, political coercion, cheap natures, unfree labor, and geopolitical power as constitutive rather than external—would dissolve the need for feudal analogies while providing a more accurate account of actually existing capitalism.",
+      "why_it_matters": "This is the constructive theoretical proposal: rather than declaring capitalism dead, the left should expand its concept of capitalism to include what it previously bracketed out, following Fraser, Moore, and historians of slavery, gender, and colonialism.",
+      "support_requirements": [
+        "Theoretical work successfully integrating exploitation and expropriation in a single framework",
+        "Historical evidence that 'extra-economic' coercion has always been internal to capitalist accumulation",
+        "Demonstration that the expanded framework retains analytical specificity"
+      ],
+      "challenge_requirements": [
+        "Arguments that expanding 'capitalism' indefinitely empties it of analytical content",
+        "Evidence that the digital economy introduces genuinely novel logics not captured even by expanded capitalism",
+        "Critiques showing Fraser's or Moore's frameworks have their own blind spots"
+      ],
+      "indirect_relevance_hooks": [
+        "Fraser's exploitation-expropriation nexus",
+        "Moore's Capitalocene/cheap natures",
+        "New histories of capitalism (slavery, colonialism, gender)",
+        "Debates on racial capitalism",
+        "Braudel's 'infinitely adaptable' capitalism"
+      ],
+      "false_positive_matches": [
+        "Loose invocations of 'racial capitalism' or 'extractivism' without systematic theoretical argument",
+        "Environmental economics that doesn't engage with capitalist accumulation theory"
+      ]
+    },
+    {
+      "id": "C6",
+      "claim": "Intellectual property rights and intangible assets, while genuinely important to digital-economy profit distribution, do not transform capitalist firms into feudal lords. The rent-vs-profit distinction is being misapplied: Marx's own framework treats automated/IP-heavy firms as absorbing surplus value generated elsewhere in the economy as profit, not rent.",
+      "why_it_matters": "This challenges Foley, Durand, and Vercellone's core theoretical move of reclassifying tech profits as rents, which is the linchpin for the feudal analogy. If Marx's equalization framework holds, even highly monopolistic IP-intensive firms remain capitalist.",
+      "support_requirements": [
+        "Exegesis of Marx's Capital Vol. 3 on profit equalization and automated firms",
+        "Empirical analysis showing tech firms' intangible asset ratios do not support pure-rentier characterization",
+        "Theoretical distinction between monopoly profit and feudal rent"
+      ],
+      "challenge_requirements": [
+        "Arguments that IP-based monopoly rents are qualitatively different from competitive capitalist profits",
+        "Evidence that rent extraction has become quantitatively dominant in the economy",
+        "Theoretical work showing Marx's equalization framework fails under conditions of digital monopoly"
+      ],
+      "indirect_relevance_hooks": [
+        "Rentier capitalism literature (Christophers)",
+        "Intangible asset studies",
+        "IP and patent economics",
+        "Intellectual monopoly capitalism (Rikap)",
+        "Debates on rent vs profit in Marxian economics",
+        "Capital as Power (Nitzan and Bichler) framework"
+      ],
+      "false_positive_matches": [
+        "General IP law discussions without political-economy framing",
+        "Innovation economics that doesn't address the rent-profit distinction"
+      ]
+    }
+  ],
+  "secondary_themes": [
+    {
+      "id": "T1",
+      "theme": "The Habermasian concept of 'refeudalization' as developed by Neckel and Supiot—treating neo-feudalism as a socio-political rather than economic-mode-of-production claim about neoliberal modernization's paradoxical reversal of bourgeois norms.",
+      "why_articles_may_matter": "Articles engaging with refeudalization as contradictory modernization (not literal feudal return) represent the more careful version of the thesis Morozov partially respects, and illuminate the socio-political dimensions his critique leaves somewhat undeveloped.",
+      "typical_article_signals": [
+        "References to Habermas's Structural Transformation",
+        "Neckel on refeudalization of economy",
+        "Supiot on governance by numbers",
+        "Privatization of sovereignty",
+        "Network-based personal dependencies replacing rule of law"
+      ]
+    },
+    {
+      "id": "T2",
+      "theme": "The cognitive capitalism thesis (Vercellone, Moulier-Boutang, Negri) and its claim that the reversal of real subsumption, autonomy of the multitude, and obsolescence of management signal a post-capitalist or neo-feudal configuration.",
+      "why_articles_may_matter": "Morozov treats cognitive capitalism as a key precursor and intellectual enabler of techno-feudalism. Articles that develop, empirically test, or critique this framework bear directly on whether the 'no workers = no capitalism' inference holds.",
+      "typical_article_signals": [
+        "Italian workerism/operaismo",
+        "General Intellect",
+        "Formal vs real subsumption",
+        "Free digital labor",
+        "Cognitive vs industrial capitalism",
+        "Immaterial labor"
+      ]
+    },
+    {
+      "id": "T3",
+      "theme": "The profit-investment puzzle: why profits rose but investment stagnated from the mid-1990s, and whether intangibles, financialization, or globalization explain this divergence.",
+      "why_articles_may_matter": "Durand's techno-feudalism thesis partly rests on this puzzle; if it can be explained within standard capitalist dynamics (globalization of investment, intangibles measurement, shareholder value maximization), the feudal inference weakens.",
+      "typical_article_signals": [
+        "Secular stagnation",
+        "Declining investment rates in advanced economies",
+        "Shareholder value maximization",
+        "Intangible capital measurement",
+        "Global value chain profit distribution",
+        "Schwartz on IP monopoly"
+      ]
+    },
+    {
+      "id": "T4",
+      "theme": "Global value chains, intellectual monopoly, and the distribution of surplus across supply-chain nodes—including Durand and Milberg's typology of four digital rents.",
+      "why_articles_may_matter": "Morozov engages extensively with Durand's rent taxonomy. Empirical studies of how value is distributed across global production networks, and whether lead firms' advantages constitute rent or monopoly profit, bear directly on the feudalism question.",
+      "typical_article_signals": [
+        "GVC governance and rent",
+        "Smile curve economics",
+        "Lead firm power in supply chains",
+        "Intellectual monopoly capitalism",
+        "Intangibles-differential rent",
+        "Platform-mediated supply chains"
+      ]
+    },
+    {
+      "id": "T5",
+      "theme": "Capital as Power (CasP) and Veblenian approaches to sabotage, differential accumulation, and the constitutive role of power in capitalist pricing and profit.",
+      "why_articles_may_matter": "Morozov suggests Marxists can learn from CasP but flags the difficulty of combining Marx and Veblen: Marx sees predation as feudal, Veblen sees it as endemic to capitalism. Articles developing or critiquing this synthesis are relevant.",
+      "typical_article_signals": [
+        "Nitzan and Bichler",
+        "Differential accumulation",
+        "Sabotage in Veblenian economics",
+        "Technoscience rent (Birch)",
+        "Assetization",
+        "Power theory of capital"
+      ]
+    },
+    {
+      "id": "T6",
+      "theme": "Historical analogies and periodization: the actual transition from feudalism to capitalism, medieval institutional forms, and the validity of drawing parallels between digital-era phenomena and feudal structures.",
+      "why_articles_may_matter": "The essay's argument depends on what feudalism actually was as a mode of production and socio-political system. Historical scholarship on feudal economic logic, parcelized sovereignty, and the transition debate can validate or undermine the analogy's coherence.",
+      "typical_article_signals": [
+        "Transition debate (Dobb-Sweezy, Brenner)",
+        "Feudal mode of production",
+        "Parcelized sovereignty (Anderson)",
+        "Medieval property relations",
+        "Wickham on feudal economic logic",
+        "Putting-out system"
+      ]
+    },
+    {
+      "id": "T7",
+      "theme": "The political economy of platforms—Spotify, Uber, Amazon, Google—as concrete case studies for adjudicating between capitalist-production and rentier-extraction interpretations.",
+      "why_articles_may_matter": "Morozov's argument depends on granular analysis of specific firm operations. Case studies that reveal whether platforms produce commodities, extract rents, or do both in varying proportions provide essential empirical grounding.",
+      "typical_article_signals": [
+        "Platform business model analysis",
+        "Spotify/music streaming economics",
+        "Amazon fulfillment and logistics",
+        "Uber as firm vs intermediary",
+        "Google advertising revenue decomposition",
+        "YouTube economics"
+      ]
+    }
+  ],
+  "article_relevance_hooks": [
+    {
+      "hook": "Direct engagement with the techno-feudalism, neo-feudalism, or digital feudalism thesis",
+      "counts_as": "direct",
+      "notes": "Any article that explicitly argues for or against the claim that digital capitalism is transitioning to feudalism."
+    },
+    {
+      "hook": "Analysis of tech firm business models distinguishing production from rent extraction",
+      "counts_as": "direct",
+      "notes": "Core to the essay's central empirical argument about what Google, Amazon, etc. actually do."
+    },
+    {
+      "hook": "Theoretical work on the exploitation-expropriation relationship within capitalism",
+      "counts_as": "direct",
+      "notes": "Directly bears on C2 and C5—the claim that unresolved tensions in Marxist theory generate the feudal diagnosis."
+    },
+    {
+      "hook": "Empirical studies of intangible assets, IP rents, or data-as-asset in the tech sector",
+      "counts_as": "direct",
+      "notes": "Bears on C6—whether IP and data holdings make firms rentiers or remain consistent with capitalist production."
+    },
+    {
+      "hook": "Historical scholarship on the US national security state and Silicon Valley",
+      "counts_as": "direct",
+      "notes": "Directly relevant to C4 on the constitutive role of the American state."
+    },
+    {
+      "hook": "Literature on primitive accumulation, its continuation or cessation",
+      "counts_as": "direct",
+      "notes": "Central to the Brenner-Wallerstein debate and the theoretical genealogy Morozov traces."
+    },
+    {
+      "hook": "Surveillance capitalism literature (Zuboff and responses)",
+      "counts_as": "direct",
+      "notes": "Morozov's 'user-ism' critique is aimed squarely at this framework."
+    },
+    {
+      "hook": "Rentier capitalism literature (Christophers, etc.) analyzing whether contemporary economy is dominated by rent",
+      "counts_as": "illustrative",
+      "notes": "Provides empirical context for the rent-vs-profit debate but may not directly adjudicate the feudalism question."
+    },
+    {
+      "hook": "Digital labor debates (free labor, prosumption, data labor)",
+      "counts_as": "illustrative",
+      "notes": "Relevant to the user-ism and cognitive capitalism critiques but may not address the broader theoretical architecture."
+    },
+    {
+      "hook": "Platform governance, digital sovereignty, or regulatory frameworks",
+      "counts_as": "contextual",
+      "notes": "May illuminate the state-platform relationship (C4) but often lacks the political-economy depth the essay demands."
+    },
+    {
+      "hook": "General financialization literature",
+      "counts_as": "contextual",
+      "notes": "Durand's trajectory from Fictitious Capital to Techno-féodalisme makes financialization relevant, but only when connected to the feudalism question."
+    },
+    {
+      "hook": "Inequality, oligarchy, or wealth-concentration studies",
+      "counts_as": "contextual",
+      "notes": "The 'parasitic ruling class' is one marker of feudalism, but inequality data alone doesn't decide whether the system is capitalist or feudal."
+    },
+    {
+      "hook": "Labor process analysis in tech firms (warehouses, content moderation, gig work)",
+      "counts_as": "illustrative",
+      "notes": "Relevant insofar as it reveals whether tech firms organize capitalist production or merely extract rents from intermediation."
+    }
+  ],
+  "conceptual_boundaries": [
+    {
+      "boundary": "Feudalism as mode of production vs. feudalism as socio-political system",
+      "explanation": "Morozov insists these are distinct analytical frames yielding different conclusions. Articles must be evaluated for which definition of feudalism they invoke; conflation weakens relevance."
+    },
+    {
+      "boundary": "Rent vs. profit in Marxian categories",
+      "explanation": "The essay hinges on whether tech revenues are properly classified as rent (derived from property rights without production) or profit (including surplus value absorbed via equalization). Articles that blur this distinction or use 'rent' colloquially are less relevant."
+    },
+    {
+      "boundary": "Extra-economic vs. economic means of surplus extraction",
+      "explanation": "Central to the Marxist definition of what separates capitalism from feudalism. Articles that engage this distinction—even to dissolve it—are relevant; those that ignore it operate in a different conceptual space."
+    },
+    {
+      "boundary": "Redistribution (dispossession) vs. production (exploitation) as drivers of accumulation",
+      "explanation": "Morozov argues that conflating these or declaring redistribution dominant leads to the feudal diagnosis. Articles must be evaluated for how they handle this distinction."
+    },
+    {
+      "boundary": "Metaphorical feudalism vs. analytical feudalism",
+      "explanation": "Morozov distinguishes shock-value invocations of feudalism from serious attempts to identify feudal economic or political logics. Articles that merely use feudal rhetoric without analytical content are not meaningfully engaged."
+    },
+    {
+      "boundary": "Firm-level analysis vs. systemic-level analysis",
+      "explanation": "The essay insists on examining what individual tech firms actually produce before drawing systemic conclusions. Macro-level arguments about rentierism that skip firm-level investigation are treated as analytically incomplete."
+    }
+  ],
+  "relevance_red_flags": [
+    "Article uses 'feudalism' or 'neo-feudalism' purely as rhetorical provocation without engaging the mode-of-production or socio-political definitional debates",
+    "Article discusses 'Big Tech' monopoly power without analyzing actual business models, cost structures, or what is produced",
+    "Article treats data extraction as self-evidently the core of tech profitability without examining alternative revenue sources or production processes",
+    "Article discusses digital regulation or antitrust without connecting to political-economy categories (rent, profit, exploitation, expropriation)",
+    "Article invokes Marxist vocabulary but applies it only at the level of surface description rather than systematic theoretical engagement",
+    "Article discusses platform capitalism or surveillance capitalism as settled frameworks without critically examining their premises",
+    "Article uses 'rent-seeking' in the Public Choice sense without engaging Marxian rent theory",
+    "Article focuses exclusively on consumer experience or privacy harms without connecting to production, accumulation, or class dynamics"
+  ],
+  "open_questions": [
+    "Can Fraser's exploitation-expropriation framework be operationalized to account for geopolitical and military dimensions of capitalist accumulation, or does it remain too abstract?",
+    "Is Marx's profit-equalization framework adequate for understanding digital monopolies with near-zero marginal costs and extreme network effects, or do these conditions require new categories?",
+    "What exactly are Google's and Amazon's 'forces of production' vs. 'forces of predation,' and can these be empirically distinguished in their R&D and capital expenditure?",
+    "Does the decline of the separation between economic and political in actually existing capitalism (as Morozov suggests) undermine Political Marxism's core analytical contribution, or can it be reformulated?",
+    "How should Marxist theory handle the growing importance of state-organized redistribution (QE, bailouts, industrial policy) without either dismissing it as external to capitalism or concluding capitalism is over?",
+    "Is 'information communism'—the regime of free indexing and zero-cost content appropriation—a better characterization of the digital economy's non-capitalist dimension than 'information feudalism'?",
+    "Can the Capital as Power framework be productively integrated with Marxian categories, or are the ontological commitments fundamentally incompatible?",
+    "What is the proper unit of analysis for determining whether the digital economy is capitalist: the individual firm, the platform ecosystem, the global value chain, or the world-system?"
+  ]
+}

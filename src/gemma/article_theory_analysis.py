@@ -34,7 +34,7 @@ SUSPECT_NOISE_PATTERNS = (
 DEFAULT_WORKSPACE = Path("article_theory_workspace")
 DEFAULT_OLLAMA_MODEL = "gemma4-31b-bf16-256k"
 DEFAULT_ANTHROPIC_MODEL = "claude-opus-4-6"
-DEFAULT_SYSTEM_PROMPT = """You are evaluating whether a non-academic text bears on a political-economy theory essay.
+JOURNALISTIC_SYSTEM_PROMPT = """You are evaluating whether a non-academic text bears on a political-economy theory essay.
 
 Use calibrated relevance, not maximal strictness.
 
@@ -47,6 +47,61 @@ Distinguish:
 Do not inflate contextual overlap into direct proof, but do not erase useful indirect relevance. A policy story, industrial-policy story, capital-expenditure story, sanctions story, labor-displacement story, or platform-competition story can be relevant even if it cannot adjudicate rent vs. profit by itself.
 
 Output valid JSON only."""
+
+ACADEMIC_SYSTEM_PROMPT = """You are evaluating whether an academic text bears on a political-economy theory essay.
+
+Use calibrated relevance, not maximal strictness.
+
+Distinguish:
+- direct theoretical engagement with the essay's categories or mechanism
+- empirical case-study evidence that supports or challenges one part of the theory
+- adjacent conceptual or historical literature that helps situate the theory without deciding it
+- genuine irrelevance
+
+Academic papers can matter through explicit argument, literature intervention, conceptual clarification, historical reconstruction, labor-process analysis, or firm/case evidence. Do not mistake shared vocabulary for engagement, but do not dismiss a paper just because it is not written about the essay itself.
+
+Output valid JSON only."""
+
+DEFAULT_SYSTEM_PROMPT = JOURNALISTIC_SYSTEM_PROMPT
+
+
+@dataclass(frozen=True, slots=True)
+class AnalysisProfileConfig:
+    key: str
+    system_prompt: str
+    comparison_subdir: str
+    cache_subdir: str
+    outputs_subdir: str
+    comparison_label: str
+    document_label: str
+    index_title: str
+    default_max_comparison_chars: int
+
+
+PROFILE_CONFIGS = {
+    "journalistic": AnalysisProfileConfig(
+        key="journalistic",
+        system_prompt=JOURNALISTIC_SYSTEM_PROMPT,
+        comparison_subdir="others",
+        cache_subdir="others",
+        outputs_subdir="outputs",
+        comparison_label="comparison articles",
+        document_label="article",
+        index_title="Article Theory Analysis Index",
+        default_max_comparison_chars=90_000,
+    ),
+    "academic": AnalysisProfileConfig(
+        key="academic",
+        system_prompt=ACADEMIC_SYSTEM_PROMPT,
+        comparison_subdir="articles",
+        cache_subdir="articles",
+        outputs_subdir="academic_outputs",
+        comparison_label="academic comparison papers",
+        document_label="paper",
+        index_title="Academic Theory Analysis Index",
+        default_max_comparison_chars=160_000,
+    ),
+}
 
 
 @dataclass(slots=True)
@@ -61,6 +116,13 @@ class JsonResponseError(ValueError):
     def __init__(self, message: str, raw: str = "") -> None:
         super().__init__(message)
         self.raw = raw
+
+
+def profile_config(profile: str) -> AnalysisProfileConfig:
+    try:
+        return PROFILE_CONFIGS[profile]
+    except KeyError as exc:
+        raise ValueError(f"Unknown analysis profile: {profile}") from exc
 
 
 class OllamaClient:
@@ -216,9 +278,13 @@ class TheoryArticleRunner:
         self,
         workspace: Path,
         client: OllamaClient,
+        analysis_profile: str = "journalistic",
+        comparison_subdir: str | None = None,
+        cache_subdir: str | None = None,
+        outputs_subdir: str | None = None,
         overwrite: bool = False,
         max_theory_chars: int = 180_000,
-        max_article_chars: int = 90_000,
+        max_article_chars: int | None = None,
         min_confidence: float = 0.7,
         max_reconcile_rounds: int = 2,
         max_step_retries: int = 2,
@@ -226,20 +292,31 @@ class TheoryArticleRunner:
     ) -> None:
         self.workspace = workspace
         self.client = client
+        self.profile = profile_config(analysis_profile)
+        self.analysis_profile = self.profile.key
+        self.comparison_subdir = comparison_subdir or self.profile.comparison_subdir
+        self.cache_subdir = cache_subdir or self.profile.cache_subdir
+        self.outputs_subdir = outputs_subdir or self.profile.outputs_subdir
         self.overwrite = overwrite
         self.max_theory_chars = max_theory_chars
-        self.max_article_chars = max_article_chars
+        self.max_article_chars = max_article_chars or self.profile.default_max_comparison_chars
         self.min_confidence = min_confidence
         self.max_reconcile_rounds = max_reconcile_rounds
         self.max_step_retries = max_step_retries
         self.allow_failures = allow_failures
         self.cache_dir = workspace / "cache"
-        self.outputs_dir = workspace / "outputs"
         self.theory_dir = workspace / "nlr"
-        self.others_dir = workspace / "others"
+        self.comparison_dir = workspace / self.comparison_subdir
+        self.comparison_cache_dir = self.cache_dir / self.cache_subdir
+        self.outputs_dir = workspace / self.outputs_subdir
 
     def run(self, stage: str = "all") -> dict[str, Any]:
-        ensure_workspace(self.workspace)
+        ensure_workspace(
+            self.workspace,
+            comparison_subdir=self.comparison_subdir,
+            outputs_subdir=self.outputs_subdir,
+            cache_subdir=self.cache_subdir,
+        )
         theory_documents = load_documents(self.theory_dir, self.cache_dir / "nlr", self.max_theory_chars)
         if not theory_documents:
             raise RuntimeError(f"No supported theory files found in {self.theory_dir}")
@@ -277,9 +354,13 @@ class TheoryArticleRunner:
                 "theory_rubric_path": str(theory_rubric_path),
             }
 
-        other_documents = load_documents(self.others_dir, self.cache_dir / "others", self.max_article_chars)
+        other_documents = load_documents(
+            self.comparison_dir,
+            self.comparison_cache_dir,
+            self.max_article_chars,
+        )
         if not other_documents:
-            raise RuntimeError(f"No supported comparison files found in {self.others_dir}")
+            raise RuntimeError(f"No supported comparison files found in {self.comparison_dir}")
 
         max_workers = int(os.environ.get("GEMMA_PARALLEL", "3"))
         analyses: list[dict[str, Any]] = []
@@ -332,109 +413,230 @@ class TheoryArticleRunner:
             "index_path": str(index),
         }
 
+    def _is_academic(self) -> bool:
+        return self.analysis_profile == "academic"
+
+    def _document_label(self) -> str:
+        return self.profile.document_label
+
+    def _comparison_label(self) -> str:
+        return self.profile.comparison_label
+
+    def _later_pass_context(self, article: Document, article_map: dict[str, Any]) -> str:
+        if self._is_academic():
+            return (
+                "The full paper was already read in pass 1. For the later passes, use the structured paper map "
+                "below as the primary digest of the paper's argument, method, evidence, and theoretical "
+                "intervention. Do not invent details beyond that map."
+            )
+        return f"{self._document_label().title()} text:\n{article.text}"
+
     def _build_theory_map(self, theory_documents: list[Document]) -> dict[str, Any]:
         theory_corpus = render_document_bundle(theory_documents, "NLR theory corpus")
-        prompt = textwrap.dedent(
-            f"""
-            Read the theory corpus and build an expansive map for evaluating later news articles against it.
+        if self._is_academic():
+            prompt = textwrap.dedent(
+                f"""
+                Read the theory corpus and build an expansive map for evaluating later academic texts against it.
 
-            Constraints:
-            - Capture the strongest 4 to 7 core claims.
-            - Also capture secondary themes that a news article may usefully illustrate without proving or disproving the theory.
-            - Prefer precise claims about mechanism, categories, evidence, or method.
-            - Separate direct evidentiary hooks from contextual or illustrative hooks.
-            - Avoid the previous over-strict mistake: do not require a news article to adjudicate rent vs. profit before it can be called contextually or marginally relevant.
-            - Include false positives only as warnings against overclaiming, not as a reason to erase all indirect relevance.
+                Constraints:
+                - Capture the strongest 4 to 7 core claims.
+                - Also capture secondary themes that an academic paper may usefully develop, refine, illustrate, or contest.
+                - Prefer precise claims about mechanism, categories, evidence, method, or periodization.
+                - Identify where a later paper could bear on the theory through direct conceptual argument, empirical case-study evidence, labor-process analysis, historical reconstruction, or critique of rival frameworks.
+                - Distinguish direct theoretical engagement from adjacent literature that is useful but not decisive.
+                - Include false positives only as warnings against overclaiming, not as a reason to erase all indirect relevance.
 
-            Return JSON with exactly these keys:
-            {{
-              "thesis": "string",
-              "core_claims": [
+                Return JSON with exactly these keys:
                 {{
-                  "id": "C1",
-                  "claim": "string",
-                  "why_it_matters": "string",
-                  "support_requirements": ["string"],
-                  "challenge_requirements": ["string"],
-                  "indirect_relevance_hooks": ["string"],
-                  "false_positive_matches": ["string"]
+                  "thesis": "string",
+                  "core_claims": [
+                    {{
+                      "id": "C1",
+                      "claim": "string",
+                      "why_it_matters": "string",
+                      "support_requirements": ["string"],
+                      "challenge_requirements": ["string"],
+                      "indirect_relevance_hooks": ["string"],
+                      "false_positive_matches": ["string"]
+                    }}
+                  ],
+                  "secondary_themes": [
+                    {{
+                      "id": "T1",
+                      "theme": "string",
+                      "why_articles_may_matter": "string",
+                      "typical_article_signals": ["string"]
+                    }}
+                  ],
+                  "article_relevance_hooks": [
+                    {{
+                      "hook": "string",
+                      "counts_as": "contextual|illustrative|direct",
+                      "notes": "string"
+                    }}
+                  ],
+                  "conceptual_boundaries": [
+                    {{
+                      "boundary": "string",
+                      "explanation": "string"
+                    }}
+                  ],
+                  "relevance_red_flags": ["string"],
+                  "open_questions": ["string"]
                 }}
-              ],
-              "secondary_themes": [
-                {{
-                  "id": "T1",
-                  "theme": "string",
-                  "why_articles_may_matter": "string",
-                  "typical_article_signals": ["string"]
-                }}
-              ],
-              "article_relevance_hooks": [
-                {{
-                  "hook": "string",
-                  "counts_as": "contextual|illustrative|direct",
-                  "notes": "string"
-                }}
-              ],
-              "conceptual_boundaries": [
-                {{
-                  "boundary": "string",
-                  "explanation": "string"
-                }}
-              ],
-              "relevance_red_flags": ["string"],
-              "open_questions": ["string"]
-            }}
 
-            {theory_corpus}
-            """
-        ).strip()
+                {theory_corpus}
+                """
+            ).strip()
+        else:
+            prompt = textwrap.dedent(
+                f"""
+                Read the theory corpus and build an expansive map for evaluating later news articles against it.
+
+                Constraints:
+                - Capture the strongest 4 to 7 core claims.
+                - Also capture secondary themes that a news article may usefully illustrate without proving or disproving the theory.
+                - Prefer precise claims about mechanism, categories, evidence, or method.
+                - Separate direct evidentiary hooks from contextual or illustrative hooks.
+                - Avoid the previous over-strict mistake: do not require a news article to adjudicate rent vs. profit before it can be called contextually or marginally relevant.
+                - Include false positives only as warnings against overclaiming, not as a reason to erase all indirect relevance.
+
+                Return JSON with exactly these keys:
+                {{
+                  "thesis": "string",
+                  "core_claims": [
+                    {{
+                      "id": "C1",
+                      "claim": "string",
+                      "why_it_matters": "string",
+                      "support_requirements": ["string"],
+                      "challenge_requirements": ["string"],
+                      "indirect_relevance_hooks": ["string"],
+                      "false_positive_matches": ["string"]
+                    }}
+                  ],
+                  "secondary_themes": [
+                    {{
+                      "id": "T1",
+                      "theme": "string",
+                      "why_articles_may_matter": "string",
+                      "typical_article_signals": ["string"]
+                    }}
+                  ],
+                  "article_relevance_hooks": [
+                    {{
+                      "hook": "string",
+                      "counts_as": "contextual|illustrative|direct",
+                      "notes": "string"
+                    }}
+                  ],
+                  "conceptual_boundaries": [
+                    {{
+                      "boundary": "string",
+                      "explanation": "string"
+                    }}
+                  ],
+                  "relevance_red_flags": ["string"],
+                  "open_questions": ["string"]
+                }}
+
+                {theory_corpus}
+                """
+            ).strip()
         return self.client.chat_json([{"role": "user", "content": prompt}])
 
     def _build_theory_rubric(self, theory_map: dict[str, Any]) -> dict[str, Any]:
-        prompt = textwrap.dedent(
-            f"""
-            Build a calibrated evaluation rubric for judging whether a later article bears on the theory map below.
+        if self._is_academic():
+            prompt = textwrap.dedent(
+                f"""
+                Build a calibrated evaluation rubric for judging whether a later academic paper bears on the theory map below.
 
-            Constraints:
-            - Do not default every article to irrelevance just because it lacks direct proof.
-            - Distinguish contextual relevance, illustrative relevance, and direct evidence.
-            - Make both anti-grade-inflation and anti-false-negative rules explicit.
-            - Articles about state industrial policy, geopolitics, data centers, AI infrastructure, platform lock-in, talent flows, sanctions, labor displacement, and public legitimacy may be contextually or marginally relevant even when they do not adjudicate rent vs. profit.
+                Constraints:
+                - Do not default every paper to irrelevance just because it is not written as a direct reply to the essay.
+                - Distinguish contextual relevance, illustrative relevance, direct empirical relevance, and direct theoretical engagement.
+                - A paper may count as relevant through conceptual argument, literature intervention, historical reconstruction, case-study evidence, labor-process analysis, or critique of monopoly/competition/rent/platform-capitalism frameworks.
+                - Make both anti-grade-inflation and anti-false-negative rules explicit.
+                - Shared vocabulary alone is not enough.
 
-            Return JSON with exactly these keys:
-            {{
-              "relevance_tiers": [
+                Return JSON with exactly these keys:
                 {{
-                  "label": "irrelevant|contextual|marginal|relevant",
-                  "definition": "string",
-                  "recommended_use": "ignore|mention_in_passing|use_as_minor_update|use_as_substantive_evidence"
+                  "relevance_tiers": [
+                    {{
+                      "label": "irrelevant|contextual|marginal|relevant",
+                      "definition": "string",
+                      "recommended_use": "ignore|mention_in_passing|use_as_minor_update|use_as_substantive_evidence"
+                    }}
+                  ],
+                  "relevance_questions": ["string"],
+                  "what_counts_as_real_evidence": ["string"],
+                  "what_counts_as_contextual_or_illustrative_relevance": ["string"],
+                  "what_does_not_count": ["string"],
+                  "support_strength_scale": [
+                    {{
+                      "label": "none|weak|moderate|strong",
+                      "definition": "string"
+                    }}
+                  ],
+                  "challenge_strength_scale": [
+                    {{
+                      "label": "none|weak|moderate|strong",
+                      "definition": "string"
+                    }}
+                  ],
+                  "anti_grade_inflation_rule": "string",
+                  "anti_false_negative_rule": "string",
+                  "default_verdict_rule": "string"
                 }}
-              ],
-              "relevance_questions": ["string"],
-              "what_counts_as_real_evidence": ["string"],
-              "what_counts_as_contextual_or_illustrative_relevance": ["string"],
-              "what_does_not_count": ["string"],
-              "support_strength_scale": [
-                {{
-                  "label": "none|weak|moderate|strong",
-                  "definition": "string"
-                }}
-              ],
-              "challenge_strength_scale": [
-                {{
-                  "label": "none|weak|moderate|strong",
-                  "definition": "string"
-                }}
-              ],
-              "anti_grade_inflation_rule": "string",
-              "anti_false_negative_rule": "string",
-              "default_verdict_rule": "string"
-            }}
 
-            Theory map:
-            {json.dumps(theory_map, ensure_ascii=False, indent=2)}
-            """
-        ).strip()
+                Theory map:
+                {json.dumps(theory_map, ensure_ascii=False, indent=2)}
+                """
+            ).strip()
+        else:
+            prompt = textwrap.dedent(
+                f"""
+                Build a calibrated evaluation rubric for judging whether a later article bears on the theory map below.
+
+                Constraints:
+                - Do not default every article to irrelevance just because it lacks direct proof.
+                - Distinguish contextual relevance, illustrative relevance, and direct evidence.
+                - Make both anti-grade-inflation and anti-false-negative rules explicit.
+                - Articles about state industrial policy, geopolitics, data centers, AI infrastructure, platform lock-in, talent flows, sanctions, labor displacement, and public legitimacy may be contextually or marginally relevant even when they do not adjudicate rent vs. profit.
+
+                Return JSON with exactly these keys:
+                {{
+                  "relevance_tiers": [
+                    {{
+                      "label": "irrelevant|contextual|marginal|relevant",
+                      "definition": "string",
+                      "recommended_use": "ignore|mention_in_passing|use_as_minor_update|use_as_substantive_evidence"
+                    }}
+                  ],
+                  "relevance_questions": ["string"],
+                  "what_counts_as_real_evidence": ["string"],
+                  "what_counts_as_contextual_or_illustrative_relevance": ["string"],
+                  "what_does_not_count": ["string"],
+                  "support_strength_scale": [
+                    {{
+                      "label": "none|weak|moderate|strong",
+                      "definition": "string"
+                    }}
+                  ],
+                  "challenge_strength_scale": [
+                    {{
+                      "label": "none|weak|moderate|strong",
+                      "definition": "string"
+                    }}
+                  ],
+                  "anti_grade_inflation_rule": "string",
+                  "anti_false_negative_rule": "string",
+                  "default_verdict_rule": "string"
+                }}
+
+                Theory map:
+                {json.dumps(theory_map, ensure_ascii=False, indent=2)}
+                """
+            ).strip()
         return self.client.chat_json([{"role": "user", "content": prompt}])
 
     def _analyze_article(
@@ -503,10 +705,12 @@ class TheoryArticleRunner:
         report_path.write_text(
             render_report(
                 article=article,
+                article_map=article_map,
                 theory_map=theory_map,
                 final_result=final_result,
                 initial_audit=relevance_audit,
                 counter_audit=counter_audit,
+                document_label=self._document_label(),
             ),
             encoding="utf-8",
         )
@@ -523,37 +727,77 @@ class TheoryArticleRunner:
         }
 
     def _build_article_map(self, article: Document) -> dict[str, Any]:
-        prompt = textwrap.dedent(
-            f"""
-            Read the article and map what it actually says before trying to connect it to the theory.
+        if self._is_academic():
+            prompt = textwrap.dedent(
+                f"""
+                Read the academic paper and map what it actually argues before trying to connect it to the theory.
 
-            Constraints:
-            - Stay descriptive.
-            - Do not infer theoretical relevance yet.
-            - Capture concrete facts, policy content, labor content, and missing information.
+                Constraints:
+                - Stay descriptive.
+                - Do not infer relevance yet.
+                - Capture the paper's thesis, research question, method or approach, theoretical frameworks, empirical scope, and explicit intervention in the literature.
+                - Because the paper is long, this pass should produce a rich digest that later passes can rely on without rereading the whole paper.
 
-            Return JSON with exactly these keys:
-            {{
-              "article_kind": "news|op-ed|policy memo|academic|other",
-              "summary": "string",
-              "main_claims": ["string"],
-              "evidence_or_facts": ["string"],
-              "rhetorical_frames": ["string"],
-              "state_and_policy_content": ["string"],
-              "capital_accumulation_content": ["string"],
-              "labor_content": ["string"],
-              "infrastructure_and_supply_chain_content": ["string"],
-              "geopolitical_competition_content": ["string"],
-              "possible_theory_hooks": ["string"],
-              "what_is_missing_for_theory_evaluation": ["string"]
-            }}
+                Return JSON with exactly these keys:
+                {{
+                  "article_kind": "academic",
+                  "summary": "string",
+                  "research_question": "string",
+                  "main_claims": ["string"],
+                  "method_or_approach": ["string"],
+                  "empirical_scope_or_case": ["string"],
+                  "evidence_or_facts": ["string"],
+                  "theoretical_frameworks": ["string"],
+                  "explicit_theoretical_interventions": ["string"],
+                  "section_level_moves": ["string"],
+                  "rhetorical_frames": ["string"],
+                  "state_and_policy_content": ["string"],
+                  "capital_accumulation_content": ["string"],
+                  "labor_content": ["string"],
+                  "infrastructure_and_supply_chain_content": ["string"],
+                  "geopolitical_competition_content": ["string"],
+                  "possible_theory_hooks": ["string"],
+                  "what_is_missing_for_theory_evaluation": ["string"]
+                }}
 
-            Article file: {article.path.name}
+                Paper file: {article.path.name}
 
-            Article text:
-            {article.text}
-            """
-        ).strip()
+                Paper text:
+                {article.text}
+                """
+            ).strip()
+        else:
+            prompt = textwrap.dedent(
+                f"""
+                Read the article and map what it actually says before trying to connect it to the theory.
+
+                Constraints:
+                - Stay descriptive.
+                - Do not infer theoretical relevance yet.
+                - Capture concrete facts, policy content, labor content, and missing information.
+
+                Return JSON with exactly these keys:
+                {{
+                  "article_kind": "news|op-ed|policy memo|academic|other",
+                  "summary": "string",
+                  "main_claims": ["string"],
+                  "evidence_or_facts": ["string"],
+                  "rhetorical_frames": ["string"],
+                  "state_and_policy_content": ["string"],
+                  "capital_accumulation_content": ["string"],
+                  "labor_content": ["string"],
+                  "infrastructure_and_supply_chain_content": ["string"],
+                  "geopolitical_competition_content": ["string"],
+                  "possible_theory_hooks": ["string"],
+                  "what_is_missing_for_theory_evaluation": ["string"]
+                }}
+
+                Article file: {article.path.name}
+
+                Article text:
+                {article.text}
+                """
+            ).strip()
         return self.client.chat_json([{"role": "user", "content": prompt}])
 
     def _build_relevance_audit(
@@ -563,52 +807,98 @@ class TheoryArticleRunner:
         theory_rubric: dict[str, Any],
         article_map: dict[str, Any],
     ) -> dict[str, Any]:
-        prompt = textwrap.dedent(
-            f"""
-            Judge whether this article bears on the theory.
+        if self._is_academic():
+            prompt = textwrap.dedent(
+                f"""
+                Judge whether this academic paper bears on the theory.
 
-            Apply the rubric in a calibrated way.
-            - Do not require the article to adjudicate rent vs. profit before assigning contextual or marginal relevance.
-            - If the article is useful as a state-capital, infrastructure, labor-displacement, geopolitics, supply-chain, platform-power, or public-legitimation data point, say so and assign contextual or marginal relevance.
-            - If the article cannot support or challenge the theory directly, say that under limitations rather than forcing the whole verdict to irrelevant.
-            - Reserve "irrelevant" for articles with no meaningful use even as background or illustration.
+                Apply the rubric in a calibrated way.
+                - A paper can matter through direct conceptual argument, literature intervention, historical reconstruction, empirical case evidence, or labor-process analysis.
+                - Do not mistake shared keywords for engagement.
+                - If the paper is adjacent rather than directly probative, preserve that as contextual or marginal relevance instead of forcing irrelevance.
+                - If the paper directly contests monopoly, competition, rent, capitalist efficiency, platform capitalism, linguistic labor, or related categories that touch the theory's claims, say so explicitly.
 
-            Return JSON with exactly these keys:
-            {{
-              "overall_initial_verdict": "irrelevant|contextual|marginal|relevant",
-              "overall_reason": "string",
-              "claim_assessments": [
+                Return JSON with exactly these keys:
                 {{
-                  "claim_id": "C1",
-                  "engagement_type": "none|rhetorical|contextual|illustrative|direct",
-                  "support_strength": "none|weak|moderate|strong",
-                  "challenge_strength": "none|weak|moderate|strong",
-                  "support_points": ["string"],
-                  "challenge_points": ["string"],
-                  "why_limited": "string"
+                  "overall_initial_verdict": "irrelevant|contextual|marginal|relevant",
+                  "overall_reason": "string",
+                  "claim_assessments": [
+                    {{
+                      "claim_id": "C1",
+                      "engagement_type": "none|rhetorical|contextual|illustrative|direct",
+                      "support_strength": "none|weak|moderate|strong",
+                      "challenge_strength": "none|weak|moderate|strong",
+                      "support_points": ["string"],
+                      "challenge_points": ["string"],
+                      "why_limited": "string"
+                    }}
+                  ],
+                  "contextual_relevance_points": ["string"],
+                  "illustrative_relevance_points": ["string"],
+                  "article_level_points_for_theory": ["string"],
+                  "article_level_points_against_theory": ["string"],
+                  "irrelevance_reasons": ["string"],
+                  "confidence": 0.0
                 }}
-              ],
-              "contextual_relevance_points": ["string"],
-              "illustrative_relevance_points": ["string"],
-              "article_level_points_for_theory": ["string"],
-              "article_level_points_against_theory": ["string"],
-              "irrelevance_reasons": ["string"],
-              "confidence": 0.0
-            }}
 
-            Theory map:
-            {json.dumps(theory_map, ensure_ascii=False, indent=2)}
+                Theory map:
+                {json.dumps(theory_map, ensure_ascii=False, indent=2)}
 
-            Rubric:
-            {json.dumps(theory_rubric, ensure_ascii=False, indent=2)}
+                Rubric:
+                {json.dumps(theory_rubric, ensure_ascii=False, indent=2)}
 
-            Article map:
-            {json.dumps(article_map, ensure_ascii=False, indent=2)}
+                Paper map:
+                {json.dumps(article_map, ensure_ascii=False, indent=2)}
 
-            Article text:
-            {article.text}
-            """
-        ).strip()
+                {self._later_pass_context(article, article_map)}
+                """
+            ).strip()
+        else:
+            prompt = textwrap.dedent(
+                f"""
+                Judge whether this article bears on the theory.
+
+                Apply the rubric in a calibrated way.
+                - Do not require the article to adjudicate rent vs. profit before assigning contextual or marginal relevance.
+                - If the article is useful as a state-capital, infrastructure, labor-displacement, geopolitics, supply-chain, platform-power, or public-legitimation data point, say so and assign contextual or marginal relevance.
+                - If the article cannot support or challenge the theory directly, say that under limitations rather than forcing the whole verdict to irrelevant.
+                - Reserve "irrelevant" for articles with no meaningful use even as background or illustration.
+
+                Return JSON with exactly these keys:
+                {{
+                  "overall_initial_verdict": "irrelevant|contextual|marginal|relevant",
+                  "overall_reason": "string",
+                  "claim_assessments": [
+                    {{
+                      "claim_id": "C1",
+                      "engagement_type": "none|rhetorical|contextual|illustrative|direct",
+                      "support_strength": "none|weak|moderate|strong",
+                      "challenge_strength": "none|weak|moderate|strong",
+                      "support_points": ["string"],
+                      "challenge_points": ["string"],
+                      "why_limited": "string"
+                    }}
+                  ],
+                  "contextual_relevance_points": ["string"],
+                  "illustrative_relevance_points": ["string"],
+                  "article_level_points_for_theory": ["string"],
+                  "article_level_points_against_theory": ["string"],
+                  "irrelevance_reasons": ["string"],
+                  "confidence": 0.0
+                }}
+
+                Theory map:
+                {json.dumps(theory_map, ensure_ascii=False, indent=2)}
+
+                Rubric:
+                {json.dumps(theory_rubric, ensure_ascii=False, indent=2)}
+
+                Article map:
+                {json.dumps(article_map, ensure_ascii=False, indent=2)}
+
+                {self._later_pass_context(article, article_map)}
+                """
+            ).strip()
         return self.client.chat_json([{"role": "user", "content": prompt}])
 
     def _build_counter_audit(
@@ -619,52 +909,98 @@ class TheoryArticleRunner:
         article_map: dict[str, Any],
         relevance_audit: dict[str, Any],
     ) -> dict[str, Any]:
-        prompt = textwrap.dedent(
-            f"""
-            Audit the initial relevance judgment for overclaiming, sloppy mappings, and missed points.
+        if self._is_academic():
+            prompt = textwrap.dedent(
+                f"""
+                Audit the initial relevance judgment for overclaiming, missed direct engagement, and sloppy conceptual mappings.
 
-            Be adversarial.
-            - If the initial audit inflated weak evidence into support, say so.
-            - If it erased a genuine contextual, illustrative, or narrow point of contact by applying an over-strict gate, say so.
-            - Distinguish political-process evidence from evidence about economic mechanism.
-            - Do not convert every indirect data point into proof, but preserve it as contextual or marginal relevance when useful.
+                Be adversarial.
+                - If the initial audit inflated an adjacent paper into direct support or challenge, say so.
+                - If it erased genuine theoretical or empirical relevance by demanding an impossible one-to-one match with the essay, say so.
+                - Distinguish direct theoretical argument, empirical case relevance, and merely adjacent literature.
+                - Preserve contextual or marginal relevance when it is real, but do not inflate it.
 
-            Return JSON with exactly these keys:
-            {{
-              "grade_inflation_detected": true,
-              "false_negative_detected": true,
-              "problems_with_initial_audit": ["string"],
-              "missing_support_points": ["string"],
-              "missing_challenge_points": ["string"],
-              "missing_contextual_or_illustrative_points": ["string"],
-              "corrected_verdict": "irrelevant|contextual|marginal|relevant",
-              "corrections_by_claim": [
+                Return JSON with exactly these keys:
                 {{
-                  "claim_id": "C1",
-                  "corrected_support_strength": "none|weak|moderate|strong",
-                  "corrected_challenge_strength": "none|weak|moderate|strong",
-                  "note": "string"
+                  "grade_inflation_detected": true,
+                  "false_negative_detected": true,
+                  "problems_with_initial_audit": ["string"],
+                  "missing_support_points": ["string"],
+                  "missing_challenge_points": ["string"],
+                  "missing_contextual_or_illustrative_points": ["string"],
+                  "corrected_verdict": "irrelevant|contextual|marginal|relevant",
+                  "corrections_by_claim": [
+                    {{
+                      "claim_id": "C1",
+                      "corrected_support_strength": "none|weak|moderate|strong",
+                      "corrected_challenge_strength": "none|weak|moderate|strong",
+                      "note": "string"
+                    }}
+                  ],
+                  "confidence": 0.0
                 }}
-              ],
-              "confidence": 0.0
-            }}
 
-            Theory map:
-            {json.dumps(theory_map, ensure_ascii=False, indent=2)}
+                Theory map:
+                {json.dumps(theory_map, ensure_ascii=False, indent=2)}
 
-            Rubric:
-            {json.dumps(theory_rubric, ensure_ascii=False, indent=2)}
+                Rubric:
+                {json.dumps(theory_rubric, ensure_ascii=False, indent=2)}
 
-            Article map:
-            {json.dumps(article_map, ensure_ascii=False, indent=2)}
+                Paper map:
+                {json.dumps(article_map, ensure_ascii=False, indent=2)}
 
-            Initial audit:
-            {json.dumps(relevance_audit, ensure_ascii=False, indent=2)}
+                Initial audit:
+                {json.dumps(relevance_audit, ensure_ascii=False, indent=2)}
 
-            Article text:
-            {article.text}
-            """
-        ).strip()
+                {self._later_pass_context(article, article_map)}
+                """
+            ).strip()
+        else:
+            prompt = textwrap.dedent(
+                f"""
+                Audit the initial relevance judgment for overclaiming, sloppy mappings, and missed points.
+
+                Be adversarial.
+                - If the initial audit inflated weak evidence into support, say so.
+                - If it erased a genuine contextual, illustrative, or narrow point of contact by applying an over-strict gate, say so.
+                - Distinguish political-process evidence from evidence about economic mechanism.
+                - Do not convert every indirect data point into proof, but preserve it as contextual or marginal relevance when useful.
+
+                Return JSON with exactly these keys:
+                {{
+                  "grade_inflation_detected": true,
+                  "false_negative_detected": true,
+                  "problems_with_initial_audit": ["string"],
+                  "missing_support_points": ["string"],
+                  "missing_challenge_points": ["string"],
+                  "missing_contextual_or_illustrative_points": ["string"],
+                  "corrected_verdict": "irrelevant|contextual|marginal|relevant",
+                  "corrections_by_claim": [
+                    {{
+                      "claim_id": "C1",
+                      "corrected_support_strength": "none|weak|moderate|strong",
+                      "corrected_challenge_strength": "none|weak|moderate|strong",
+                      "note": "string"
+                    }}
+                  ],
+                  "confidence": 0.0
+                }}
+
+                Theory map:
+                {json.dumps(theory_map, ensure_ascii=False, indent=2)}
+
+                Rubric:
+                {json.dumps(theory_rubric, ensure_ascii=False, indent=2)}
+
+                Article map:
+                {json.dumps(article_map, ensure_ascii=False, indent=2)}
+
+                Initial audit:
+                {json.dumps(relevance_audit, ensure_ascii=False, indent=2)}
+
+                {self._later_pass_context(article, article_map)}
+                """
+            ).strip()
         return self.client.chat_json([{"role": "user", "content": prompt}])
 
     def _build_final_judgment(
@@ -676,62 +1012,117 @@ class TheoryArticleRunner:
         relevance_audit: dict[str, Any],
         counter_audit: dict[str, Any],
     ) -> dict[str, Any]:
-        prompt = textwrap.dedent(
-            f"""
-            Produce the final judgment.
+        if self._is_academic():
+            prompt = textwrap.dedent(
+                f"""
+                Produce the final judgment for this academic paper.
 
-            Requirements:
-            - Keep the verdict strict and calibrated.
-            - It is acceptable for the answer to say the article is mostly irrelevant, but do not call it irrelevant if it has a real contextual or illustrative use.
-            - Separate "arguments for the theory" from "arguments against the theory."
-            - Also identify contextual relevance that is not yet an argument.
-            - Also state what the article cannot adjudicate.
+                Requirements:
+                - Keep the verdict strict and calibrated.
+                - A paper may count as relevant if it directly engages the categories or mechanisms at stake, even without new quantitative data.
+                - Separate direct arguments for the theory, direct arguments against it, and contextual relevance that is useful but not probative.
+                - Also state what the paper cannot adjudicate.
 
-            Return JSON with exactly these keys:
-            {{
-              "overall_verdict": "irrelevant|contextual|marginal|relevant",
-              "confidence": 0.0,
-              "relevance_mode": "none|contextual|illustrative|direct",
-              "one_paragraph_verdict": "string",
-              "contextual_relevance": ["string"],
-              "arguments_for_theory": [
+                Return JSON with exactly these keys:
                 {{
-                  "strength": "weak|moderate|strong",
-                  "argument": "string",
-                  "claim_ids": ["C1"]
+                  "overall_verdict": "irrelevant|contextual|marginal|relevant",
+                  "confidence": 0.0,
+                  "relevance_mode": "none|contextual|illustrative|direct",
+                  "one_paragraph_verdict": "string",
+                  "contextual_relevance": ["string"],
+                  "arguments_for_theory": [
+                    {{
+                      "strength": "weak|moderate|strong",
+                      "argument": "string",
+                      "claim_ids": ["C1"]
+                    }}
+                  ],
+                  "arguments_against_theory": [
+                    {{
+                      "strength": "weak|moderate|strong",
+                      "argument": "string",
+                      "claim_ids": ["C1"]
+                    }}
+                  ],
+                  "what_article_cannot_adjudicate": ["string"],
+                  "state_capital_nexus_relevance": "string",
+                  "recommended_use": "ignore|mention_in_passing|use_as_minor_update|use_as_substantive_evidence"
                 }}
-              ],
-              "arguments_against_theory": [
+
+                Theory map:
+                {json.dumps(theory_map, ensure_ascii=False, indent=2)}
+
+                Rubric:
+                {json.dumps(theory_rubric, ensure_ascii=False, indent=2)}
+
+                Paper map:
+                {json.dumps(article_map, ensure_ascii=False, indent=2)}
+
+                Initial audit:
+                {json.dumps(relevance_audit, ensure_ascii=False, indent=2)}
+
+                Counter-audit:
+                {json.dumps(counter_audit, ensure_ascii=False, indent=2)}
+
+                {self._later_pass_context(article, article_map)}
+                """
+            ).strip()
+        else:
+            prompt = textwrap.dedent(
+                f"""
+                Produce the final judgment.
+
+                Requirements:
+                - Keep the verdict strict and calibrated.
+                - It is acceptable for the answer to say the article is mostly irrelevant, but do not call it irrelevant if it has a real contextual or illustrative use.
+                - Separate "arguments for the theory" from "arguments against the theory."
+                - Also identify contextual relevance that is not yet an argument.
+                - Also state what the article cannot adjudicate.
+
+                Return JSON with exactly these keys:
                 {{
-                  "strength": "weak|moderate|strong",
-                  "argument": "string",
-                  "claim_ids": ["C1"]
+                  "overall_verdict": "irrelevant|contextual|marginal|relevant",
+                  "confidence": 0.0,
+                  "relevance_mode": "none|contextual|illustrative|direct",
+                  "one_paragraph_verdict": "string",
+                  "contextual_relevance": ["string"],
+                  "arguments_for_theory": [
+                    {{
+                      "strength": "weak|moderate|strong",
+                      "argument": "string",
+                      "claim_ids": ["C1"]
+                    }}
+                  ],
+                  "arguments_against_theory": [
+                    {{
+                      "strength": "weak|moderate|strong",
+                      "argument": "string",
+                      "claim_ids": ["C1"]
+                    }}
+                  ],
+                  "what_article_cannot_adjudicate": ["string"],
+                  "state_capital_nexus_relevance": "string",
+                  "recommended_use": "ignore|mention_in_passing|use_as_minor_update|use_as_substantive_evidence"
                 }}
-              ],
-              "what_article_cannot_adjudicate": ["string"],
-              "state_capital_nexus_relevance": "string",
-              "recommended_use": "ignore|mention_in_passing|use_as_minor_update|use_as_substantive_evidence"
-            }}
 
-            Theory map:
-            {json.dumps(theory_map, ensure_ascii=False, indent=2)}
+                Theory map:
+                {json.dumps(theory_map, ensure_ascii=False, indent=2)}
 
-            Rubric:
-            {json.dumps(theory_rubric, ensure_ascii=False, indent=2)}
+                Rubric:
+                {json.dumps(theory_rubric, ensure_ascii=False, indent=2)}
 
-            Article map:
-            {json.dumps(article_map, ensure_ascii=False, indent=2)}
+                Article map:
+                {json.dumps(article_map, ensure_ascii=False, indent=2)}
 
-            Initial audit:
-            {json.dumps(relevance_audit, ensure_ascii=False, indent=2)}
+                Initial audit:
+                {json.dumps(relevance_audit, ensure_ascii=False, indent=2)}
 
-            Counter-audit:
-            {json.dumps(counter_audit, ensure_ascii=False, indent=2)}
+                Counter-audit:
+                {json.dumps(counter_audit, ensure_ascii=False, indent=2)}
 
-            Article text:
-            {article.text}
-            """
-        ).strip()
+                {self._later_pass_context(article, article_map)}
+                """
+            ).strip()
         return self.client.chat_json([{"role": "user", "content": prompt}])
 
     def _build_reconcile_pass(
@@ -745,72 +1136,132 @@ class TheoryArticleRunner:
         current_final: dict[str, Any],
         round_number: int,
     ) -> dict[str, Any]:
-        prompt = textwrap.dedent(
-            f"""
-            Reconcile remaining disagreement or low confidence in the article-theory assessment.
+        if self._is_academic():
+            prompt = textwrap.dedent(
+                f"""
+                Reconcile remaining disagreement or low confidence in the paper-theory assessment.
 
-            This is reconcile round {round_number}.
+                This is reconcile round {round_number}.
 
-            Requirements:
-            - Resolve only the disputed points.
-            - Tighten the verdict rather than expanding it.
-            - If uncertainty remains, lower the confidence and explain why.
+                Requirements:
+                - Resolve only the disputed points.
+                - Tighten the verdict rather than expanding it.
+                - If uncertainty remains, lower the confidence and explain why.
+                - Preserve the difference between direct theoretical engagement, empirical illustration, and contextual adjacency.
 
-            Return JSON with exactly these keys:
-            {{
-              "overall_verdict": "irrelevant|contextual|marginal|relevant",
-              "reconciled_confidence": 0.0,
-              "relevance_mode": "none|contextual|illustrative|direct",
-              "one_paragraph_verdict": "string",
-              "contextual_relevance": ["string"],
-              "arguments_for_theory": [
+                Return JSON with exactly these keys:
                 {{
-                  "strength": "weak|moderate|strong",
-                  "argument": "string",
-                  "claim_ids": ["C1"]
+                  "overall_verdict": "irrelevant|contextual|marginal|relevant",
+                  "reconciled_confidence": 0.0,
+                  "relevance_mode": "none|contextual|illustrative|direct",
+                  "one_paragraph_verdict": "string",
+                  "contextual_relevance": ["string"],
+                  "arguments_for_theory": [
+                    {{
+                      "strength": "weak|moderate|strong",
+                      "argument": "string",
+                      "claim_ids": ["C1"]
+                    }}
+                  ],
+                  "arguments_against_theory": [
+                    {{
+                      "strength": "weak|moderate|strong",
+                      "argument": "string",
+                      "claim_ids": ["C1"]
+                    }}
+                  ],
+                  "what_article_cannot_adjudicate": ["string"],
+                  "state_capital_nexus_relevance": "string",
+                  "recommended_use": "ignore|mention_in_passing|use_as_minor_update|use_as_substantive_evidence"
                 }}
-              ],
-              "arguments_against_theory": [
+
+                Theory map:
+                {json.dumps(theory_map, ensure_ascii=False, indent=2)}
+
+                Rubric:
+                {json.dumps(theory_rubric, ensure_ascii=False, indent=2)}
+
+                Paper map:
+                {json.dumps(article_map, ensure_ascii=False, indent=2)}
+
+                Initial audit:
+                {json.dumps(relevance_audit, ensure_ascii=False, indent=2)}
+
+                Counter-audit:
+                {json.dumps(counter_audit, ensure_ascii=False, indent=2)}
+
+                Current final judgment:
+                {json.dumps(current_final, ensure_ascii=False, indent=2)}
+
+                {self._later_pass_context(article, article_map)}
+                """
+            ).strip()
+        else:
+            prompt = textwrap.dedent(
+                f"""
+                Reconcile remaining disagreement or low confidence in the article-theory assessment.
+
+                This is reconcile round {round_number}.
+
+                Requirements:
+                - Resolve only the disputed points.
+                - Tighten the verdict rather than expanding it.
+                - If uncertainty remains, lower the confidence and explain why.
+
+                Return JSON with exactly these keys:
                 {{
-                  "strength": "weak|moderate|strong",
-                  "argument": "string",
-                  "claim_ids": ["C1"]
+                  "overall_verdict": "irrelevant|contextual|marginal|relevant",
+                  "reconciled_confidence": 0.0,
+                  "relevance_mode": "none|contextual|illustrative|direct",
+                  "one_paragraph_verdict": "string",
+                  "contextual_relevance": ["string"],
+                  "arguments_for_theory": [
+                    {{
+                      "strength": "weak|moderate|strong",
+                      "argument": "string",
+                      "claim_ids": ["C1"]
+                    }}
+                  ],
+                  "arguments_against_theory": [
+                    {{
+                      "strength": "weak|moderate|strong",
+                      "argument": "string",
+                      "claim_ids": ["C1"]
+                    }}
+                  ],
+                  "what_article_cannot_adjudicate": ["string"],
+                  "state_capital_nexus_relevance": "string",
+                  "recommended_use": "ignore|mention_in_passing|use_as_minor_update|use_as_substantive_evidence"
                 }}
-              ],
-              "what_article_cannot_adjudicate": ["string"],
-              "state_capital_nexus_relevance": "string",
-              "recommended_use": "ignore|mention_in_passing|use_as_minor_update|use_as_substantive_evidence"
-            }}
 
-            Theory map:
-            {json.dumps(theory_map, ensure_ascii=False, indent=2)}
+                Theory map:
+                {json.dumps(theory_map, ensure_ascii=False, indent=2)}
 
-            Rubric:
-            {json.dumps(theory_rubric, ensure_ascii=False, indent=2)}
+                Rubric:
+                {json.dumps(theory_rubric, ensure_ascii=False, indent=2)}
 
-            Article map:
-            {json.dumps(article_map, ensure_ascii=False, indent=2)}
+                Article map:
+                {json.dumps(article_map, ensure_ascii=False, indent=2)}
 
-            Initial audit:
-            {json.dumps(relevance_audit, ensure_ascii=False, indent=2)}
+                Initial audit:
+                {json.dumps(relevance_audit, ensure_ascii=False, indent=2)}
 
-            Counter-audit:
-            {json.dumps(counter_audit, ensure_ascii=False, indent=2)}
+                Counter-audit:
+                {json.dumps(counter_audit, ensure_ascii=False, indent=2)}
 
-            Current final judgment:
-            {json.dumps(current_final, ensure_ascii=False, indent=2)}
+                Current final judgment:
+                {json.dumps(current_final, ensure_ascii=False, indent=2)}
 
-            Article text:
-            {article.text}
-            """
-        ).strip()
+                {self._later_pass_context(article, article_map)}
+                """
+            ).strip()
         return self.client.chat_json([{"role": "user", "content": prompt}])
 
     def _load_or_run(self, path: Path, builder: Any, *args: Any) -> dict[str, Any]:
         if path.exists() and not self.overwrite:
             payload = sanitize_payload(json.loads(path.read_text(encoding="utf-8")))
             try:
-                validate_payload_for_path(path, payload)
+                validate_payload_for_path(path, payload, self.analysis_profile)
                 return payload
             except ValueError as exc:
                 print(f"STALE: {path}: {exc}; rebuilding")
@@ -819,7 +1270,7 @@ class TheoryArticleRunner:
             try:
                 payload = builder(*args)
                 payload = sanitize_payload(payload)
-                validate_payload_for_path(path, payload)
+                validate_payload_for_path(path, payload, self.analysis_profile)
                 path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
                 error_path = error_artifact_path(path)
                 if error_path.exists():
@@ -858,7 +1309,7 @@ class TheoryArticleRunner:
             f"- Theory map: `{theory_map_path.relative_to(self.workspace)}`",
             f"- Theory rubric: `{theory_rubric_path.relative_to(self.workspace)}`",
             "",
-            "These files are committed so remote machines can run only the article-analysis stage.",
+            f"These files are committed so remote machines can run only the {self._comparison_label()} stage.",
             "",
         ]
         index_md = self.outputs_dir / "_theory" / "README.md"
@@ -881,6 +1332,7 @@ class TheoryArticleRunner:
         index_json = self.outputs_dir / "index.json"
         payload = {
             "model": self.client.model,
+            "analysis_profile": self.analysis_profile,
             "theory_files": [str(doc.path) for doc in theory_documents],
             "failed_articles": failures,
             "articles": sorted(
@@ -895,14 +1347,15 @@ class TheoryArticleRunner:
         index_json.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
 
         lines = [
-            "# Article Theory Analysis Index",
+            f"# {self.profile.index_title}",
             "",
             f"- Model: `{self.client.model}`",
+            f"- Analysis profile: `{self.analysis_profile}`",
             f"- Theory files: {', '.join(doc.path.name for doc in theory_documents)}",
-            f"- Articles analyzed: {len(analyses)}",
-            f"- Articles failed: {len(failures)}",
+            f"- {self._document_label().title()}s analyzed: {len(analyses)}",
+            f"- {self._document_label().title()}s failed: {len(failures)}",
             "",
-            "| Article | Verdict | Confidence | Recommended Use | Report |",
+            f"| {self._document_label().title()} | Verdict | Confidence | Recommended Use | Report |",
             "| --- | --- | --- | --- | --- |",
         ]
         for item in payload["articles"]:
@@ -926,6 +1379,7 @@ def main() -> int:
     )
     parser.add_argument("--workspace", type=Path, default=DEFAULT_WORKSPACE)
     parser.add_argument("--stage", choices=("all", "theory", "articles"), default="all")
+    parser.add_argument("--profile", choices=tuple(PROFILE_CONFIGS), default="journalistic")
     parser.add_argument("--provider", choices=("ollama", "anthropic"), default="ollama")
     parser.add_argument("--model")
     parser.add_argument("--ollama-url", default="http://localhost:11434")
@@ -936,7 +1390,10 @@ def main() -> int:
     parser.add_argument("--anthropic-thinking", choices=("adaptive", "disabled"), default="adaptive")
     parser.add_argument("--overwrite", action="store_true")
     parser.add_argument("--max-theory-chars", type=int, default=180_000)
-    parser.add_argument("--max-article-chars", type=int, default=90_000)
+    parser.add_argument("--max-article-chars", type=int)
+    parser.add_argument("--comparison-subdir")
+    parser.add_argument("--cache-subdir")
+    parser.add_argument("--outputs-subdir")
     parser.add_argument("--min-confidence", type=float, default=0.7)
     parser.add_argument("--max-reconcile-rounds", type=int, default=2)
     parser.add_argument("--num-ctx", type=int, default=131072)
@@ -945,12 +1402,15 @@ def main() -> int:
     parser.add_argument("--allow-failures", action="store_true")
     args = parser.parse_args()
     os.environ["GEMMA_PARALLEL"] = str(args.parallel)
+    selected_profile = profile_config(args.profile)
+    max_article_chars = args.max_article_chars or selected_profile.default_max_comparison_chars
 
     if args.provider == "anthropic":
         client = AnthropicClient(
             model=args.model or DEFAULT_ANTHROPIC_MODEL,
             api_key_env=args.anthropic_api_key_env,
             base_url=args.anthropic_url,
+            system_prompt=selected_profile.system_prompt,
             max_tokens=args.anthropic_max_tokens,
             effort=args.anthropic_effort,
             thinking_type=args.anthropic_thinking,
@@ -959,15 +1419,20 @@ def main() -> int:
         client = OllamaClient(
             model=args.model or DEFAULT_OLLAMA_MODEL,
             base_url=args.ollama_url,
+            system_prompt=selected_profile.system_prompt,
             num_ctx=args.num_ctx,
         )
 
     runner = TheoryArticleRunner(
         workspace=args.workspace,
         client=client,
+        analysis_profile=args.profile,
+        comparison_subdir=args.comparison_subdir,
+        cache_subdir=args.cache_subdir,
+        outputs_subdir=args.outputs_subdir,
         overwrite=args.overwrite,
         max_theory_chars=args.max_theory_chars,
-        max_article_chars=args.max_article_chars,
+        max_article_chars=max_article_chars,
         min_confidence=args.min_confidence,
         max_reconcile_rounds=args.max_reconcile_rounds,
         max_step_retries=args.step_retries,
@@ -978,8 +1443,13 @@ def main() -> int:
     return 0
 
 
-def ensure_workspace(workspace: Path) -> None:
-    for name in ("nlr", "others", "outputs", "cache"):
+def ensure_workspace(
+    workspace: Path,
+    comparison_subdir: str = "others",
+    outputs_subdir: str = "outputs",
+    cache_subdir: str = "others",
+) -> None:
+    for name in ("nlr", comparison_subdir, outputs_subdir, "cache", f"cache/{cache_subdir}"):
         (workspace / name).mkdir(parents=True, exist_ok=True)
 
 
@@ -1150,8 +1620,12 @@ def error_artifact_path(path: Path) -> Path:
     return path.with_name(path.name + ".error.txt")
 
 
-def validate_payload_for_path(path: Path, payload: dict[str, Any]) -> None:
-    required = required_keys_for_output(path.name)
+def validate_payload_for_path(
+    path: Path,
+    payload: dict[str, Any],
+    analysis_profile: str = "journalistic",
+) -> None:
+    required = required_keys_for_output(path.name, analysis_profile)
     missing = sorted(key for key in required if key not in payload)
     issues = [f"missing required key `{key}`" for key in missing]
     issues.extend(find_payload_quality_issues(payload))
@@ -1185,7 +1659,7 @@ def sanitize_payload(payload: Any) -> Any:
     return payload
 
 
-def required_keys_for_output(filename: str) -> set[str]:
+def required_keys_for_output(filename: str, analysis_profile: str = "journalistic") -> set[str]:
     if filename == "01_theory_map.json":
         return {
             "thesis",
@@ -1210,7 +1684,7 @@ def required_keys_for_output(filename: str) -> set[str]:
             "default_verdict_rule",
         }
     if filename == "01_article_map.json":
-        return {
+        keys = {
             "article_kind",
             "summary",
             "main_claims",
@@ -1224,6 +1698,18 @@ def required_keys_for_output(filename: str) -> set[str]:
             "possible_theory_hooks",
             "what_is_missing_for_theory_evaluation",
         }
+        if analysis_profile == "academic":
+            keys.update(
+                {
+                    "research_question",
+                    "method_or_approach",
+                    "empirical_scope_or_case",
+                    "theoretical_frameworks",
+                    "explicit_theoretical_interventions",
+                    "section_level_moves",
+                }
+            )
+        return keys
     if filename == "02_relevance_audit.json":
         return {
             "overall_initial_verdict",
@@ -1323,10 +1809,12 @@ def needs_reconcile(
 
 def render_report(
     article: Document,
+    article_map: dict[str, Any],
     theory_map: dict[str, Any],
     final_result: dict[str, Any],
     initial_audit: dict[str, Any],
     counter_audit: dict[str, Any],
+    document_label: str = "article",
 ) -> str:
     verdict = final_result.get("overall_verdict", "unknown")
     confidence = final_result.get("confidence", final_result.get("reconciled_confidence", 0.0))
@@ -1338,6 +1826,7 @@ def render_report(
     cannot = final_result.get("what_article_cannot_adjudicate", [])
     recommended_use = final_result.get("recommended_use", "unknown")
     state_capital = final_result.get("state_capital_nexus_relevance", "")
+    document_title = document_label.title()
 
     lines = [
         f"# {article.path.name}",
@@ -1351,9 +1840,34 @@ def render_report(
         "",
         paragraph,
         "",
+        f"## {document_title} Snapshot",
+        "",
+        f"- Summary: {article_map.get('summary', 'Not specified.')}",
+    ]
+    if document_label == "paper":
+        lines.extend(
+            [
+                f"- Research question: {article_map.get('research_question', 'Not specified.')}",
+                f"- Method or approach: {', '.join(article_map.get('method_or_approach', [])) or 'Not specified.'}",
+                f"- Theoretical frameworks: {', '.join(article_map.get('theoretical_frameworks', [])) or 'Not specified.'}",
+                f"- Empirical scope or case: {', '.join(article_map.get('empirical_scope_or_case', [])) or 'Not specified.'}",
+                "",
+            ]
+        )
+    else:
+        lines.extend(
+            [
+                f"- Main claims: {', '.join(article_map.get('main_claims', [])) or 'Not specified.'}",
+                "",
+            ]
+        )
+
+    lines.extend(
+        [
         "## Contextual Relevance",
         "",
-    ]
+        ]
+    )
     if contextual_relevance:
         lines.extend(f"- {item}" for item in contextual_relevance)
     else:
@@ -1385,7 +1899,7 @@ def render_report(
     else:
         lines.append("- None.")
 
-    lines.extend(["", "## What The Article Cannot Adjudicate", ""])
+    lines.extend(["", f"## What The {document_title} Cannot Adjudicate", ""])
     if cannot:
         lines.extend(f"- {item}" for item in cannot)
     else:
