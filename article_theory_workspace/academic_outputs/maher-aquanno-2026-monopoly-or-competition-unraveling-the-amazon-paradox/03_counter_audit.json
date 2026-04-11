@@ -1,0 +1,48 @@
+{
+  "grade_inflation_detected": false,
+  "false_negative_detected": false,
+  "problems_with_initial_audit": [],
+  "missing_support_points": [],
+  "missing_challenge_points": [],
+  "missing_contextual_or_illustrative_points": [],
+  "corrected_verdict": "relevant",
+  "corrections_by_claim": [
+    {
+      "claim_id": "C1",
+      "corrected_support_strength": "strong",
+      "corrected_challenge_strength": "none",
+      "note": "The paper is a textbook case of direct support for C1, providing the exact empirical evidence (R&D, ROIC, logistics infrastructure) required by the theory map."
+    },
+    {
+      "claim_id": "C2",
+      "corrected_support_strength": "none",
+      "corrected_challenge_strength": "none",
+      "note": "Correctly identified as no engagement."
+    },
+    {
+      "claim_id": "C3",
+      "corrected_support_strength": "moderate",
+      "corrected_challenge_strength": "none",
+      "note": "The paper's focus on 'compressing time-space' via logistics is a direct empirical counter to the 'user-ism' focus on data extraction as the primary value driver."
+    },
+    {
+      "claim_id": "C4",
+      "corrected_support_strength": "weak",
+      "corrected_challenge_strength": "none",
+      "note": "Correctly identified as marginal/weak; the geopolitical mention is a side-note, not a theoretical engagement with the state-capital nexus."
+    },
+    {
+      "claim_id": "C5",
+      "corrected_support_strength": "weak",
+      "corrected_challenge_strength": "none",
+      "note": "Correctly identified as contextual; it assumes a capitalist framework but doesn't theorize the 'expanded' boundaries of capitalism."
+    },
+    {
+      "claim_id": "C6",
+      "corrected_support_strength": "strong",
+      "corrected_challenge_strength": "none",
+      "note": "The paper's central theoretical move is the distinction between commercial profit and monopoly rent, which is the exact conceptual boundary required for C6."
+    }
+  ],
+  "confidence": 1.0
+}

@@ -1,0 +1,30 @@
+{
+  "grade_inflation_detected": false,
+  "false_negative_detected": false,
+  "problems_with_initial_audit": [
+    "The initial audit correctly identified the paper as 'marginal' but slightly undersold the theoretical connection to C3. The paper doesn't just 'implicitly' challenge user-ism; it explicitly frames platform activity as 'digital piecework' and 'algorithmic supervision,' which is a direct labor-process counter-argument to the claim that platform value is derived from passive data extraction."
+  ],
+  "missing_support_points": [
+    "The paper's focus on 'qualitative efficiency' (the reproduction of class power) provides a theoretical mechanism for why tech firms invest heavily in R&D and algorithmic control—not for 'innovation' in a neoclassical sense, but to ensure the reproduction of the capitalist relation. This supports C1's claim that high capital expenditure is incompatible with the 'lazy rentier' model."
+  ],
+  "missing_challenge_points": [],
+  "missing_contextual_or_illustrative_points": [
+    "The discussion of 'Movement Law' and the failure of the state to support community-owned plants (Youngstown) serves as a historical parallel to the state-capital nexus in C4, illustrating how the state actively protects capitalist accumulation over democratic alternatives, even if it doesn't name the US national security state specifically."
+  ],
+  "corrected_verdict": "marginal",
+  "corrections_by_claim": [
+    {
+      "claim_id": "C1",
+      "corrected_support_strength": "moderate",
+      "corrected_challenge_strength": "none",
+      "note": "The paper provides strong empirical evidence of the 'labor process' in platforms, which is the primary evidence needed to argue that platforms are producers, not rentiers."
+    },
+    {
+      "claim_id": "C3",
+      "corrected_support_strength": "moderate",
+      "corrected_challenge_strength": "none",
+      "note": "By categorizing platform activity as 'digital piecework,' the paper directly attacks the epistemological core of 'user-ism' (the idea that users are not workers)."
+    }
+  ],
+  "confidence": 1.0
+}

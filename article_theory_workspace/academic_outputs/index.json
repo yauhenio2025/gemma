@@ -1,0 +1,34 @@
+{
+  "model": "gemma4-31b-bf16-256k",
+  "analysis_profile": "academic",
+  "theory_files": [
+    "article_theory_workspace/nlr/Evgeny Morozov, Critique of Techno Feudal Reason, NLR 133 134, January April 2022.pdf"
+  ],
+  "failed_articles": [],
+  "articles": [
+    {
+      "article_path": "article_theory_workspace/articles/maher-aquanno-2026-monopoly-or-competition-unraveling-the-amazon-paradox.pdf",
+      "article_slug": "maher-aquanno-2026-monopoly-or-competition-unraveling-the-amazon-paradox",
+      "report_path": "article_theory_workspace/academic_outputs/maher-aquanno-2026-monopoly-or-competition-unraveling-the-amazon-paradox/report.md",
+      "verdict": "relevant",
+      "confidence": 1.0,
+      "recommended_use": "use_as_substantive_evidence"
+    },
+    {
+      "article_path": "article_theory_workspace/articles/pietrykowski-2026-revisiting-capitalist-and-socialist-efficiency-applications-and-extensions.pdf",
+      "article_slug": "pietrykowski-2026-revisiting-capitalist-and-socialist-efficiency-applications-and-extensions",
+      "report_path": "article_theory_workspace/academic_outputs/pietrykowski-2026-revisiting-capitalist-and-socialist-efficiency-applications-and-extensions/report.md",
+      "verdict": "marginal",
+      "confidence": 1.0,
+      "recommended_use": "use_as_minor_update"
+    },
+    {
+      "article_path": "article_theory_workspace/articles/s00146-026-02990-2.pdf",
+      "article_slug": "s00146-026-02990-2",
+      "report_path": "article_theory_workspace/academic_outputs/s00146-026-02990-2/report.md",
+      "verdict": "contextual",
+      "confidence": 1.0,
+      "recommended_use": "mention_in_passing"
+    }
+  ]
+}
