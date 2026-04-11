@@ -179,6 +179,28 @@ CREATE TABLE IF NOT EXISTS theory_implication_claim (
 CREATE INDEX IF NOT EXISTS idx_tic_doc ON theory_implication_claim(document_id);
 CREATE INDEX IF NOT EXISTS idx_tic_claim ON theory_implication_claim(claim_id);
 
+-- Corpus-level claim revision briefs
+CREATE TABLE IF NOT EXISTS claim_brief (
+    id              INTEGER PRIMARY KEY,
+    claim_id        TEXT NOT NULL UNIQUE,
+    claim_text      TEXT NOT NULL,
+    evidence_status TEXT,
+    overall_assessment TEXT,
+    summary         TEXT,
+    confirmation_points TEXT,           -- JSON array
+    qualification_points TEXT,          -- JSON array
+    extension_points TEXT,              -- JSON array
+    pressure_points TEXT,               -- JSON array
+    proposed_claim_revision TEXT,
+    proposed_subclaims TEXT,            -- JSON array
+    open_questions TEXT,                -- JSON array
+    priority        TEXT,
+    documents_most_material TEXT,       -- JSON array
+    confidence      REAL,
+    raw_path        TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_cb_priority ON claim_brief(priority);
+
 -- Claim links from arguments
 CREATE TABLE IF NOT EXISTS argument_claim_link (
     id          INTEGER PRIMARY KEY,

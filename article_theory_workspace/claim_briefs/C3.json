@@ -1,0 +1,51 @@
+{
+  "claim_id": "C3",
+  "claim_text": "The state's constitutive role in building and sustaining tech dominance is systematically erased by the techno-feudalist framework; relatedly, 'user-ism' (fixation on data extraction as the principal profit driver) misidentifies the locus of value creation in the digital economy.",
+  "evidence_status": "substantial",
+  "overall_assessment": "confirm_but_specify",
+  "summary": "The corpus overwhelmingly confirms the state's constitutive role in shaping the tech sector, with 16 documents providing mutually reinforcing evidence. However, the evidence is geographically concentrated on US-China geopolitical competition (export controls, sanctions, rare earth restrictions, industrial plans) rather than the domestic US state–Silicon Valley nexus (defense procurement origins, surveillance infrastructure, antitrust forbearance). The 'user-ism' component of C3 receives thinner but confirmatory evidence from two academic papers showing platform profitability rests on logistics infrastructure and labor-process dynamics rather than data extraction. No documents in the corpus provide challenge evidence (e.g., tech firms overriding state interests, genuine sovereignty transfer to platforms). The claim is stable but should be specified to distinguish its geopolitical and domestic mechanisms, and the two sub-arguments (state erasure, user-ism) deserve explicit separation.",
+  "confirmation_points": [
+    "US export controls on advanced chips directly catalyzed China's domestic AI chip industry, demonstrating state power as a primary structural force (multiple SCMP articles)",
+    "Chinese state industrial policy (Five-Year Plans, national computing networks, rare earth controls, unreliable entity lists) constitutes tech firms' competitive environment, not the reverse",
+    "Palantir's 53% government sales surge during DOGE-era austerity illustrates selective state resource allocation to strategic tech partners",
+    "Anthropic's adoption of 'adversary AI' framing mirrors Trump administration rhetoric, showing firm-state alignment rather than 'parcelized sovereignty'",
+    "US Commerce Department/NIST benchmarking reports on DeepSeek function as geopolitical tools to delegitimize foreign competitors",
+    "Amazon's profitability traced to logistics infrastructure investment and circulation-cost reduction, not behavioral data extraction (Maher & Aquanno 2026)",
+    "Platform labor analyzed as algorithmically supervised piecework rather than 'user data generation' (Pietrykowski 2026)"
+  ],
+  "qualification_points": [
+    "Evidence is heavily weighted toward the geopolitical dimension (US-China tech war) rather than the domestic state–Silicon Valley symbiosis (DARPA origins, NSA partnerships, antitrust forbearance, Section 230)",
+    "Most state-constitutive evidence comes from the Chinese state context; the US state's domestic role is attested primarily through Palantir procurement and visa/immigration policy, leaving the Silicon Valley–Pentagon nexus empirically underspecified in this corpus",
+    "The AI-bubble article (SCMP opinion) introduces a partly independent financial-dynamics mechanism (Fed liquidity, circular investment) that complicates a purely state-strategic account of tech valuations"
+  ],
+  "extension_points": [
+    "The corpus suggests the state's constitutive role is most empirically visible at moments of geopolitical contestation (sanctions, export controls, trade bloc diplomacy) — the claim could be extended to note that peacetime domestic subsidy is harder to observe but no less structurally important",
+    "Rare earth and critical mineral controls introduce a material-input dimension: state power over physical supply chains (not just digital regulation) shapes tech competition",
+    "The talent dimension (H-1B visa fees, researcher departures from Anthropic/OpenAI) suggests a human-capital mechanism of state control distinct from fiscal or regulatory mechanisms"
+  ],
+  "pressure_points": [
+    "No documents provide direct challenge evidence (tech firms overriding state policy, platform currencies displacing sovereign currency, etc.), which may indicate a selection bias in the corpus rather than the absence of such phenomena globally"
+  ],
+  "proposed_claim_revision": "The state's constitutive role in tech dominance — through geopolitical strategy, export controls, procurement, industrial policy, and control of physical supply chains — is systematically erased by the techno-feudalist framework's assumption that sovereignty has been 'parcelized' among platform lords. Separately, 'user-ism' (the fixation on data extraction as the primary profit driver) misidentifies the locus of value creation, which rests on infrastructure investment, logistics, and labor-process organization rather than behavioral-surplus harvesting.",
+  "proposed_subclaims": [
+    "C3a: Geopolitical competition (sanctions, export controls, trade diplomacy, critical-mineral restrictions) is a primary structural force shaping the tech sector, not a secondary constraint on autonomous platform power.",
+    "C3b: Domestic state mechanisms (defense procurement, subsidies, regulatory forbearance, immigration policy) directly underwrite Silicon Valley firm dominance, though these are less visible than geopolitical mechanisms.",
+    "C3c: 'User-ism' — the analytical fixation on data extraction as the principal profit driver — misidentifies value creation, which rests on infrastructure investment, logistics networks, and labor-process organization."
+  ],
+  "open_questions": [
+    "Is the domestic US state–Silicon Valley nexus (DARPA funding, NSA data sharing, antitrust forbearance under Obama/Trump) as empirically well-attested in current reporting as the geopolitical dimension?",
+    "Does the financial-bubble mechanism (Fed liquidity sustaining AI valuations) represent a partially autonomous dynamic that complicates the state-constitutive thesis, or does it ultimately depend on state monetary policy?",
+    "Are there empirical cases where major tech firms have successfully overridden clear state policy preferences, which would qualify the claim's strongest version?",
+    "Can the 'user-ism' critique be tested quantitatively — e.g., what share of Google's or Meta's revenue is attributable to behavioral-data-derived ad targeting vs. indexing/infrastructure services?"
+  ],
+  "priority": "medium",
+  "documents_most_material": [
+    "scmp-com-palantir-books-its-first-us1-billion-in-quarterly-sales-and-dodges-doge-axe",
+    "scmp-com-anthropics-anti-china-stance-triggers-exit-of-star-ai-researcher",
+    "scmp-com-opinion-why-china-said-no-to-stripped-down-nvidia-chips",
+    "scmp-com-chinas-latest-rare-earth-export-controls-add-new-twist-in-us-chip-war-observer-says",
+    "maher-aquanno-2026-monopoly-or-competition-unraveling-the-amazon-paradox",
+    "scmp-com-tech-war-chinese-ai-models-deemed-a-security-risk-by-new-us-government-report"
+  ],
+  "confidence": 0.78
+}

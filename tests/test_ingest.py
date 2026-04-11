@@ -143,3 +143,12 @@ def test_ingest_theory_implications_exist(db):
     assert amazon is not None
     assert amazon["has_theory_implications"] == 1
     assert amazon["implication_overall"] in {"confirms", "qualifies", "extends", "pressures", "mixed"}
+
+
+def test_ingest_claim_briefs_exist(db):
+    count = db.execute("SELECT COUNT(*) FROM claim_brief").fetchone()[0]
+    assert count >= 5
+
+    c1 = db.execute("SELECT * FROM claim_brief WHERE claim_id = 'C1'").fetchone()
+    assert c1 is not None
+    assert c1["summary"] is not None

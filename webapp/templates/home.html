@@ -20,6 +20,10 @@
         <div class="stat-value">{{ stats.with_implications }}</div>
         <div class="stat-label">With implications</div>
     </div>
+    <div class="stat">
+        <div class="stat-value">{{ stats.claim_briefs }}</div>
+        <div class="stat-label">Claim briefs</div>
+    </div>
 </div>
 
 <div class="grid-3">
@@ -60,6 +64,7 @@
             <li><a href="/corpus">Full corpus</a> — browse all {{ stats.total }} documents</li>
             <li><a href="/claims">Claim explorer</a> — evidence by claim</li>
             <li><a href="/implications">Implications</a> — revisions, extensions, pressure by claim</li>
+            <li><a href="/theory-revision">Revision briefs</a> — one corpus-level synthesis per claim</li>
             <li><a href="/review">Review queue</a> — items needing attention</li>
         </ul>
     </div>
@@ -69,6 +74,7 @@
             <li><a href="/review?tab=challenged">{{ stats.with_arguments_against }} documents</a> with arguments against the theory</li>
             <li><a href="/review?tab=reconciled">{{ stats.with_reconcile }} documents</a> that went through reconciliation</li>
             <li><a href="/review?tab=revision_priority">{{ stats.high_revision_priority }} documents</a> with medium/high revision priority</li>
+            <li><a href="/theory-revision">{{ stats.high_priority_claim_briefs }} claim briefs</a> at high revision priority</li>
             <li><a href="/corpus?verdict=relevant">Relevant documents</a> with strongest evidence</li>
         </ul>
     </div>

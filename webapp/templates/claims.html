@@ -13,6 +13,8 @@
         <span class="badge badge-for">{{ claim.support_count }} supporting</span>
         <span class="badge badge-against">{{ claim.challenge_count }} challenging</span>
         <span style="font-size:12px;color:var(--muted);">{{ claim.assessed_count }} assessed with engagement</span>
+        {% if claim.brief_assessment %}<span class="badge badge-moderate">{{ claim.brief_assessment }}</span>{% endif %}
+        {% if claim.brief_priority %}<span style="font-size:12px;color:var(--muted);">priority {{ claim.brief_priority }}</span>{% endif %}
     </div>
 </div>
 {% endfor %}

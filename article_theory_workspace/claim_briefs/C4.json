@@ -1,0 +1,19 @@
+{
+  "claim_id": "C4",
+  "claim_text": "Frameworks like Zuboff's 'surveillance capitalism' and Italian 'cognitive capitalism' commit the error of 'user-ism' or 'workerism'—they fixate on data extraction from users/workers while ignoring the actual commodity-production processes (e.g., Google's indexing) that generate the bulk of tech profits.",
+  "evidence_status": "none",
+  "overall_assessment": "unclear",
+  "summary": "No document-level implication artifacts currently bear on this claim, so there is no corpus-level revision brief yet.",
+  "confirmation_points": [],
+  "qualification_points": [],
+  "extension_points": [],
+  "pressure_points": [],
+  "proposed_claim_revision": "",
+  "proposed_subclaims": [],
+  "open_questions": [
+    "What evidence would be needed to test this claim directly?"
+  ],
+  "priority": "low",
+  "documents_most_material": [],
+  "confidence": 1.0
+}

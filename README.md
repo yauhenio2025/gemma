@@ -31,6 +31,12 @@ Run the academic-paper profile:
 ./article_theory_workspace/run_academic.sh
 ```
 
+Build corpus-level claim revision briefs from the existing `05_theory_implications.json` artifacts:
+
+```bash
+./article_theory_workspace/run_claim_briefs.sh --provider anthropic --overwrite
+```
+
 Preprocess the theory only with Anthropic Claude Opus 4.6 and adaptive max-effort thinking:
 
 ```bash
@@ -101,6 +107,7 @@ uv run python -m webapp.app
 | Claims | `/claims` | Claim explorer with support/challenge counts |
 | Claim detail | `/claim/{id}` | All linked documents grouped by support/challenge/context |
 | Implications | `/implications` | Evidence accumulation plus revision/extension pressure by claim |
+| Revision briefs | `/theory-revision` | One corpus-level synthesis brief per claim |
 | Review | `/review` | Low-confidence, reconciled, challenged, and revision-priority items |
 
 ### Re-ingest after new analysis runs
@@ -119,6 +126,12 @@ If you run the new `implications` stage, re-ingest again so the browser picks up
 - claim-level revision pressure
 - proposed theory revisions
 - new subclaims and open questions
+
+If you run `gemma-claim-revision-briefs`, re-ingest again so the browser picks up:
+
+- corpus-level claim assessments
+- proposed claim revisions
+- claim-level priorities
 
 ## Test
 

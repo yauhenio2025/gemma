@@ -1,0 +1,35 @@
+{
+  "claim_id": "C6",
+  "claim_text": "Capitalism is 'infinitely adaptable' (Braudel) and has always leveraged both economic and extra-economic means; IP rights and intangible assets do not transform capitalist firms into feudal lords. The rent-vs-profit distinction is being misapplied: Marx's own framework treats automated/IP-heavy firms as absorbing surplus value as profit, not rent.",
+  "evidence_status": "thin",
+  "overall_assessment": "extend",
+  "summary": "The small corpus directionally confirms both the journalistic and academic profiles of C6 without generating revision pressure. Two geopolitical articles provide minor illustration that contemporary high-tech competition still relies on classical capitalist patterns (resource extraction, state coercion, geopolitical rivalry). The one substantive academic contribution—Maher & Aquanno on Amazon—does not merely confirm the claim but extends it by introducing the Marxian category of 'commercial profit' as a sharper instrument than the generic rent-vs-profit binary for classifying platform fees. It also supplies the empirical finding that intangible advantages require constant, costly renewal and that ROIC converges toward economy averages, both of which undermine the stable-rentier characterization central to techno-feudalism arguments.",
+  "confirmation_points": [
+    "China's trade-bloc and chip-sovereignty moves show the AI/EV economy remains embedded in traditional capitalist dynamics of resource extraction, geopolitical competition, and state coercion—illustrating capitalism's ongoing adaptability rather than a rupture into feudalism.",
+    "Amazon's behavior (low prices, massive capital expenditure, competitive ROIC) is consistent with classical Marxian competition, not monopolistic stagnation or feudal extraction.",
+    "AWS, which generates 68% of Amazon's operating profit, faces intensifying competition from Microsoft and Google, indicating competitive erosion rather than stable rent."
+  ],
+  "qualification_points": [],
+  "extension_points": [
+    "The Marxian category of 'commercial profit'—normal return for performing circulation functions—provides a more precise classification for platform fees (e.g., Amazon 3P seller commissions) than the binary rent-vs-profit frame used by both sides of the techno-feudalism debate.",
+    "Intangible assets (data moats, platform network effects) do not create stable monopoly but require constant expensive renewal, making them analytically closer to depreciating fixed capital than to land-like rent-yielding assets.",
+    "Amazon's Cash Conversion Cycle has trended toward the mean of competitors, suggesting competitive normalization rather than durable extraction—an empirical datapoint the theory map could incorporate."
+  ],
+  "pressure_points": [],
+  "proposed_claim_revision": "Capitalism is 'infinitely adaptable' (Braudel) and has always leveraged both economic and extra-economic means; IP rights and intangible assets do not transform capitalist firms into feudal lords. The rent-vs-profit distinction is being misapplied: Marx's framework treats automated/IP-heavy firms as absorbing surplus value as profit, not rent. Moreover, the Marxian category of commercial profit—return for performing circulation functions—provides a sharper classification for platform fees than the rent-profit binary, especially where intangible advantages require continuous reinvestment and returns converge toward competitive norms.",
+  "proposed_subclaims": [
+    "C6a: Platform fees (e.g., Amazon 3P commissions) are better classified as commercial profit—normal return for circulation services—than as feudal rents, given that they require continuous capital expenditure and yield converging ROIC.",
+    "C6b: Intangible assets in the digital economy depreciate and require costly renewal, making them analytically closer to fixed capital than to land-like rent-yielding assets.",
+    "C6c: Extra-economic coercion (sanctions, export controls, state procurement mandates) remains integral to contemporary capitalist competition, illustrating continuity rather than rupture."
+  ],
+  "open_questions": [
+    "Does the commercial-profit framework hold equally well for platform firms whose fee structures differ from Amazon's (e.g., Apple's App Store, Google's ad auction)?",
+    "At what point does the capital expenditure required to maintain intangible advantages become so large that it functions as a barrier to entry indistinguishable in practice from rent-yielding monopoly?",
+    "Does the convergence of ROIC hold across the full FAANG cohort, or is Amazon an outlier among platforms?"
+  ],
+  "priority": "medium",
+  "documents_most_material": [
+    "maher-aquanno-2026-monopoly-or-competition-unraveling-the-amazon-paradox"
+  ],
+  "confidence": 0.55
+}

@@ -100,6 +100,7 @@ def test_claim_detail(client):
     assert resp.status_code == 200
     assert "C3" in resp.text
     assert "Supporting Documents" in resp.text
+    assert "Corpus Revision Brief" in resp.text
 
 
 def test_claim_not_found(client):
@@ -112,6 +113,13 @@ def test_implications(client):
     assert resp.status_code == 200
     assert "Implications" in resp.text
     assert "Evidence Accumulation" in resp.text
+
+
+def test_theory_revision(client):
+    resp = client.get("/theory-revision")
+    assert resp.status_code == 200
+    assert "Theory Revision Briefs" in resp.text
+    assert "C1" in resp.text
 
 
 def test_review(client):

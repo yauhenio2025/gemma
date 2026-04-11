@@ -62,6 +62,12 @@ async def home(request: Request):
         "high_revision_priority": db.execute(
             "SELECT COUNT(*) FROM document WHERE implication_revision_priority = 'high'"
         ).fetchone()[0],
+        "claim_briefs": db.execute(
+            "SELECT COUNT(*) FROM claim_brief"
+        ).fetchone()[0],
+        "high_priority_claim_briefs": db.execute(
+            "SELECT COUNT(*) FROM claim_brief WHERE priority = 'high'"
+        ).fetchone()[0],
     }
     db.close()
     return _render(request, "home.html", {"stats": stats})
@@ -243,7 +249,17 @@ async def document_detail(request: Request, slug: str):
 @app.get("/claims", response_class=HTMLResponse)
 async def claims_list(request: Request):
     db = _db()
-    claims = rows_to_dicts(db.execute("SELECT * FROM claim ORDER BY claim_id").fetchall())
+    claims = rows_to_dicts(db.execute(
+        """SELECT
+            claim_id,
+            MIN(claim_text) AS claim_text,
+            MIN(why_it_matters) AS why_it_matters,
+            MIN(support_requirements) AS support_requirements,
+            MIN(challenge_requirements) AS challenge_requirements
+        FROM claim
+        GROUP BY claim_id
+        ORDER BY claim_id"""
+    ).fetchall())
 
     for c in claims:
         # Count documents linked through arguments
@@ -262,6 +278,12 @@ async def claims_list(request: Request):
             "SELECT COUNT(DISTINCT document_id) FROM claim_assessment "
             "WHERE claim_id = ? AND engagement_type != 'none'", (c["claim_id"],)
         ).fetchone()[0]
+        brief = row_to_dict(db.execute(
+            "SELECT overall_assessment, priority FROM claim_brief WHERE claim_id = ?",
+            (c["claim_id"],),
+        ).fetchone())
+        c["brief_assessment"] = brief["overall_assessment"] if brief else None
+        c["brief_priority"] = brief["priority"] if brief else None
 
     db.close()
     return _render(request, "claims.html", {"claims": claims})
@@ -270,10 +292,25 @@ async def claims_list(request: Request):
 @app.get("/claim/{claim_id}", response_class=HTMLResponse)
 async def claim_detail(request: Request, claim_id: str):
     db = _db()
-    claim = row_to_dict(db.execute("SELECT * FROM claim WHERE claim_id = ?", (claim_id,)).fetchone())
+    claim = row_to_dict(db.execute(
+        """SELECT
+            claim_id,
+            MIN(claim_text) AS claim_text,
+            MIN(why_it_matters) AS why_it_matters,
+            MIN(support_requirements) AS support_requirements,
+            MIN(challenge_requirements) AS challenge_requirements
+        FROM claim
+        WHERE claim_id = ?
+        GROUP BY claim_id""",
+        (claim_id,),
+    ).fetchone())
     if not claim:
         db.close()
         return HTMLResponse("<h1>Claim not found</h1>", status_code=404)
+    claim_brief = row_to_dict(db.execute(
+        "SELECT * FROM claim_brief WHERE claim_id = ?",
+        (claim_id,),
+    ).fetchone())
 
     # Documents with arguments for this claim
     support_docs = rows_to_dicts(db.execute(
@@ -330,6 +367,7 @@ async def claim_detail(request: Request, claim_id: str):
     db.close()
     return _render(request, "claim_detail.html", {
         "claim": claim,
+        "claim_brief": claim_brief,
         "support_docs": support_docs,
         "challenge_docs": challenge_docs,
         "context_docs": context_docs,
@@ -342,7 +380,20 @@ async def claim_detail(request: Request, claim_id: str):
 @app.get("/implications", response_class=HTMLResponse)
 async def implications_page(request: Request):
     db = _db()
-    claims = rows_to_dicts(db.execute("SELECT * FROM claim ORDER BY claim_id").fetchall())
+    claims = rows_to_dicts(db.execute(
+        """SELECT
+            c.claim_id,
+            MIN(c.claim_text) AS claim_text,
+            MIN(c.why_it_matters) AS why_it_matters,
+            cb.overall_assessment,
+            cb.priority,
+            cb.summary,
+            cb.proposed_claim_revision
+        FROM claim c
+        LEFT JOIN claim_brief cb ON cb.claim_id = c.claim_id
+        GROUP BY c.claim_id
+        ORDER BY c.claim_id"""
+    ).fetchall())
 
     for c in claims:
         cid = c["claim_id"]
@@ -383,6 +434,18 @@ async def implications_page(request: Request):
 
     db.close()
     return _render(request, "implications.html", {"claims": claims})
+
+
+@app.get("/theory-revision", response_class=HTMLResponse)
+async def theory_revision_page(request: Request):
+    db = _db()
+    briefs = rows_to_dicts(db.execute(
+        """SELECT * FROM claim_brief
+        ORDER BY CASE priority WHEN 'high' THEN 0 WHEN 'medium' THEN 1 WHEN 'low' THEN 2 ELSE 3 END,
+                 claim_id"""
+    ).fetchall())
+    db.close()
+    return _render(request, "claim_briefs.html", {"briefs": briefs})
 
 
 # ── Review Queue ──────────────────────────────────────────────────────────

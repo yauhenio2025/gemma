@@ -29,6 +29,12 @@ Run the academic profile wrapper:
 ./run_academic.sh
 ```
 
+Run the corpus-level claim brief wrapper:
+
+```bash
+./run_claim_briefs.sh --provider anthropic --overwrite
+```
+
 Run the theory preprocessing stage only:
 
 ```bash
@@ -82,6 +88,7 @@ What the pipeline does:
 6. Produce a final judgment.
 7. Run extra reconcile passes when the earlier passes disagree or confidence stays low.
 8. Optionally run a theory-implications pass on relevant/marginal items to extract confirmations, qualifications, extensions, revision pressure, and follow-up questions.
+9. Optionally synthesize all `05_theory_implications.json` artifacts into one corpus-level claim brief per theory claim.
 
 The academic profile differs in two ways:
 

@@ -19,6 +19,7 @@ dependencies = [
 
 [project.scripts]
 gemma-article-theory-analysis = "gemma.article_theory_analysis:main"
+gemma-claim-revision-briefs = "gemma.claim_revision_briefs:main"
 
 [project.optional-dependencies]
 dev = [

@@ -1,0 +1,30 @@
+{
+  "claim_id": "C2",
+  "claim_text": "The 'rent vs. profit' distinction is systematically misapplied to the digital economy: revenues from automated or data-intensive firms can be capitalist profits (surplus value absorbed from elsewhere in the economy), not necessarily rents from monopoly control.",
+  "evidence_status": "thin",
+  "overall_assessment": "stable",
+  "summary": "Only two marginally relevant documents bear on this claim, both drawn from Chinese AI competition coverage. They provide mild illustrative support for the profit-side of the argument—aggressive cost-cutting, open-source model releases, and cross-firm rivalry are consistent with competitive capitalist profit-seeking rather than passive rent extraction. One document introduces a minor complication: open-source leadership can translate into platform lock-in, suggesting the boundary between competitive strategy and future rent-extraction may be blurred in practice. No document addresses the academic profile's deeper claim about the Brenner–Wallerstein debate or the theoretical genealogy of the techno-feudalism thesis. The corpus is far too thin to confirm, revise, or pressure the claim in any substantive way.",
+  "confirmation_points": [
+    "DeepSeek's 50%+ reduction in API costs exemplifies competitive cost-reduction behavior characteristic of capitalist profit-seeking, not feudal-style fixed rent extraction.",
+    "Multiple Chinese AI firms (Ant Group, Alibaba, DeepSeek, Moonshot AI) are engaged in intense rivalry over model scale and efficiency, consistent with surplus-value competition rather than monopoly stasis."
+  ],
+  "qualification_points": [
+    "Open-source model dominance can translate into 'platform lock-in' via technical-standard adoption (e.g., 80% of one VC firm's portfolio using Chinese foundation models), suggesting that competitive innovation and future rent-extraction may not be cleanly separable phases."
+  ],
+  "extension_points": [
+    "The Chinese AI ecosystem offers a geographically distinct test case for C2: state-backed firms competing via open-source strategies under sanctions pressure may exhibit hybrid profit/rent dynamics that neither pure 'profit' nor pure 'rent' framing captures well."
+  ],
+  "pressure_points": [],
+  "proposed_claim_revision": "No revision warranted. The existing claim text remains adequate given the thinness of the evidence. If further evidence accumulates on platform lock-in via open-source standard-setting, a subclaim could be added.",
+  "proposed_subclaims": [],
+  "open_questions": [
+    "Does open-source model proliferation that creates de facto technical standards constitute a competitive profit strategy or a pathway to future rent extraction—and can the theory cleanly distinguish these?",
+    "How should the rent/profit framework handle state-subsidized AI competition (e.g., under sanctions), where cost advantages may derive partly from political rather than market mechanisms?",
+    "No evidence in the corpus touches the academic profile's Brenner–Wallerstein genealogy; this remains entirely untested."
+  ],
+  "priority": "low",
+  "documents_most_material": [
+    "scmp-com-mapping-shifts-in-the-geography-of-tech-innovation-china-becomes-a-big-player-in-ai-research"
+  ],
+  "confidence": 0.3
+}

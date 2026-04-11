@@ -1,0 +1,29 @@
+{
+  "claim_id": "C5",
+  "claim_text": "The unresolved Brenner–Wallerstein debate—whether capitalism is driven solely by exploitation via competitive market dynamics, or also constitutively involves extra-economic expropriation—creates the analytical opening through which the techno-feudalism thesis enters. An expanded conception of capitalism integrating expropriation as constitutive would dissolve the need for feudal analogies.",
+  "evidence_status": "thin",
+  "overall_assessment": "stable",
+  "summary": "Three marginal documents provide indirect, illustrative confirmation that expropriation (resource monopolies, critical mineral extraction from the Global South) and productive investment coexist as structural features within the same capitalist system. All three center on China's strategic use of rare earth and critical mineral dominance in the context of AI and semiconductor competition. While consistent with the claim's logic, the evidence is narrow in domain (resource geopolitics), entirely confirmatory, and does not engage the underlying theoretical debate (Brenner vs. Wallerstein/Fraser) or address any of the specified challenge requirements. No revision pressure is generated.",
+  "confirmation_points": [
+    "China's rare earth monopoly (~70% mined output, 80%+ refined) used as a lever of geopolitical power illustrates expropriation as a live mechanism within contemporary capitalist accumulation, not a relic or anomaly.",
+    "The direct link between 'new economy' industries (AI, EVs) and extraction of lithium, copper, and gold from Global South countries (Bolivia, Peru, Colombia) confirms that core-periphery expropriation coexists structurally with frontier technological investment.",
+    "Strategic resource controls serving simultaneously as trade policy, industrial policy, and geopolitical leverage demonstrate the entanglement of extra-economic coercion with market competition, consistent with the expanded capitalism framework."
+  ],
+  "qualification_points": [],
+  "extension_points": [
+    "The rare earth and critical mineral cases could be developed as a concrete domain where the expropriation-exploitation entanglement is especially visible, bridging the abstract theoretical debate with contemporary industrial evidence."
+  ],
+  "pressure_points": [],
+  "proposed_claim_revision": "No revision warranted. The claim remains well-formulated; the evidence provides minor concrete grounding but does not materially alter its scope or logic.",
+  "proposed_subclaims": [],
+  "open_questions": [
+    "Does the digital economy introduce extraction logics (data expropriation, behavioral surplus, platform lock-in) that are genuinely novel relative to resource expropriation, or are they structurally analogous?",
+    "Does expanding 'capitalism' to include all forms of expropriation risk losing analytical specificity—the challenge requirement remains entirely unaddressed by this corpus.",
+    "Is the profit-investment decoupling that motivates the techno-feudalism thesis a real structural break or a statistical artifact of globalized supply chains? No evidence in this corpus speaks to this."
+  ],
+  "priority": "low",
+  "documents_most_material": [
+    "scmp-com-china-joins-south-american-trade-bloc-boosting-its-ai-and-ev-industries-analysts"
+  ],
+  "confidence": 0.45
+}

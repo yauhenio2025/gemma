@@ -1,0 +1,65 @@
+{
+  "claim_count": 6,
+  "claims": [
+    {
+      "claim_id": "C1",
+      "claim_text": "Tech giants (Google, Amazon, etc.) are capitalist producers engaged in massive investment and production, not parasitic feudal rentiers who 'need not lift a finger.'",
+      "overall_assessment": "confirm_but_specify",
+      "priority": "medium",
+      "evidence_status": "substantial",
+      "confidence": 0.78,
+      "document_count": 15,
+      "path": "article_theory_workspace/claim_briefs/C1.json"
+    },
+    {
+      "claim_id": "C2",
+      "claim_text": "The 'rent vs. profit' distinction is systematically misapplied to the digital economy: revenues from automated or data-intensive firms can be capitalist profits (surplus value absorbed from elsewhere in the economy), not necessarily rents from monopoly control.",
+      "overall_assessment": "stable",
+      "priority": "low",
+      "evidence_status": "thin",
+      "confidence": 0.3,
+      "document_count": 2,
+      "path": "article_theory_workspace/claim_briefs/C2.json"
+    },
+    {
+      "claim_id": "C3",
+      "claim_text": "The state's constitutive role in building and sustaining tech dominance is systematically erased by the techno-feudalist framework; relatedly, 'user-ism' (fixation on data extraction as the principal profit driver) misidentifies the locus of value creation in the digital economy.",
+      "overall_assessment": "confirm_but_specify",
+      "priority": "medium",
+      "evidence_status": "substantial",
+      "confidence": 0.78,
+      "document_count": 18,
+      "path": "article_theory_workspace/claim_briefs/C3.json"
+    },
+    {
+      "claim_id": "C4",
+      "claim_text": "Frameworks like Zuboff's 'surveillance capitalism' and Italian 'cognitive capitalism' commit the error of 'user-ism' or 'workerism'—they fixate on data extraction from users/workers while ignoring the actual commodity-production processes (e.g., Google's indexing) that generate the bulk of tech profits.",
+      "overall_assessment": "unclear",
+      "priority": "low",
+      "evidence_status": "none",
+      "confidence": 1.0,
+      "document_count": 0,
+      "path": "article_theory_workspace/claim_briefs/C4.json"
+    },
+    {
+      "claim_id": "C5",
+      "claim_text": "The unresolved Brenner–Wallerstein debate—whether capitalism is driven solely by exploitation via competitive market dynamics, or also constitutively involves extra-economic expropriation—creates the analytical opening through which the techno-feudalism thesis enters. An expanded conception of capitalism integrating expropriation as constitutive would dissolve the need for feudal analogies.",
+      "overall_assessment": "stable",
+      "priority": "low",
+      "evidence_status": "thin",
+      "confidence": 0.45,
+      "document_count": 3,
+      "path": "article_theory_workspace/claim_briefs/C5.json"
+    },
+    {
+      "claim_id": "C6",
+      "claim_text": "Capitalism is 'infinitely adaptable' (Braudel) and has always leveraged both economic and extra-economic means; IP rights and intangible assets do not transform capitalist firms into feudal lords. The rent-vs-profit distinction is being misapplied: Marx's own framework treats automated/IP-heavy firms as absorbing surplus value as profit, not rent.",
+      "overall_assessment": "extend",
+      "priority": "medium",
+      "evidence_status": "thin",
+      "confidence": 0.55,
+      "document_count": 3,
+      "path": "article_theory_workspace/claim_briefs/C6.json"
+    }
+  ]
+}

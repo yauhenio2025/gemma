@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Theory Revision Briefs{% endblock %}
+{% block content %}
+<h1>Theory Revision Briefs</h1>
+<p style="color:var(--muted);margin-bottom:16px;">Corpus-level synthesis by claim, built from the document-level 05 implication artifacts.</p>
+
+{% for brief in briefs %}
+<div class="card claim-card" style="margin-bottom:16px;">
+    <div style="display:flex;gap:12px;align-items:baseline;">
+        <span class="claim-id"><a href="/claim/{{ brief.claim_id }}">{{ brief.claim_id }}</a></span>
+        <span style="font-weight:600;">{{ brief.claim_text }}</span>
+    </div>
+    <div class="meta-row" style="margin:8px 0;">
+        <span class="badge badge-moderate">{{ brief.overall_assessment or 'unclear' }}</span>
+        <span style="font-size:12px;color:var(--muted);">priority {{ brief.priority or 'n/a' }}</span>
+        <span style="font-size:12px;color:var(--muted);">evidence {{ brief.evidence_status or 'n/a' }}</span>
+        <span style="font-size:12px;color:var(--muted);">confidence {{ '%.2f' | format(brief.confidence) if brief.confidence is not none else '—' }}</span>
+    </div>
+    {% if brief.summary %}<p style="line-height:1.7;">{{ brief.summary }}</p>{% endif %}
+    {% if brief.proposed_claim_revision %}
+    <div style="font-size:12px;color:var(--muted);margin-top:8px;">Proposed claim revision</div>
+    <p>{{ brief.proposed_claim_revision }}</p>
+    {% endif %}
+</div>
+{% endfor %}
+{% if not briefs %}
+<p style="color:var(--muted);">No claim briefs ingested yet.</p>
+{% endif %}
+{% endblock %}

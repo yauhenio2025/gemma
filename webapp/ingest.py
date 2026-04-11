@@ -115,6 +115,49 @@ def ingest_theory(conn: sqlite3.Connection, profile: str, output_dir: Path) -> i
     return theory_id
 
 
+def ingest_claim_briefs(conn: sqlite3.Connection) -> int:
+    brief_dir = WORKSPACE / "claim_briefs"
+    if not brief_dir.exists():
+        log.info("No claim_briefs directory found at %s", brief_dir)
+        return 0
+
+    conn.execute("DELETE FROM claim_brief")
+    count = 0
+    for path in sorted(brief_dir.glob("C*.json")):
+        payload = _json(path)
+        if not payload:
+            continue
+        conn.execute(
+            """INSERT INTO claim_brief (
+                claim_id, claim_text, evidence_status, overall_assessment, summary,
+                confirmation_points, qualification_points, extension_points, pressure_points,
+                proposed_claim_revision, proposed_subclaims, open_questions,
+                priority, documents_most_material, confidence, raw_path
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+            (
+                payload.get("claim_id"),
+                payload.get("claim_text"),
+                payload.get("evidence_status"),
+                payload.get("overall_assessment"),
+                payload.get("summary"),
+                _j(payload.get("confirmation_points")),
+                _j(payload.get("qualification_points")),
+                _j(payload.get("extension_points")),
+                _j(payload.get("pressure_points")),
+                payload.get("proposed_claim_revision"),
+                _j(payload.get("proposed_subclaims")),
+                _j(payload.get("open_questions")),
+                payload.get("priority"),
+                _j(payload.get("documents_most_material")),
+                payload.get("confidence"),
+                str(path),
+            ),
+        )
+        count += 1
+    log.info("Ingested %d claim briefs", count)
+    return count
+
+
 def ingest_document(conn: sqlite3.Connection, profile: str, slug: str,
                     doc_dir: Path, index_entry: dict, model: str) -> int:
     # Read all steps
@@ -358,6 +401,8 @@ def run_ingest(db_path: Path | None = None):
             doc_id = ingest_document(conn, profile, slug, doc_dir, entry, model)
             log.info("Ingested %s (id=%d, profile=%s)", slug, doc_id, profile)
             total += 1
+
+    ingest_claim_briefs(conn)
 
     conn.commit()
     conn.close()

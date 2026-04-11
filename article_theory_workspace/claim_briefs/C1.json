@@ -1,0 +1,46 @@
+{
+  "claim_id": "C1",
+  "claim_text": "Tech giants (Google, Amazon, etc.) are capitalist producers engaged in massive investment and production, not parasitic feudal rentiers who 'need not lift a finger.'",
+  "evidence_status": "substantial",
+  "overall_assessment": "confirm_but_specify",
+  "summary": "The corpus overwhelmingly confirms that tech firms are engaged in massive, sustained, risk-bearing productive investment—in physical infrastructure (data centers, logistics networks, chip fabrication), R&D (AI models, custom ASICs, lithography), and labor process organization. One substantive academic paper (Maher & Aquanno) goes further by specifying the mechanism through which Amazon's dominance arises: compression of circulation time via logistics infrastructure, with financial returns (ROIC, margins) converging toward economy-wide averages rather than exhibiting persistent super-profits. A single article raises a meaningful qualification: that large-scale capex can be 'circular' or financialized (firms investing in customers to sustain their own order books), meaning capex volume alone is not a sufficient proxy for genuine productive capacity expansion. The claim is stable but would benefit from specifying the productive mechanism and acknowledging the financialization caveat.",
+  "confirmation_points": [
+    "Multiple Chinese tech firms (Huawei, Alibaba, Ant Group, DeepSeek, Cambricon, Biren) are documented investing heavily in custom AI chips, computing clusters (500K–1M+ NPUs), and trillion-parameter models—capital-intensive, risk-bearing activities incompatible with passive rentierism.",
+    "Amazon's R&D spending surpasses many aerospace and high-tech firms; its prices are 4–16% below Walmart's; its ROIC and operating margins converge with the average of leading US firms, contradicting the persistent-rent hypothesis (Maher & Aquanno).",
+    "China's national R&D investment surged 48% since 2020; computing capacity expanding ~30% annually—illustrating that AI dominance requires sustained physical capital expenditure.",
+    "Platforms like Amazon Mechanical Turk and food delivery apps actively organize labor processes via algorithmic supervision—hallmarks of capitalist production, not rentier passivity (Pietrykowski).",
+    "SMIC's 7nm fabrication, underwater data centers, and self-sufficient AI stacks all demonstrate engineering-intensive, capital-heavy production processes."
+  ],
+  "qualification_points": [
+    "Massive capex can be 'circular' or financialized: Nvidia investing $100B in OpenAI while OpenAI secures $300B Oracle contracts may sustain valuations rather than expand genuine productive capacity. Capex volume alone is not a definitive proxy for productive investment.",
+    "Most journalistic evidence comes from Chinese firms under geopolitical pressure (sanctions-driven import substitution), which may overstate the generalizability to Western tech giants operating under different competitive conditions."
+  ],
+  "extension_points": [
+    "Maher & Aquanno specify the productive mechanism: Amazon's dominance derives from revolutionizing the circulation of commodities (compressing turnover time through logistics infrastructure), a classically capitalist mechanism, not from data monopoly or platform rent.",
+    "Amazon's 3P seller fees can be reframed as payment for productive logistics services (Fulfillment by Amazon), not rent extraction from ownership position.",
+    "Pietrykowski's 'qualitative efficiency' concept explains high R&D and infrastructure spending as investment in worker control mechanisms—a specifically capitalist logic of production that further distances tech firms from the lazy-rentier characterization.",
+    "The geopolitical dimension (sanctions, export controls, rare earth restrictions) reveals that productive capacity in hardware is a strategic asset states contest, reinforcing its materiality against claims of pure intangible/data-based extraction."
+  ],
+  "pressure_points": [
+    "The financialized-capex argument (AI bubble article) does not refute C1 outright but identifies a boundary condition: if a significant share of tech investment is circular rather than capacity-expanding, the distinction between 'productive capitalist' and 'financial rentier' may blur in specific cases.",
+    "Nearly all evidence concerns hardware/infrastructure investment; the claim's application to Google's core search-advertising model (indexing others' content cost-free) receives no direct empirical scrutiny in this corpus."
+  ],
+  "proposed_claim_revision": "Tech giants are capitalist producers engaged in massive, sustained investment in physical infrastructure, logistics, R&D, and labor-process organization—incompatible with the passive-rentier characterization. In Amazon's case, dominance derives specifically from compressing circulation time through logistics infrastructure, with financial returns converging toward economy-wide averages. However, the productive character of capex should not be assumed from volume alone; financialized or circular investment patterns can inflate apparent productive commitment.",
+  "proposed_subclaims": [
+    "C1a: Amazon's competitive advantage derives from revolutionizing commodity circulation (compressing turnover time via logistics), a classically capitalist mechanism, with ROIC converging toward economy-wide averages.",
+    "C1b: AI-era tech competition requires massive, risk-bearing physical capital expenditure (chip fabrication, computing clusters, data centers), which is structurally incompatible with passive rentierism.",
+    "C1c: Not all tech capex is straightforwardly productive: circular or financialized investment patterns (firms investing in customers to sustain order books) represent a boundary condition that must be distinguished from genuine capacity expansion."
+  ],
+  "open_questions": [
+    "Does Google's core search-advertising model (cost-free indexing of others' content) fit the same 'productive capitalist' frame as Amazon's logistics-intensive model, or does it require a distinct analytical treatment?",
+    "What proportion of current AI capex (especially in the US) is genuinely capacity-expanding versus circular/financialized? Is there a threshold at which 'circular capex' starts to resemble rent-like behavior?",
+    "How should the theory handle cases where productive investment is driven primarily by geopolitical necessity (sanctions-driven import substitution) rather than market competition?"
+  ],
+  "priority": "medium",
+  "documents_most_material": [
+    "maher-aquanno-2026-monopoly-or-competition-unraveling-the-amazon-paradox",
+    "scmp-com-opinion-why-the-clock-is-ticking-on-the-fed-fuelled-ai-bubble",
+    "pietrykowski-2026-revisiting-capitalist-and-socialist-efficiency-applications-and-extensions"
+  ],
+  "confidence": 0.78
+}
